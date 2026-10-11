@@ -402,7 +402,7 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 <div class="universal-toolbar"><button style="background:#e53935;color:#fff" onclick="openLeaderPDFSelector()">📄 PDF</button><button style="background:#25D366;color:#fff" onclick="shareSelectedLeadersWhatsApp()">📱 WhatsApp</button><span id="leaderManagerSelectedCount" class="selected-count">0 selected</span></div><div id="leaderManagerList"></div>  
 </div>  <div id="leaderDetailScreen" class="hidden">  
 <div class="profile-header"><div class="prof-header-buttons"><button class="gold" onclick="backToLeaderManager()" style="padding:6px 12px">← Back</button><button class="gold" onclick="openLeaderEdit(currentLeaderIndex)" style="padding:6px 12px">✏️ Edit</button></div><h2 id="leaderDetailTitle"></h2></div>  
-<div class="leader-toolbar"><button class="gold" onclick="selectAllLeaderUsers()">☑ Select</button><button style="background:#555;color:#fff" onclick="clearLeaderSelection()">☐ Clear</button><button style="background:#16803c;color:#fff" onclick="openTenPercentCollection()">💰 10% Collection</button><button style="background:#e53935;color:#fff" onclick="openLeaderDetailPDFSelector()">📄 PDF</button><button style="background:#25D366;color:#fff" onclick="shareLeaderSummary()">📱 WhatsApp</button><span id="leaderToolbarCount" class="selected-count">0 selected</span></div>  
+<div class="leader-toolbar"><button class="gold" onclick="selectAllLeaderUsers()">☑ Select</button><button style="background:#555;color:#fff" onclick="clearLeaderSelection()">☐ Clear</button><button style="background:#16803c;color:#fff" onclick="openTenPercentCollection()">💰 10% Entry</button><button style="background:#e53935;color:#fff" onclick="openLeaderDetailPDFSelector()">📄 PDF</button><button style="background:#25D366;color:#fff" onclick="shareLeaderSummary()">📱 WhatsApp</button><span id="leaderToolbarCount" class="selected-count">0 selected</span></div>  
 <div class="leader-summary"><div class="leader-summary-grid"><div class="box"><small>Selected Users</small><strong id="leaderSelectedCount">0</strong></div><div class="box"><small>Total Balance</small><strong id="leaderTotalBalance">₹ 0</strong></div><div class="box"><small>10% Collection</small><strong id="leaderTenTotal">₹ 0</strong></div><div class="box"><small>1% Commission</small><strong id="leaderCommissionDetail">₹ 0</strong></div></div></div>  
 <div id="leaderList"></div>  
 </div>  <div id="tenPercentCollectionPopup" class="popup-overlay" onclick="closeTenPercentCollection()"><div class="popup-content" style="max-height:88vh;overflow:auto" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color);margin-top:0">💰 10% Collection Entry</h3><label style="display:block;text-align:left;color:#aaa;font-size:13px">Select Users</label><select id="tenPercentMode" onchange="updateTenPercentPicker()" style="width:100%;margin:6px 0 10px"><option value="all">ALL USERS</option><option value="red">RED USERS</option><option value="manual">MANUAL</option></select><div id="tenPercentManualList" style="display:none;max-height:30vh;overflow:auto;border:1px solid #444;border-radius:8px;padding:5px;margin-bottom:10px"></div><label style="display:block;text-align:left;color:#aaa;font-size:13px">10% Collection Date</label><input type="date" id="tenPercentDate"><label style="display:block;text-align:left;color:#ff5252;font-size:13px;font-weight:bold">RED DATE (Optional)</label><input type="date" id="tenPercentRedDate"><small style="display:block;color:#aaa;text-align:left;margin-top:-4px;margin-bottom:9px">RED DATE தேர்வு செய்தால், அதே selected users-க்கு தொகை சேர்க்காமல் தேதி மட்டும் பதிவாகும்.</small><label style="display:block;text-align:left;color:#aaa;font-size:13px">Description</label><input type="text" id="tenPercentDesc" placeholder="10% Collection"><div id="tenPercentPreview" style="color:#2eaa55;font-weight:bold;margin:8px 0">Selected: 0 • Total: ₹0</div><button class="gold" style="width:100%;padding:12px" onclick="applyTenPercentCollection()">OK — Add Credit</button><button style="background:#555;color:#fff;width:100%;padding:11px;margin-top:9px" onclick="closeTenPercentCollection()">Cancel</button></div></div>
@@ -896,21 +896,28 @@ button:not(#signOutBtn):not(#bannerTransactionDeleteBtn):not(.menu-dot-btn){min-
 .leader-toolbar button,.leader-add-users button,.prof-header-buttons button,.popup-content button{min-height:44px;padding:11px 14px;}
 @media(max-width:480px){button:not(#signOutBtn):not(#bannerTransactionDeleteBtn):not(.menu-dot-btn){min-height:46px;padding:11px 12px;}.top-buttons{gap:5px;}.top-buttons button{min-height:44px;padding:8px 2px;font-size:max(10px,calc(var(--app-font-size,16px) - 5px));}}
 </style>
-
-<style id="user-back-entry-equal-height-plus-30-final">
-/* User screen: Back through Entry buttons equal height, 30% taller; no outer side spacing */
-#userScreen .profile-header{padding-left:0!important;padding-right:0!important;box-sizing:border-box!important}
-#userScreen .prof-header-buttons{width:100%!important;gap:0!important;column-gap:0!important;justify-content:space-between!important;align-items:center!important;box-sizing:border-box!important}
-#userScreen .prof-header-buttons button,
-#userScreen .prof-header-buttons button:first-child,
-#userScreen .prof-header-buttons button:last-child{height:39px!important;min-height:39px!important;box-sizing:border-box!important}
-@media(max-width:480px){
- #userScreen .profile-header{padding-left:0!important;padding-right:0!important}
- #userScreen .prof-header-buttons{width:100%!important;gap:0!important;column-gap:0!important}
- #userScreen .prof-header-buttons button,
- #userScreen .prof-header-buttons button:first-child,
- #userScreen .prof-header-buttons button:last-child{height:36.5px!important;min-height:36.5px!important;padding-left:9px!important;padding-right:9px!important}
-}
-</style>
 </body>  
 </html>
+
+
+<style id="user-back-to-entry-equal-height-plus-10">
+/* User screen: Back through Entry buttons have the same height, increased by 10%; widths stay unchanged. */
+#userScreen .prof-header-buttons button {
+  height: 48.4px !important;
+  min-height: 48.4px !important;
+  max-height: 48.4px !important;
+  box-sizing: border-box !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+</style>
+<style id="dashboard-button-layout-fix-final">
+/* Main dashboard: five equal buttons; labels wrap inside the button */
+.top-buttons{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:6px!important;align-items:stretch!important;width:100%!important;box-sizing:border-box!important;}
+.top-buttons>button{width:100%!important;min-width:0!important;min-height:64px!important;height:auto!important;box-sizing:border-box!important;padding:7px 2px!important;display:flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;white-space:normal!important;overflow-wrap:break-word!important;word-break:normal!important;line-height:1.12!important;font-size:clamp(10px,2.8vw,14px)!important;font-weight:800!important;}
+/* Leader dashboard: exactly five equal buttons, no sixth blank/count slot */
+.leader-toolbar{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:6px!important;flex-wrap:nowrap!important;align-items:stretch!important;width:100%!important;box-sizing:border-box!important;}
+.leader-toolbar>button{width:100%!important;min-width:0!important;max-width:100%!important;min-height:78px!important;height:auto!important;box-sizing:border-box!important;padding:7px 2px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;text-align:center!important;white-space:normal!important;overflow-wrap:anywhere!important;word-break:normal!important;line-height:1.12!important;font-size:clamp(9px,2.35vw,12px)!important;font-weight:800!important;}
+.leader-toolbar .selected-count{display:none!important;}
+.leader-toolbar>button:nth-child(3){font-size:clamp(10px,2.5vw,13px)!important;}
+</style>
