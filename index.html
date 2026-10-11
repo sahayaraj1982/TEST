@@ -896,18 +896,21 @@ button:not(#signOutBtn):not(#bannerTransactionDeleteBtn):not(.menu-dot-btn){min-
 .leader-toolbar button,.leader-add-users button,.prof-header-buttons button,.popup-content button{min-height:44px;padding:11px 14px;}
 @media(max-width:480px){button:not(#signOutBtn):not(#bannerTransactionDeleteBtn):not(.menu-dot-btn){min-height:46px;padding:11px 12px;}.top-buttons{gap:5px;}.top-buttons button{min-height:44px;padding:8px 2px;font-size:max(10px,calc(var(--app-font-size,16px) - 5px));}}
 </style>
-</body>  
-</html>
 
-
-<style id="user-back-to-entry-equal-height-plus-10">
-/* User screen: Back through Entry buttons have the same height, increased by 10%; widths stay unchanged. */
-#userScreen .prof-header-buttons button {
-  height: 48.4px !important;
-  min-height: 48.4px !important;
-  max-height: 48.4px !important;
-  box-sizing: border-box !important;
-  padding-top: 8px !important;
-  padding-bottom: 8px !important;
+<style id="user-back-entry-equal-height-plus-30-final">
+/* User screen: Back through Entry buttons equal height, 30% taller; no outer side spacing */
+#userScreen .profile-header{padding-left:0!important;padding-right:0!important;box-sizing:border-box!important}
+#userScreen .prof-header-buttons{width:100%!important;gap:0!important;column-gap:0!important;justify-content:space-between!important;align-items:center!important;box-sizing:border-box!important}
+#userScreen .prof-header-buttons button,
+#userScreen .prof-header-buttons button:first-child,
+#userScreen .prof-header-buttons button:last-child{height:39px!important;min-height:39px!important;box-sizing:border-box!important}
+@media(max-width:480px){
+ #userScreen .profile-header{padding-left:0!important;padding-right:0!important}
+ #userScreen .prof-header-buttons{width:100%!important;gap:0!important;column-gap:0!important}
+ #userScreen .prof-header-buttons button,
+ #userScreen .prof-header-buttons button:first-child,
+ #userScreen .prof-header-buttons button:last-child{height:36.5px!important;min-height:36.5px!important;padding-left:9px!important;padding-right:9px!important}
 }
 </style>
+</body>  
+</html>
