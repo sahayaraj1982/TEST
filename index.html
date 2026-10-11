@@ -1,923 +1,771 @@
-<!DOCTYPE html>  <html lang="ta">  
-<head>  
-<meta charset="UTF-8">  
-<meta name="viewport" content="width=device-width,initial-scale=1.0">  
-<title>Finance Manager Pro</title>  
-<style>  
-:root{--theme-color:#ffd700;--theme-gradient:linear-gradient(145deg,#ffd700,#333);--app-width:500px;--app-height:100vh;--app-font-size:16px;--app-font-weight:normal}  
-*{box-sizing:border-box}body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#111;color:#fff;user-select:none;-webkit-user-select:none;font-size:var(--app-font-size);font-weight:var(--app-font-weight)}  
-.wrapper{max-width:var(--app-width);margin:auto;padding-bottom:50px;background:#111;min-height:var(--app-height);height:var(--app-height);overflow-y:auto;border:1px solid #222}  
-header{background:var(--theme-gradient);color:#111;text-align:center;padding:18px 92px;font-size:calc(var(--app-font-size) + 4px);font-weight:bold;box-shadow:0 4px 10px #0008;position:relative;display:flex;align-items:center;justify-content:center;gap:10px}
-#signOutBtn{position:absolute;left:9px;top:9px;z-index:5;width:34px;height:34px;min-width:34px;padding:0;border:0;border-radius:50%;background:transparent;color:transparent;font-size:0;opacity:0;cursor:pointer;box-shadow:none;outline:none}
-#signOutBtn:hover,#signOutBtn:focus{opacity:0;background:transparent;outline:none;box-shadow:none}
-#bannerTransactionDeleteBtn{position:absolute;left:9px;top:39px;z-index:6;width:34px;height:19px;min-width:34px;padding:0;border:0;border-radius:5px;background:transparent;color:transparent;font-size:0;opacity:0;cursor:pointer;box-shadow:none;outline:none}
-#bannerTransactionDeleteBtn:hover,#bannerTransactionDeleteBtn:focus{opacity:0;background:transparent;outline:none;box-shadow:none}
-#appWrapper{filter:saturate(var(--app-saturation,1));}
-.indicator-container{position:absolute;right:10px;top:9px;z-index:4}
-.header-company-3d{font-size:var(--banner-name-size,24px);color:var(--banner-name-color,#ffe7a0);-webkit-text-stroke:var(--banner-outline-width,1px) var(--banner-outline-color,#80570d);text-shadow:1px 1px 0 #9a6b12,2px 2px 0 #80570d,3px 3px 0 #4a3006,0 4px 8px #000;}
-@media(max-width:480px){header{padding:18px 48px;font-size:calc(var(--app-font-size) + 2px)}.header-company-3d{font-size:min(var(--banner-name-size,24px),22px)}}.app-logo{width:42px;height:42px;border-radius:10px;object-fit:cover;border:2px solid #1118;box-shadow:0 3px 8px #0008;display:none;background:#fff;flex:0 0 auto}.app-logo.visible{display:block}.logo-picker{width:100%;padding:11px 12px;border:1px solid #555;border-radius:9px;background:#333;color:#fff;font-size:14px;cursor:pointer}.logo-preview-wrap{display:flex;align-items:center;gap:12px;margin:8px 0 14px;padding:10px;background:#1a1a1a;border:1px solid #333;border-radius:10px}.logo-preview{width:58px;height:58px;border-radius:12px;object-fit:cover;border:2px solid var(--theme-color);background:#fff;display:none}.logo-preview.visible{display:block}.logo-remove{background:#e53935;color:#fff;border:0;border-radius:7px;padding:8px 10px;cursor:pointer;font-weight:bold}  
-.indicator-container{position:absolute;right:15px;top:50%;transform:translateY(-50%)}.g-led{cursor:pointer;touch-action:manipulation;width:28px;height:28px;border-radius:50%;background:#222;color:#ff4444;border:2px solid #ff4444;box-shadow:0 0 10px #ff4444,inset 0 0 5px #ff4444;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900}.g-led.connected{color:#0f0;border-color:#0f0;box-shadow:0 0 15px #0f0,inset 0 0 5px #0f0,0 0 5px #fff}  
-.dashboard{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:10px}.stat-box{background:#222;padding:15px 10px;border-radius:10px;text-align:center;border:1px solid #333}.stat-box.red-border{border:2px solid #e53935}.stat-box.blue-border{border:2px solid #1e88e5}.stat-box.green-border{border:2px solid #2eaa55}.stat-box small{color:#aaa;font-size:calc(var(--app-font-size) - 3px);text-transform:uppercase;font-weight:bold;display:block;margin-bottom:5px}.stat-box h2{margin:0;font-size:calc(var(--app-font-size) + 4px);color:var(--theme-color);font-weight:900}  
-.date-filter-box{background:#1a1a1a;border:1px solid #333;padding:10px;margin:0 10px 10px;border-radius:10px;display:flex;gap:8px;align-items:center;justify-content:space-between}.date-filter-box input{margin:0;padding:8px;font-size:calc(var(--app-font-size) - 2px);background:#222;color:#fff;border:1px solid #444;border-radius:6px}  
-.search-container{padding:10px}.search-input{width:100%;padding:12px;border-radius:10px;border:1px solid var(--theme-color);background:#222;color:#fff;box-sizing:border-box;font-size:var(--app-font-size);font-weight:var(--app-font-weight)}  
-.top-buttons{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;padding:0 10px;margin:10px 0}.top-buttons button{padding:10px 2px;border:none;border-radius:10px;cursor:pointer;font-weight:bold;font-size:calc(var(--app-font-size) - 4px);text-align:center;white-space:nowrap}.gold{background:var(--theme-color);color:#111}  
-.user-card{width:calc(100% - 20px);margin:10px auto;padding:15px;border-radius:15px;background:#222;cursor:pointer;border:1px solid #333;position:relative}
-.user-card .row>div:first-child{flex:1 1 auto;min-width:0}.user-card .row>div:last-child{flex:0 0 auto;margin-left:8px}.user-card .user-name-main{display:block;width:100%;white-space:nowrap;overflow:visible;text-overflow:clip;font-size:clamp(8px,var(--user-name-font-size),24px);line-height:1.15;letter-spacing:-.35px;}.user-card.redbg{background:linear-gradient(145deg,#8b0000,#5a0000)!important;border-color:#ff4444!important}.user-card.bluebg{background:linear-gradient(145deg,#0d3b66,#0b2545)!important;border-color:#1e88e5!important}  
-.row{display:flex;justify-content:space-between;align-items:center;font-size:var(--app-font-size);padding-right:35px}.menu-dot-btn{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:transparent;color:var(--theme-color);font-size:24px;border:none;padding:5px;cursor:pointer;z-index:10}.user-card.bluebg .menu-dot-btn{color:#42a5f5!important}  
-.profile-header{background:#222;padding:15px 20px;border-bottom:2px solid var(--theme-color);margin-bottom:5px;position:relative}.profile-header h2{margin:0 0 15px;color:var(--theme-color);text-align:center;font-size:calc(var(--app-font-size) + 8px)}.prof-header-buttons{display:flex;justify-content:space-between;align-items:center;width:100%;margin-bottom:10px}.prof-details-row{display:flex;justify-content:space-between;align-items:center;margin-top:10px}#profMobile{margin:0;font-size:var(--app-font-size);color:var(--theme-color);font-weight:bold}#profBalance{margin:0;font-size:calc(var(--app-font-size) + 4px);font-weight:900}  
-.table-container{overflow-x:auto;padding:10px}table{width:100%;border-collapse:collapse;background:#1a1a1a;border-radius:10px}th,td{padding:10px 4px;text-align:center;border-bottom:1px solid #444;font-size:calc(var(--app-font-size) - 2px)}th{background:#333;color:var(--theme-color);font-weight:bold}.credit-row{background:#1f7a1f!important}.debit-row{background:#b91c1c!important}.pending-row{background:#2c2c2c;color:var(--theme-color)}  
-.popup-overlay{display:none;position:fixed;inset:0;background:#000e;z-index:1000;justify-content:center;align-items:center}.popup-content{background:#222;padding:22px;border-radius:20px;text-align:center;border:2px solid var(--theme-color);width:90%;max-width:380px;max-height:85vh;overflow-y:auto;color:#fff}  
-input[type=date],input[type=text],input[type=number],select{width:100%;margin:8px 0;padding:12px;border:none;border-radius:8px;background:#333;color:#fff;font-size:var(--app-font-size)}.hidden{display:none!important}  
-.setting-row{display:flex;justify-content:space-between;align-items:center;margin:15px 0;text-align:left;font-size:calc(var(--app-font-size) - 1px)}.switch{position:relative;display:inline-block;width:46px;height:24px}.switch input{opacity:0;width:0;height:0}.slider{position:absolute;inset:0;background:#444;border-radius:24px}.slider:before{position:absolute;content:"";height:18px;width:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s}input:checked+.slider{background:#1f7a1f}input:checked+.slider:before{transform:translateX(22px)}  
-.color-presets{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:8px;background:#1a1a1a;padding:10px;border-radius:12px;border:1px solid #333}.color-dot{width:100%;aspect-ratio:1;border-radius:50%;border:1px solid #ffffff66;cursor:pointer}  
-#loading{display:none;position:fixed;top:10px;right:10px;background:var(--theme-color);color:#111;padding:8px 15px;border-radius:20px;font-weight:bold;z-index:10000;font-size:13px}  
-.leader-toolbar{display:flex;gap:6px;padding:10px;flex-wrap:wrap}.leader-toolbar button{border:0;border-radius:9px;padding:10px 8px;font-weight:bold;cursor:pointer;flex:1;min-width:0}  
-.leader-card{width:calc(100% - 20px);margin:8px auto;padding:13px;border-radius:13px;background:#222;border:1px solid #444;display:flex;align-items:center;gap:10px;cursor:pointer}.leader-card.redbg{background:linear-gradient(145deg,#8b0000,#5a0000)!important;border-color:#ff4444!important}.leader-card.bluebg{background:linear-gradient(145deg,#0d3b66,#0b2545)!important;border-color:#1e88e5!important}.leader-card input{width:22px;height:22px;margin:0;accent-color:#ffd700}.leader-card .lc-main{flex:1;min-width:0}.leader-card .lc-main b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.leader-card .lc-bal{min-width:90px;text-align:right;font-weight:900}.leader-card .lc-right{margin-left:auto;min-width:125px;text-align:right;align-self:flex-start;line-height:1.35}.leader-card .lc-right .lc-balance{font-weight:900;font-size:16px}.leader-card .lc-right .lc-ten{font-weight:900;font-size:13px;color:#ffd700;margin-top:3px}.leader-card .lc-main .lc-commission{font-size:13px;font-weight:900;color:#ffd700;margin:3px 0 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}  
-.leader-summary{margin:10px;padding:14px;border-radius:14px;background:linear-gradient(145deg,#123d22,#0d2817);border:2px solid #2eaa55}.leader-summary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.leader-summary .box{padding:10px;border-radius:9px;background:#222;text-align:center}.leader-summary small{display:block;color:#aaa;font-weight:bold}.leader-summary strong{display:block;margin-top:4px;font-size:18px}.leader-add-users{margin:10px 0;padding:12px;border:1px dashed #666;border-radius:10px;background:#151515}.leader-add-users button{padding:10px 14px}  
-
-/* Transaction colors: Credit = green, Debit = red, Pending/Note = dark */
-#transactionTable tr.credit-row,
-#transactionTable tr.credit-row td {
-  background:#1f7a1f !important;
-  color:#ffffff !important;
-  font-weight:700 !important;
-  font-size:calc(var(--app-font-size) - 1px) !important;
-}
-#transactionTable tr.debit-row,
-#transactionTable tr.debit-row td {
-  background:#b91c1c !important;
-  color:#ffffff !important;
-  font-weight:700 !important;
-  font-size:calc(var(--app-font-size) - 1px) !important;
-}
-#transactionTable tr.pending-row,
-#transactionTable tr.pending-row td {
-  background:#2c2c2c !important;
-  color:var(--theme-color) !important;
-  font-weight:700 !important;
-  font-size:calc(var(--app-font-size) - 1px) !important;
-}
-#transactionTable tr.credit-row td,
-#transactionTable tr.debit-row td,
-#transactionTable tr.pending-row td {
-  border-bottom:1px solid #555 !important;
-}
-#transactionTable tr.credit-row b,
-#transactionTable tr.debit-row b { color:#ffffff !important; font-weight:900 !important; }
-#transactionTable tr.pending-row b { color:var(--theme-color) !important; font-weight:900 !important; }
-
-/* User names get more visual space */
-.user-card .row > div:first-child {
-  flex:1 1 auto;
-  min-width:0;
-}
-.user-card .row > div:first-child b {
-  display:inline-block;
-  max-width:calc(100% - 5px);
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  font-size:var(--user-name-font-size,16px);
-  font-weight:800;
-}
-.user-card .row > div:first-child b.user-name-main{display:block;max-width:none;white-space:nowrap;overflow:visible;text-overflow:clip;}
-.user-card .row > div:last-child {
-  flex:0 0 auto;
-  min-width:85px;
-  text-align:right;
-}
-
-/* Leader label heavy/dark; leader name lighter */
-.leader-pdf-label { font-weight:900 !important; }
-
-/* Leader title emphasis */
-#leaderDetailTitle { font-weight:900 !important; }
-
-
-.sync-led.connected{background:#16a34a!important;box-shadow:0 0 8px #16a34a!important;}
-.sync-led{background:#dc2626!important;box-shadow:0 0 7px #dc2626!important;}.compact-balance{padding:10px!important}.compact-balance h2{font-size:17px!important;margin:5px 0!important}.compact-balance small{font-size:11px!important}
-/* Secure login screen */
-#loginGate{position:fixed;inset:0;z-index:20000;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(circle at top,#334155 0,#111827 45%,#050505 100%);}
-.login-card{width:min(420px,100%);padding:28px 22px;border:1px solid #d4af37;border-radius:24px;background:linear-gradient(145deg,#222,#101010);box-shadow:0 20px 60px #000b, inset 0 1px 0 #ffffff22;text-align:center;}
-.login-mark{width:76px;height:76px;margin:0 auto 14px;border-radius:22px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#ffe066,#b8860b);color:#111;font-size:38px;box-shadow:0 8px 22px #0008;}
-.login-card h2{margin:8px 0;color:#ffd700}.login-card p{color:#bbb;font-size:13px;line-height:1.5}.login-card input,.login-card select{width:100%;padding:13px;margin:8px 0;border:1px solid #555;border-radius:10px;background:#292929;color:#fff;font-size:16px}
-.login-btn{width:100%;border:0;border-radius:11px;padding:13px;margin-top:9px;font-weight:900;font-size:15px;cursor:pointer}.login-primary{background:linear-gradient(145deg,#ffe066,#d4a017);color:#111}.login-biometric{background:linear-gradient(145deg,#0e7490,#164e63);color:#fff;border:1px solid #22d3ee}.login-error{min-height:20px;color:#ff6b6b;font-size:13px;margin-top:8px}
-
-/* Single whole-app light-to-dark controller */
-#globalColorControl{
-  display:flex;align-items:center;justify-content:center;
-  padding:5px 10px;background:transparent;border:0;
-  position:relative;z-index:4;min-height:24px;
-}
-#globalColorSlider{display:block;width:100%;max-width:420px;min-width:60px;margin:0;accent-color:#2368d8;cursor:ew-resize}
-@media(max-width:480px){#globalColorControl{padding:4px 8px}}
-
-</style>  
-
-<style>
-.settings-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.settings-nav button{position:relative;min-height:78px;padding:14px 16px;border:1px solid rgba(255,255,255,.28);border-radius:15px;background:linear-gradient(145deg,#4b5563,#111827);color:#fff;font-weight:900;text-align:left;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 -3px 0 rgba(0,0,0,.28),0 5px 10px rgba(0,0,0,.32);transition:transform .12s ease,box-shadow .12s ease,filter .12s ease}.settings-nav button:nth-child(1){background:linear-gradient(145deg,#f59e0b,#b45309)}.settings-nav button:nth-child(2){background:linear-gradient(145deg,#06b6d4,#155e75)}.settings-nav button:nth-child(3){background:linear-gradient(145deg,#8b5cf6,#4c1d95)}.settings-nav button:nth-child(4){background:linear-gradient(145deg,#3b82f6,#1e3a8a)}.settings-nav button:nth-child(5){background:linear-gradient(145deg,#22c55e,#166534)}.settings-nav button:nth-child(6){background:linear-gradient(145deg,#ec4899,#9d174d)}.settings-nav button:nth-child(7){background:linear-gradient(145deg,#ef4444,#991b1b)}.settings-nav button:hover{transform:translateY(-2px);filter:brightness(1.08);box-shadow:inset 0 1px 0 rgba(255,255,255,.34),inset 0 -3px 0 rgba(0,0,0,.3),0 8px 14px rgba(0,0,0,.38)}.settings-nav button:active{transform:translateY(2px);box-shadow:inset 0 2px 4px rgba(0,0,0,.35),0 2px 4px rgba(0,0,0,.25)}.settings-nav button b{display:block;color:#fff;font-size:16px;margin-bottom:5px;text-shadow:0 1px 2px rgba(0,0,0,.45)}.settings-nav button small{color:rgba(255,255,255,.88);font-weight:600;text-shadow:0 1px 2px rgba(0,0,0,.35)}.settings-sub{display:none}.settings-sub.active{display:block}.settings-back{background:#555!important;color:#fff!important;margin-bottom:10px}.settings-card{background:#181818;border:1px solid #444;border-radius:12px;padding:13px;margin:9px 0}.settings-card h4{margin:0 0 8px;color:var(--theme-color)}.settings-card label{display:block;margin:9px 0 5px;color:#bbb;font-weight:700}.settings-history{max-height:70vh;overflow:auto}.commission-history-wide{width:100%;box-sizing:border-box}.commission-history-scroll{max-height:58vh;overflow:auto}.commission-select-cell{width:28px!important}.commission-row{border:1px solid #444;border-radius:11px;padding:11px;margin:8px 0;background:#181818;cursor:pointer}.commission-row:hover{border-color:var(--theme-color)}.commission-names-only{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:100%;box-sizing:border-box}.commission-name-only{width:100%;min-height:54px;padding:14px 12px;border:1px solid #555;border-radius:12px;background:linear-gradient(145deg,#292929,#151515);color:#fff;font-size:15px;font-weight:900;text-align:left;cursor:pointer;box-sizing:border-box}.commission-name-only:hover{border-color:var(--theme-color);box-shadow:0 0 8px rgba(255,215,0,.18)}@media(max-width:700px){.settings-nav{grid-template-columns:1fr}.settings-nav button{min-height:70px}}@media(max-width:520px){.commission-names-only{grid-template-columns:1fr}.commission-name-only{min-height:50px;font-size:14px}}.commission-row b{color:#fff}.commission-row small{color:#aaa}.history-table{width:100%;border-collapse:collapse;font-size:12px}.history-table th,.history-table td{border:1px solid #444;padding:6px;text-align:center}.history-table th{color:var(--theme-color)}.universal-toolbar{display:flex;gap:6px;flex-wrap:wrap;padding:8px 10px;background:#171717;border-bottom:1px solid #333;position:sticky;top:0;z-index:3}.universal-toolbar button{border:0;border-radius:8px;padding:10px 8px;font-weight:800;cursor:pointer;flex:1;min-width:0}.universal-toolbar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.universal-toolbar .selected-count{grid-column:1/-1;justify-content:center;margin:0}.select-user-check{width:21px!important;height:21px!important;accent-color:#ffd700;margin:0 7px 0 0!important}.selected-count{margin-left:auto;color:#aaa;font-size:12px;display:flex;align-items:center}.selection-mode-card{display:flex!important;align-items:center;gap:5px}.selection-mode-card .user-card-main{flex:1}
-
-/* Leader Commission + Settings responsive sizing */
-#settingsPopup.commission-window-wide .popup-content{width:90vw;max-width:820px;max-height:90vh;padding:18px;box-sizing:border-box;}
-#settingsPopup.commission-window-wide .commission-history-wide{width:100%;max-width:100%;box-sizing:border-box;}
-#settingsPopup.commission-window-wide .commission-history-scroll{max-height:60vh;overflow:auto;}
-#settingsPopup:not(.commission-window-wide) .popup-content{width:94vw;max-width:950px;max-height:92vh;box-sizing:border-box;padding:20px;background:#303030;border-color:var(--theme-color);}
-#settingsPopup .settings-nav button{border:1px solid rgba(255,255,255,.34);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.32),inset 0 -4px 0 rgba(0,0,0,.28),0 6px 12px rgba(0,0,0,.35);}
-#settingsPopup .settings-nav button:nth-child(1){background:linear-gradient(145deg,#f59e0b,#b45309)}
-#settingsPopup .settings-nav button:nth-child(2){background:linear-gradient(145deg,#06b6d4,#155e75)}
-#settingsPopup .settings-nav button:nth-child(3){background:linear-gradient(145deg,#8b5cf6,#4c1d95)}
-#settingsPopup .settings-nav button:nth-child(4){background:linear-gradient(145deg,#3b82f6,#1e3a8a)}
-#settingsPopup .settings-nav button:nth-child(5){background:linear-gradient(145deg,#22c55e,#166534)}
-#settingsPopup .settings-nav button:nth-child(6){background:linear-gradient(145deg,#ec4899,#9d174d)}
-#settingsPopup .settings-nav button:nth-child(7){background:linear-gradient(145deg,#ef4444,#991b1b)}
-#settingsPopup .settings-nav button:hover{filter:brightness(1.1);transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.38),inset 0 -4px 0 rgba(0,0,0,.28),0 9px 16px rgba(0,0,0,.4)}
-#settingsPopup .settings-nav button:active{transform:translateY(2px);box-shadow:inset 0 3px 6px rgba(0,0,0,.35),0 2px 4px rgba(0,0,0,.25)}
-#settingsPopup .settings-nav button b{color:var(--theme-color);}
-#settingsPopup .settings-nav button small{color:#ddd;}
-#settingsPopup .settings-card{background:#303030;border-color:#666;box-shadow:0 2px 8px rgba(0,0,0,.22);}
-#settingsPopup .settings-card label{color:#eee;}
-#settingsPopup .settings-card input:not([type="checkbox"]):not([type="color"]),#settingsPopup .settings-card select{background:#454545!important;color:#fff!important;border:1px solid #888!important;}
-#settingsPopup .settings-card input::placeholder{color:#ccc;}
-#settingsPopup .settings-card h4{color:var(--theme-color);}
-.pdf-controls-layout{display:grid;grid-template-columns:minmax(260px,1fr) minmax(280px,1fr);gap:16px;align-items:start}
-.pdf-controller-panel{min-width:0}
-.pdf-preview-panel{min-width:0;background:#f7f7f7;color:#111;border:2px solid #aaa;border-radius:10px;padding:12px;position:sticky;top:8px;box-shadow:0 5px 14px rgba(0,0,0,.25)}
-.pdf-preview-title{font-size:13px;font-weight:900;text-align:center;margin-bottom:8px;color:#333}
-.pdf-paper{background:#fff;border:1px solid #bbb;min-height:390px;padding:16px 13px;box-shadow:0 2px 8px rgba(0,0,0,.18);overflow:hidden}
-.pdf-preview-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;font-weight:900;margin-bottom:8px}
-.pdf-preview-leader{text-align:left;margin:9px 0 12px}.pdf-preview-leader .label{font-weight:900}.pdf-preview-leader .name{font-weight:900;margin-top:2px}.pdf-preview-leader .due{font-weight:700;margin-top:3px}
-.pdf-preview-summary{text-align:right;font-size:10px;line-height:1.35;margin-top:-58px;margin-bottom:34px}
-.pdf-preview-table{width:100%;border-collapse:collapse;font-size:10px}.pdf-preview-table th,.pdf-preview-table td{border:1px solid #777;padding:5px 3px;text-align:center}.pdf-preview-table th{font-weight:900;background:#eee}
-.pdf-preview-note{font-size:11px;color:#555;text-align:center;margin-top:8px}
-.pdf-bold-control{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid #666;margin-top:8px}
-.pdf-bold-control input{width:22px;height:22px;accent-color:#ffd700}
-@media(max-width:760px){.pdf-controls-layout{grid-template-columns:1fr}.pdf-preview-panel{position:relative;top:auto}.pdf-paper{min-height:330px}}
-
-#settingsPopup .settings-card [style*="color:#888"],#settingsPopup .settings-card [style*="color:#aaa"]{color:#ddd!important;}
-@media(max-width:700px){#settingsPopup.commission-window-wide .popup-content{width:94vw;max-width:94vw;padding:14px;}#settingsPopup.commission-window-wide .commission-history-scroll{max-height:58vh;}#settingsPopup:not(.commission-window-wide) .popup-content{width:96vw;max-width:96vw;padding:14px;}.settings-nav{grid-template-columns:1fr!important;}.history-table{font-size:11px;}.history-table th,.history-table td{padding:5px 4px;}}
-</style>
-<style>
-/* Premium admin login and 3D company wordmark */
-.company-3d{margin:0;font-size:clamp(22px,4vw,31px);font-weight:1000;letter-spacing:1.2px;line-height:1.2;color:#ffe7a0;text-transform:uppercase;text-shadow:1px 1px 0 #9a6b12,2px 2px 0 #80570d,3px 3px 0 #684408,4px 4px 0 #4a3006,0 7px 15px #000,0 0 22px #facc1540;filter:drop-shadow(0 2px 1px #000)}
-.header-company-3d{font-weight:1000;letter-spacing:.5px;color:var(--banner-name-color,#ffe7a0);font-size:var(--banner-name-size,24px);-webkit-text-stroke:1px var(--banner-outline-color,#80570d);text-shadow:1px 1px 0 #9a6b12,2px 2px 0 #80570d,3px 3px 0 #4a3006,0 4px 8px #000;}
-#loginGate{background:radial-gradient(ellipse at 50% 5%,#1e3a5f 0%,#111827 38%,#030712 100%);overflow:auto}
-.login-card{position:relative;overflow:hidden;border:1px solid #d4af3777;background:linear-gradient(145deg,rgba(31,41,55,.97),rgba(3,7,18,.98));box-shadow:0 25px 90px #000c,0 0 35px #d4af3718,inset 0 1px 0 #ffffff18;animation:loginRise .65s cubic-bezier(.2,.8,.2,1) both}
-.login-card:before{content:"";position:absolute;top:0;left:12%;right:12%;height:1px;background:linear-gradient(90deg,transparent,#ffe08a,transparent)}
-.login-mark{border:1px solid #fff6;outline:5px solid #d4af3710;animation:markGlow 3s ease-in-out infinite}
-.login-card input{transition:border-color .2s,box-shadow .2s;outline:none}
-.login-card input:focus{border-color:#facc15;box-shadow:0 0 0 3px #facc1525}
-.login-btn{transition:transform .18s,filter .18s,box-shadow .18s;letter-spacing:.35px}
-.login-btn:hover{transform:translateY(-2px);filter:brightness(1.08);box-shadow:0 8px 20px #0006}
-.login-btn:active{transform:scale(.985)}
-.login-shield{width:42px;height:42px;margin:15px auto 5px;border-radius:50%;display:grid;place-items:center;color:#facc15;border:1px solid #d4af3766;background:#d4af3712;font-size:20px;box-shadow:0 0 22px #d4af3717}
-.login-foot{margin-top:20px;color:#94a3b8;font-size:9px;letter-spacing:1.4px;font-weight:800}.login-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#22c55e;margin-right:5px;box-shadow:0 0 8px #22c55e}
-.login-transition{width:min(420px,100%);text-align:center;padding:38px 20px;animation:loginRise .4s ease both}
-.orbit{width:116px;height:116px;margin:0 auto 28px;border-radius:50%;border:2px solid #d4af3730;border-top-color:#facc15;border-right-color:#22d3ee;display:grid;place-items:center;animation:orbitSpin 1.15s linear infinite;box-shadow:0 0 35px #22d3ee13}
-.orbit-core{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#fef3c7,#d4a017);color:#111;font-size:35px;font-weight:900;animation:corePulse 1.2s ease-in-out infinite}
-.transition-title{color:#fde68a;font-size:21px;font-weight:900;letter-spacing:3px}.transition-sub{color:#cbd5e1;font-size:13px;margin-top:9px}
-.loading-track{height:4px;max-width:240px;margin:25px auto 0;background:#ffffff18;border-radius:9px;overflow:hidden}.loading-fill{height:100%;width:35%;background:linear-gradient(90deg,#22d3ee,#facc15);border-radius:9px;animation:loadSweep 1.2s ease-in-out infinite}
-@keyframes loginRise{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
-@keyframes markGlow{0%,100%{box-shadow:0 8px 22px #0008,0 0 0 #facc1500}50%{box-shadow:0 8px 22px #0008,0 0 24px #facc1530}}
-@keyframes orbitSpin{to{transform:rotate(360deg)}}@keyframes corePulse{0%,100%{transform:scale(.96)}50%{transform:scale(1.04)}}
-@keyframes loadSweep{0%{transform:translateX(-120%)}100%{transform:translateX(400%)}}
-@media(prefers-reduced-motion:reduce){.login-card,.login-mark,.orbit,.orbit-core,.loading-fill{animation:none!important;transition:none!important}}
-</style>\n
-<style id="user-screen-spacing-polish">
-/* User screen: compact, balanced header row */
-#userScreen .profile-header{
-  position:relative;
-  padding:10px 14px 12px !important;
-  margin-bottom:0 !important;
-  min-height:78px;
-  box-sizing:border-box;
-}
-#userScreen .prof-header-buttons{
-  display:grid !important;
-  grid-template-columns:auto minmax(0,1fr) auto;
-  align-items:center !important;
-  column-gap:8px;
-  width:100%;
-  margin:0 !important;
-  padding-top:0 !important;
-  min-height:48px;
-}
-#userScreen .prof-header-buttons > div{display:contents !important}
-#userScreen .prof-header-buttons button{
-  padding:7px 11px !important;
-  margin:0 !important;
-  white-space:nowrap;
-  position:relative !important;
-  z-index:2;
-  font-size:14px;
-}
-#userScreen .prof-header-buttons button:first-child{grid-column:1;grid-row:1}
-#userScreen .prof-header-buttons button:last-child{grid-column:3;grid-row:1}
-#userScreen #profName{
-  grid-column:2;
-  grid-row:1;
-  min-width:0;
-  margin:0 !important;
-  padding:0 2px;
-  font-size:clamp(15px,4vw,22px) !important;
-  line-height:1.15;
-  text-align:center;
-  overflow-wrap:anywhere;
-}
-#userScreen .prof-details-row{margin-top:8px !important;align-items:center}
-#userScreen .table-container{margin-top:0 !important;padding-top:0 !important}
-@media(max-width:480px){
-  #userScreen .profile-header{padding:8px 9px 10px !important;min-height:70px}
-  #userScreen .prof-header-buttons{column-gap:5px;min-height:44px}
-  #userScreen .prof-header-buttons button{font-size:12px;padding:6px 8px !important}
-  #userScreen #profName{font-size:clamp(13px,3.8vw,18px) !important}
-}
-</style>
-
-<style id="user-back-button-visible-final-fix">
-/* Final user header alignment: Back, user name and Entry on one line */
-#userScreen .profile-header{
-  position:relative !important;
-  padding:4px 10px 8px !important;
-  margin-top:0 !important;
-  margin-bottom:0 !important;
-  min-height:0 !important;
-}
-#userScreen .prof-header-buttons{
-  display:flex !important;
-  flex-direction:row !important;
-  justify-content:space-between !important;
-  align-items:center !important;
-  gap:6px !important;
-  width:100% !important;
-  min-height:36px !important;
-  height:36px !important;
-  margin:0 !important;
-  padding:0 !important;
-  position:relative !important;
-}
-#userScreen .prof-header-buttons > div{display:contents !important}
-#userScreen .prof-header-buttons button,
-#userScreen .prof-header-buttons button:first-child,
-#userScreen .prof-header-buttons button:last-child{
-  display:inline-flex !important;
-  align-items:center !important;
-  justify-content:center !important;
-  visibility:visible !important;
-  opacity:1 !important;
-  flex:0 0 auto !important;
-  position:relative !important;
-  z-index:5 !important;
-  min-height:30px !important;
-  height:30px !important;
-  padding:4px 9px !important;
-  margin:0 !important;
-  font-size:13px !important;
-  line-height:1 !important;
-  white-space:nowrap !important;
-}
-#userScreen #profName{
-  position:absolute !important;
-  left:74px !important;
-  right:78px !important;
-  top:7px !important;
-  width:auto !important;
-  min-width:0 !important;
-  margin:0 !important;
-  padding:0 3px !important;
-  text-align:center !important;
-  font-size:clamp(13px,3.8vw,19px) !important;
-  line-height:1.15 !important;
-  font-weight:900 !important;
-  overflow:hidden !important;
-  text-overflow:ellipsis !important;
-  white-space:nowrap !important;
-  pointer-events:none !important;
-  z-index:2 !important;
-}
-#userScreen .prof-details-row{margin-top:5px !important;align-items:center !important}
-#userScreen .table-container{margin-top:0 !important;padding-top:0 !important}
-@media(max-width:480px){
-  #userScreen .profile-header{padding:3px 7px 7px !important}
-  #userScreen .prof-header-buttons{min-height:32px !important;height:32px !important;gap:4px !important}
-  #userScreen .prof-header-buttons button,
-  #userScreen .prof-header-buttons button:first-child,
-  #userScreen .prof-header-buttons button:last-child{font-size:12px !important;padding:4px 7px !important;min-height:28px !important;height:28px !important}
-  #userScreen #profName{left:67px !important;right:70px !important;top:6px !important;font-size:clamp(12px,3.6vw,16px) !important}
-}
-</style>
-
-
-<style id="user-mobile-under-name-fix">
-#userScreen #profMobile.user-mobile-under-name{display:block!important;text-align:center!important;margin:2px 0 5px!important;font-size:11px!important;line-height:1.15!important;color:#c8c8c8!important;font-weight:600!important;position:relative!important;z-index:1!important}
-#userScreen .prof-details-row{margin-top:2px!important}
-@media(max-width:480px){#userScreen #profMobile.user-mobile-under-name{font-size:10px!important;margin:1px 0 4px!important}}
-</style>
-<style id="user-mobile-number-large-final-fix">
-/* User mobile number: clearly visible directly under the user name */
-#userScreen #profMobile.user-mobile-under-name{
-  display:block !important;
-  width:100% !important;
-  text-align:center !important;
-  margin:3px 0 7px !important;
-  font-size:20px !important;
-  line-height:1.25 !important;
-  color:#ffffff !important;
-  font-weight:900 !important;
-  letter-spacing:.4px !important;
-  overflow-wrap:anywhere !important;
-  position:relative !important;
-  z-index:3 !important;
-}
-#userScreen .prof-details-row{margin-top:3px !important}
-@media(max-width:480px){
-  #userScreen #profMobile.user-mobile-under-name{
-    font-size:18px !important;
-    line-height:1.25 !important;
-    margin:3px 0 6px !important;
-  }
-}
-</style>
-
-<style id="user-name-premium-color-design">
-/* Premium contrasting style for the user's name */
-#userScreen #profName{
-  color:#ffffff !important;
-  background:linear-gradient(135deg,#174ea6 0%,#512da8 100%) !important;
-  border:1px solid #76e4ff !important;
-  border-radius:9px !important;
-  padding:3px 8px !important;
-  box-shadow:0 0 0 2px rgba(118,228,255,.14),0 2px 7px rgba(0,0,0,.35) !important;
-  text-shadow:0 1px 2px rgba(0,0,0,.55) !important;
-  font-weight:900 !important;
-}
-@media(max-width:480px){
-  #userScreen #profName{padding:3px 5px !important;border-radius:7px !important}
-}
-</style>
-</head>  
-<body>
-
-<div id="loginGate" role="dialog" aria-modal="true" aria-label="Admin Login">
-  <div class="login-card" id="loginCard">
-    <div class="login-mark">◆</div>
-    <h2 class="company-3d">S PLUS LOAN APP</h2>
-    <p style="margin-top:8px">ADMIN LOGIN<br><span style="color:#d4af37">Authorized administrator only</span></p>
-    <div class="login-shield">✦</div>
-    <label for="adminPassword" style="display:block;text-align:left;color:#ddd;font-size:13px;font-weight:800;margin-top:18px">ADMIN PASSWORD</label>
-    <input id="adminPassword" type="password" placeholder="Enter administrator password" autocomplete="current-password" inputmode="numeric">
-    <button class="login-btn login-primary" id="adminLoginBtn" onclick="submitAdminLogin()">🔐 &nbsp; SECURE LOGIN</button>
-    <button class="login-btn login-biometric" onclick="tryAdminBiometric()">◎ &nbsp; FINGERPRINT / BIOMETRIC</button>
-    <div id="loginError" class="login-error" aria-live="polite"></div>
-    <div class="login-foot"><span class="login-dot"></span> ADMIN LOGIN <span style="opacity:.5">•</span> S PLUS LOAN APP</div>
-  </div>
-  <div id="loginTransition" class="login-transition hidden">
-    <div class="orbit"><div class="orbit-core">✓</div></div>
-    <div class="transition-title">ACCESS GRANTED</div>
-    <div class="transition-sub">Preparing your dashboard…</div>
-    <div class="loading-track"><div class="loading-fill"></div></div>
-  </div>
-</div>
-<div id="loading">SAVE...</div><div class="wrapper" id="appWrapper" style="visibility:hidden">  
-<header><button id="signOutBtn" type="button" onclick="signOutAdmin()">SIGN OUT</button><button id="bannerTransactionDeleteBtn" type="button" aria-label="Transaction Delete" title="Transaction Delete" onclick="if(!document.getElementById('userScreen').classList.contains('hidden')){event.preventDefault();event.stopPropagation();openTransactionDeleteManager()}else{event.preventDefault();event.stopPropagation()}return false">Transaction Delete</button><img id="appLogo" class="app-logo" alt="Logo"><span id="headerTitleText" class="header-company-3d">S PLUS LOAN APP</span><div class="indicator-container"><div id="ledLight" class="g-led">G</div></div></header>
-<div id="mainScreen">  
-<div class="search-container" id="searchBoxWrapper"><input type="text" id="userSearch" class="search-input" placeholder="தேடவும்..." oninput="renderUsers()"></div>  
-<div class="dashboard" id="dashboardWrapper">  
-<div class="stat-box"><small>Total Users</small><h2 id="totalUsers">0</h2></div><div class="stat-box"><small>Total Balance</small><h2 id="totalBalance">0</h2></div>  
-<div class="stat-box red-border" id="redDashboardBox"><small style="color:#ff5252">Red Users</small><h2 id="redUsersCount">0</h2></div><div class="stat-box red-border" id="tenPercentDashboardBox"><small style="color:#ff5252">10% Collection</small><h2 id="tenPercentTotal">0</h2></div>  
-</div>  
-<div class="date-filter-box" id="dateFilterWrapper"><div style="flex:1"><small style="color:#aaa;font-size:11px;font-weight:bold">FROM</small><input type="date" id="filterStartDate" onchange="renderUsers();refreshLeaderDashboard()"></div><div style="flex:1"><small style="color:#aaa;font-size:11px;font-weight:bold">TO</small><input type="date" id="filterEndDate" onchange="renderUsers();refreshLeaderDashboard()"></div></div>  
-<div class="dashboard" id="dateDashboardWrapper"><div class="stat-box blue-border"><small style="color:#42a5f5">Total Credit (Date)</small><h2 id="dateTotalCredit">0</h2></div><div class="stat-box blue-border"><small style="color:#42a5f5">Total Debit (Date)</small><h2 id="dateTotalDebit">0</h2></div></div>  
-<div class="top-buttons"><button class="gold" onclick="addUser()">+ User</button><button class="gold" onclick="fetchFromCloud()">🔄 Reset</button><button class="gold" onclick="exportData()">Export</button><button class="gold" onclick="document.getElementById('importFile').click()">Import</button><button style="background:#444;color:#fff" onclick="openSettingsPopup()">⚙️ Set</button><input type="file" id="importFile" hidden onchange="importData(event)"></div>  
-<div style="padding:0 10px"><button onclick="openLeaderManager()" style="width:100%;padding:13px;border:2px solid #2eaa55;border-radius:12px;background:linear-gradient(145deg,#16753a,#0d4523);color:#fff;font-size:16px;font-weight:900;cursor:pointer">👑 LEADER</button></div>  
-<div class="universal-toolbar"><button style="background:#e53935;color:#fff" onclick="openMainPDFSelector()">📄 PDF</button><button style="background:#25D366;color:#fff" onclick="shareAllUsersWhatsApp()">📱 WhatsApp</button></div><div id="userList"></div>  
-</div>  <div id="userScreen" class="hidden"><div class="profile-header"><div class="prof-header-buttons" style="padding-top:28px;position:relative"><div style="display:flex;flex-direction:column;align-items:flex-start;gap:6px"><button class="gold" onclick="goBack()" style="padding:6px 12px;position:relative;z-index:1">← Back</button></div><button class="gold" onclick="openEntryForm()" style="padding:6px 12px;position:relative;z-index:1">+ Entry</button></div><h2 id="profName"></h2><p id="profMobile" class="user-mobile-under-name"></p><div class="prof-details-row"><p id="profLeader" style="margin:0;color:#2eaa55;font-weight:bold"></p><h3 id="profBalance"></h3></div></div><div class="table-container"><table><thead><tr><th>Date</th><th>Desc</th><th>Cr</th><th>Db</th><th>Bal</th></tr></thead><tbody id="transactionTable"></tbody></table></div></div>  <div id="leaderScreen" class="hidden">  
-<div class="profile-header"><div class="prof-header-buttons"><button class="gold" onclick="closeLeaderScreen()" style="padding:6px 12px">← Back</button><button class="gold" onclick="openLeaderCreate()" style="padding:6px 12px">+ Leader</button></div><h2>👑 LEADERS</h2><div style="text-align:center;color:#aaa;font-size:13px">Leader Dashboard • Create → Select Users → Add</div></div>  
-<!-- NEW: Leader dashboard -->  
-<div class="dashboard" id="leaderDashboard">  
-<div class="stat-box green-border"><small>Total Leaders</small><h2 id="leaderCount">0</h2></div>  
-<div class="stat-box blue-border"><small>Total Credit</small><h2 id="leaderTotalCredit">₹ 0</h2></div>  
-<div class="stat-box red-border"><small>Total Debit</small><h2 id="leaderTotalDebit">₹ 0</h2></div>  
-<div class="stat-box green-border compact-balance"><small>Total Balance</small><h2 id="leaderGrandBalance">₹ 0</h2></div><div class="stat-box green-border"><small><span id="leaderCommissionLeaderCount">0</span> Leader 1%</small><h2 id="leaderCommissionLeaderCountValue">0</h2></div><div class="stat-box green-border"><small>Commission</small><h2 id="leaderGrandCommission">₹ 0</h2></div>  
-</div>  
-<div class="universal-toolbar"><button style="background:#e53935;color:#fff" onclick="openLeaderPDFSelector()">📄 PDF</button><button style="background:#25D366;color:#fff" onclick="shareSelectedLeadersWhatsApp()">📱 WhatsApp</button><span id="leaderManagerSelectedCount" class="selected-count">0 selected</span></div><div id="leaderManagerList"></div>  
-</div>  <div id="leaderDetailScreen" class="hidden">  
-<div class="profile-header"><div class="prof-header-buttons"><button class="gold" onclick="backToLeaderManager()" style="padding:6px 12px">← Back</button><button class="gold" onclick="openLeaderEdit(currentLeaderIndex)" style="padding:6px 12px">✏️ Edit</button></div><h2 id="leaderDetailTitle"></h2></div>  
-<div class="leader-toolbar"><button class="gold" onclick="selectAllLeaderUsers()">☑ Select</button><button style="background:#555;color:#fff" onclick="clearLeaderSelection()">☐ Clear</button><button style="background:#16803c;color:#fff" onclick="openTenPercentCollection()">💰 10% Entry</button><button style="background:#e53935;color:#fff" onclick="openLeaderDetailPDFSelector()">📄 PDF</button><button style="background:#25D366;color:#fff" onclick="shareLeaderSummary()">📱 WhatsApp</button><span id="leaderToolbarCount" class="selected-count">0 selected</span></div>  
-<div class="leader-summary"><div class="leader-summary-grid"><div class="box"><small>Selected Users</small><strong id="leaderSelectedCount">0</strong></div><div class="box"><small>Total Balance</small><strong id="leaderTotalBalance">₹ 0</strong></div><div class="box"><small>10% Collection</small><strong id="leaderTenTotal">₹ 0</strong></div><div class="box"><small>1% Commission</small><strong id="leaderCommissionDetail">₹ 0</strong></div></div></div>  
-<div id="leaderList"></div>  
-</div>  <div id="tenPercentCollectionPopup" class="popup-overlay" onclick="closeTenPercentCollection()"><div class="popup-content" style="max-height:88vh;overflow:auto" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color);margin-top:0">💰 10% Collection Entry</h3><label style="display:block;text-align:left;color:#aaa;font-size:13px">Select Users</label><select id="tenPercentMode" onchange="updateTenPercentPicker()" style="width:100%;margin:6px 0 10px"><option value="all">ALL USERS</option><option value="red">RED USERS</option><option value="manual">MANUAL</option></select><div id="tenPercentManualList" style="display:none;max-height:30vh;overflow:auto;border:1px solid #444;border-radius:8px;padding:5px;margin-bottom:10px"></div><label style="display:block;text-align:left;color:#aaa;font-size:13px">10% Collection Date</label><input type="date" id="tenPercentDate"><label style="display:block;text-align:left;color:#ff5252;font-size:13px;font-weight:bold">RED DATE (Optional)</label><input type="date" id="tenPercentRedDate"><small style="display:block;color:#aaa;text-align:left;margin-top:-4px;margin-bottom:9px">RED DATE தேர்வு செய்தால், அதே selected users-க்கு தொகை சேர்க்காமல் தேதி மட்டும் பதிவாகும்.</small><label style="display:block;text-align:left;color:#aaa;font-size:13px">Description</label><input type="text" id="tenPercentDesc" placeholder="10% Collection"><div id="tenPercentPreview" style="color:#2eaa55;font-weight:bold;margin:8px 0">Selected: 0 • Total: ₹0</div><button class="gold" style="width:100%;padding:12px" onclick="applyTenPercentCollection()">OK — Add Credit</button><button style="background:#555;color:#fff;width:100%;padding:11px;margin-top:9px" onclick="closeTenPercentCollection()">Cancel</button></div></div>
-<div id="redDateOnlyPopup" class="popup-overlay" onclick="closeRedDateOnly()"><div class="popup-content" style="max-height:88vh;overflow:auto" onclick="event.stopPropagation()"><h3 style="color:#ff5252;margin-top:0">📅 RED DATE ONLY</h3><p style="color:#aaa;font-size:13px;text-align:left;margin-top:0">தேதி மட்டும் சேமிக்கப்படும். Credit / Debit தொகை சேராது.</p><label style="display:block;text-align:left;color:#aaa;font-size:13px">Select Users</label><select id="redDateMode" onchange="updateRedDatePicker()" style="width:100%;margin:6px 0 10px"><option value="all">ALL USERS</option><option value="red">RED USERS</option><option value="manual">MANUAL USER</option></select><div id="redDateManualList" style="display:none;max-height:30vh;overflow:auto;border:1px solid #444;border-radius:8px;padding:5px;margin-bottom:10px"></div><label style="display:block;text-align:left;color:#aaa;font-size:13px">RED Date</label><input type="date" id="redDateValue"><label style="display:block;text-align:left;color:#aaa;font-size:13px">Description (optional)</label><input type="text" id="redDateDesc" placeholder="RED DATE"><div id="redDatePreview" style="color:#ff5252;font-weight:bold;margin:8px 0">Selected: 0 users</div><button style="background:#b71c1c;color:#fff;width:100%;padding:12px;border:0;border-radius:8px;font-weight:bold" onclick="saveRedDateOnly()">SAVE RED DATE ONLY</button><button style="background:#555;color:#fff;width:100%;padding:11px;margin-top:9px;border:0;border-radius:8px" onclick="closeRedDateOnly()">Cancel</button></div></div>
-<div id="leaderUserPickerPopup" class="popup-overlay" onclick="closeLeaderUserPicker()"><div class="popup-content" style="max-height:85vh;overflow:auto" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color);margin-top:0">Select Users</h3><div style="display:flex;gap:8px;margin-bottom:10px"><button class="gold" onclick="togglePicker(true)">☑ All</button><button style="background:#555;color:#fff" onclick="togglePicker(false)">☐ Clear</button></div><div id="leaderUserPickerList"></div><button class="gold" style="width:100%;padding:12px;margin-top:12px" onclick="addPickedUsersToLeader()">Add Selected Users</button><button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeLeaderUserPicker()">Cancel</button></div></div>  
-<div id="leaderCreatePopup" class="popup-overlay" onclick="closeLeaderCreate()"><div class="popup-content" onclick="event.stopPropagation()"><h3 id="leaderFormTitle" style="color:var(--theme-color);margin-top:0">Create Leader</h3><input type="text" id="leaderNameInput" placeholder="Leader Name"><button class="gold" style="width:100%;padding:12px;margin-top:8px" onclick="saveLeader()">Save Leader</button><button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeLeaderCreate()">Cancel</button></div></div>  <div id="userFormPopup" class="popup-overlay" onclick="closeUserForm()"><div class="popup-content" onclick="event.stopPropagation()"><h3 id="userFormTitle" style="color:var(--theme-color);margin-top:0">Add User</h3><input type="text" id="uName" placeholder="User Name"><input type="text" id="uMobile" placeholder="Mobile"><input type="text" id="uPassword" placeholder="User Password" autocomplete="off"><label style="display:block;text-align:left;color:#aaa;font-size:13px;margin-top:5px">Leader</label><select id="uLeader"></select><button class="gold" style="width:100%;padding:12px;margin-top:10px" onclick="saveUserForm()">Save User</button><button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeUserForm()">Cancel</button></div></div>  <div id="settingsPopup" class="popup-overlay" onclick="closeSettingsPopup()"><div class="popup-content" onclick="event.stopPropagation()">
-<h3 style="color:var(--theme-color);margin-top:0">⚙️ Settings</h3>
-<div id="settingsHome" class="settings-sub active">
-<div id="globalColorControl" aria-label="Color controller">
-  <input id="globalColorSlider" type="range" min="0" max="100" value="0" aria-label="Color intensity">
-</div>
-
-<div style="color:#aaa;font-size:12px;margin-bottom:10px">ஒரு option-ஐ தேர்வு செய்தால் அதற்கான தனி Settings screen திறக்கும்.</div>
-<div class="settings-nav">
-<button onclick="openSettingPage('banner')"><b>Banner</b><small>Banner name & logo</small></button>
-<button onclick="openSettingPage('appearance')"><b>Appearance</b><small>Width, height, app font</small></button>
-<button onclick="openSettingPage('pdf')"><b>PDF</b><small>PDF எழுத்து அளவு</small></button>
-<button onclick="openSettingPage('dashboard')"><b>Dashboard</b><small>Dashboard display options</small></button>
-<button onclick="openSettingPage('cloud')"><b>Google Sheet</b><small>Cloud sync</small></button>
-<button onclick="openSettingPage('commission')"><b>Leader Commission</b><small>1% commission & history</small></button>
-<button onclick="openSettingPage('leaderPassword')"><b>🔐 Leader Password</b><small>Leader name, password & edit</small></button>
-<button onclick="openSettingPage('userPassword')"><b>🔑 User Password</b><small>Search, user name, password & edit</small></button>
-<button onclick="openSettingPage('danger')"><b>Data</b><small>All Delete & backup</small></button>
-</div></div>
-<div id="settingsBanner" class="settings-sub">
-<button class="settings-back" onclick="openSettingPage('home')">← Settings</button>
-<div class="settings-card"><h4>🏷️ Banner</h4><label>Banner Name</label><input type="text" id="setAppTitle" oninput="applySettings()"><div style="color:#888;font-size:12px">இந்த பெயர் App banner மற்றும் PDF header இரண்டிலும் பயன்படுத்தப்படும்.</div><label>Banner Name Font Size: <span id="bannerNameSizeVal">24</span>px</label><input type="range" id="setBannerNameSize" min="14" max="42" step="1" oninput="applySettings()"><label>Banner Text Color</label><input type="color" id="setBannerNameColor" value="#ffe7a0" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><label>Banner Letter Outline Color</label><input type="color" id="setBannerOutlineColor" value="#80570d" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"></div>
-<div class="settings-card"><h4>🖼️ App Logo</h4><div class="logo-preview-wrap"><img id="logoPreview" class="logo-preview" alt="Logo Preview"><div style="flex:1;color:#aaa;font-size:12px">Gallery / Photos-ல் இருந்து logo தேர்வு செய்யலாம்.</div><button class="logo-remove" type="button" onclick="removeAppLogo()">Remove</button></div><input id="logoFileInput" class="logo-picker" type="file" accept="image/*" onchange="handleLogoSelect(event)"></div>
-</div>
-<div id="settingsAppearance" class="settings-sub">
-<button class="settings-back" onclick="openSettingPage('home')">← Settings</button>
-<div class="settings-card"><h4>📐 Appearance</h4><label>App Width: <span id="widthVal">500</span>px</label><input type="range" id="setAppWidth" min="360" max="800" step="10" oninput="applySettings()"><label>App Height: <span id="heightVal">100</span>%</label><input type="range" id="setAppHeight" min="50" max="100" step="5" oninput="applySettings()"><label>App Font Size: <span id="fontSizeVal">16</span>px</label><input type="range" id="setAppFontSize" min="12" max="24" step="1" oninput="applySettings()"><label>Main Dashboard User Name Font: <span id="userNameFontSizeVal">16</span>px</label><input type="range" id="setUserNameFontSize" min="8" max="24" step="0.5" oninput="applySettings()"><div style="color:#888;font-size:12px">நீளமான User பெயர்கள் ஒரே வரியில் காட்டப்படும். இந்த control மூலம் எழுத்தின் அளவை குறைக்கலாம்.</div><label>Font Weight</label><select id="setAppFontWeight" onchange="applySettings()"><option value="normal">Normal</option><option value="bold">Bold</option></select><label>Theme Color</label><div class="color-presets"><div class="color-dot" style="background:#ffd700" onclick="setPresetColor('#ffd700')"></div><div class="color-dot" style="background:#ffb300" onclick="setPresetColor('#ffb300')"></div><div class="color-dot" style="background:#ff3d00" onclick="setPresetColor('#ff3d00')"></div><div class="color-dot" style="background:#e53935" onclick="setPresetColor('#e53935')"></div><div class="color-dot" style="background:#8e24aa" onclick="setPresetColor('#8e24aa')"></div><div class="color-dot" style="background:#1e88e5" onclick="setPresetColor('#1e88e5')"></div><div class="color-dot" style="background:#00e5ff" onclick="setPresetColor('#00e5ff')"></div><input type="color" id="setThemeColor" style="width:100%;height:100%;border:none;background:transparent" oninput="applySettings()"></div></div></div>
-<div id="settingsPdf" class="settings-sub">
-<button class="settings-back" onclick="openSettingPage('home')">← Settings</button>
-<div class="settings-card"><h4>📄 PDF Controls + Live Preview</h4>
-<div class="pdf-controls-layout">
-<div class="pdf-controller-panel">
-<label>Overall PDF Text: <span id="pdfFontSizeVal">14</span>px</label><input type="range" id="setPdfFontSize" min="6" max="30" step="0.5" oninput="applySettings()">
-<label>Banner Left Text: <span id="pdfBannerLeftVal">14</span>px</label><input type="range" id="setPdfBannerLeft" min="6" max="30" step="0.5" oninput="applySettings()">
-<label>Banner Right Date/Time: <span id="pdfBannerRightVal">10</span>px</label><input type="range" id="setPdfBannerRight" min="6" max="24" step="0.5" oninput="applySettings()">
-<label>Transaction Text: <span id="pdfTransactionVal">11</span>px</label><input type="range" id="setPdfTransaction" min="6" max="24" step="0.5" oninput="applySettings()">
-<div class="pdf-bold-control"><span>Transaction Text Bold</span><input type="checkbox" id="setPdfTransactionBold" onchange="applySettings()"></div>
-<label>Transaction Box Size: <span id="pdfTransactionBoxVal">8</span>mm</label><input type="range" id="setPdfTransactionBox" min="1" max="20" step="0.5" oninput="applySettings()">
-<label>Table Header Text: <span id="pdfTableHeaderVal">12</span>px</label><input type="range" id="setPdfTableHeader" min="6" max="24" step="0.5" oninput="applySettings()">
-<label>Totals Text: <span id="pdfTotalsVal">12</span>px</label><input type="range" id="setPdfTotals" min="6" max="24" step="0.5" oninput="applySettings()">
-<div style="color:#ddd;font-size:12px;margin-top:8px">இடது புறம் Controller — வலது புறம் PDF Model Preview. Transaction எழுத்தின் Size + Bold தனியாக மாற்றலாம்.</div>
-</div>
-<div class="pdf-preview-panel"><div class="pdf-preview-title">PDF MODEL PREVIEW</div>
-<div class="pdf-paper" id="pdfLivePreview">
-<div class="pdf-preview-head"><span id="pvTitle">Finance Manager Pro</span><span id="pvDate">25/09/2026, 09:00</span></div>
-<div class="pdf-preview-leader"><div class="label">LEADER</div><div class="name" id="pvLeaderName">Leader Name</div><div class="due" id="pvDue">DUE AMOUNT Rs. 3,000</div></div>
-<div class="pdf-preview-summary"><div id="pvUsers">TOTAL USERS 5</div><div id="pvBalance">TOTAL BALANCE Rs. 25,000</div></div>
-<table class="pdf-preview-table"><thead><tr><th id="pvTh1">USER</th><th id="pvTh2">LOAN</th><th id="pvTh3">CR</th><th id="pvTh4">CREDIT</th><th id="pvTh5">BALANCE</th><th id="pvTh6">10%</th></tr></thead><tbody><tr><td class="pv-tx">Name</td><td class="pv-tx">10,000</td><td class="pv-tx">2</td><td class="pv-tx">5,000</td><td class="pv-tx">15,000</td><td class="pv-tx">1,000</td></tr><tr><td class="pv-tx">Name 2</td><td class="pv-tx">20,000</td><td class="pv-tx">3</td><td class="pv-tx">8,000</td><td class="pv-tx">28,000</td><td class="pv-tx">2,000</td></tr></tbody></table>
-<div class="pdf-preview-note">இது மாதிரி Preview மட்டும் — PDF export அதே control-களை பயன்படுத்தும்.</div>
-</div></div></div></div></div>
-<div id="settingsDashboard" class="settings-sub">
-<button class="settings-back" onclick="openSettingPage('home')">← Settings</button>
-<div class="settings-card"><h4>📊 Dashboard Options</h4><div class="setting-row"><span>Show Dashboard Boxes</span><label class="switch"><input type="checkbox" id="switchDash" onchange="applySettings()"><span class="slider"></span></label></div><div class="setting-row"><span>Show Search Bar</span><label class="switch"><input type="checkbox" id="switchSearch" onchange="applySettings()"><span class="slider"></span></label></div><div class="setting-row"><span>Show Date Filter & Credit/Debit Boxes</span><label class="switch"><input type="checkbox" id="switchDateFilter" onchange="applySettings()"><span class="slider"></span></label></div><div class="setting-row"><span>Red User Highlight & Sorting</span><label class="switch"><input type="checkbox" id="switchRedHighlight" onchange="applySettings()"><span class="slider"></span></label></div><div class="setting-row"><span>Blue User Highlight & Sorting</span><label class="switch"><input type="checkbox" id="switchBlueHighlight" onchange="applySettings()"><span class="slider"></span></label></div></div></div>
-<div id="settingsCloud" class="settings-sub">
-<button class="settings-back" onclick="openSettingPage('home')">← Settings</button><div class="settings-card"><h4>☁️ Google Sheet</h4><div class="setting-row"><span>Google Sheet Sync</span><label class="switch"><input type="checkbox" id="switchCloud" onchange="applySettings()"><span class="slider"></span></label></div><div style="font-size:12px;color:#aaa;margin-top:10px">Connected URL is saved in this HTML version.</div></div></div>
-<div id="settingsCommission" class="settings-sub">
-<button class="settings-back" onclick="openSettingPage('home')">← Settings</button><div class="settings-card"><h4>👑 Leader Commission</h4><div style="font-size:12px;color:#aaa;margin-bottom:10px">Debit பதிவு செய்யப்பட்ட போது 1% commission தனியாக சேமிக்கப்படும். User/Transaction delete செய்தாலும் இது நீங்காது.</div><div id="leaderCommissionSettings"></div><div id="commissionHistoryPanel" style="margin-top:12px"></div></div></div>
-<div id="settingsLeaderPassword" class="settings-sub">
-<button class="settings-back" onclick="openSettingPage('home')">← Settings</button>
-<div class="settings-card"><h4>🔐 Leader Password</h4>
-<div id="leaderPasswordSettingsList"></div>
-</div></div>
-<div id="settingsUserPassword" class="settings-sub">
-<button class="settings-back" onclick="openSettingPage('home')">← Settings</button>
-<div class="settings-card"><h4>🔑 User Password</h4>
-<div style="font-size:12px;color:#aaa;margin-bottom:10px">User password-ஐ தேடி பார்க்கவும் மற்றும் Edit செய்யவும்.</div>
-<input type="text" id="userPasswordSearch" placeholder="🔎 User பெயரை தேடவும்..." oninput="renderUserPasswordSettings()" style="margin-bottom:10px">
-<div id="userPasswordSettingsList"></div>
-</div></div>
-<div id="settingsDanger" class="settings-sub">
-<button class="settings-back" onclick="openSettingPage('home')">← Settings</button><div class="settings-card"><h4>⚠️ Data</h4><div style="font-size:12px;color:#aaa;margin-bottom:10px">All Delete செய்வதற்கு முன் automatic backup download செய்யப்படும்.</div><button style="background:#e53935;color:#fff;width:100%;padding:12px;font-weight:bold;border:0;border-radius:10px" onclick="allDeleteWithExport()">⚠️ All Delete</button></div></div>
-<div style="display:flex;gap:8px;margin-top:12px"><button style="background:#555;color:#fff;flex:1;padding:11px;border:0;border-radius:9px" onclick="closeSettingsPopup()">Close</button></div>
-</div></div><div id="leaderPasswordEditPopup" class="popup-overlay" onclick="closeLeaderPasswordEdit()"><div class="popup-content" onclick="event.stopPropagation()">
-<h3 style="color:var(--theme-color);margin-top:0">🔐 Edit Leader Password</h3>
-<div id="leaderPasswordEditLeaderName" style="font-weight:900;color:var(--theme-color);margin-bottom:10px"></div>
-<input type="text" id="leaderPasswordEditInput" placeholder="Password" autocomplete="off">
-<button class="gold" style="width:100%;padding:12px;margin-top:8px" onclick="saveLeaderPasswordEdit()">Save Password</button>
-<button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeLeaderPasswordEdit()">Cancel</button>
-</div></div>
-<div id="userPasswordEditPopup" class="popup-overlay" onclick="closeUserPasswordEdit()"><div class="popup-content" onclick="event.stopPropagation()">
-<h3 style="color:var(--theme-color);margin-top:0">🔑 Edit User Password</h3>
-<div id="userPasswordEditUserName" style="font-weight:900;color:var(--theme-color);margin-bottom:10px"></div>
-<input type="text" id="userPasswordEditInput" placeholder="Password" autocomplete="off">
-<button class="gold" style="width:100%;padding:12px;margin-top:8px" onclick="saveUserPasswordEdit()">Save Password</button>
-<button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeUserPasswordEdit()">Cancel</button>
-</div></div>
-<div id="entryPopup" class="popup-overlay"><div class="popup-content"><h3 style="color:var(--theme-color)">New Entry</h3><input type="date" id="tDate"><input type="text" id="tDesc" placeholder="Description"><input type="number" id="tCredit" placeholder="Credit"><input type="number" id="tDebit" placeholder="Debit"><div style="margin-top:12px;padding:10px;border:1px solid #b71c1c;border-radius:9px;text-align:left"><button type="button" id="entryRedDateToggle" onclick="toggleEntryRedDate()" style="background:#b71c1c;color:#fff;border:0;border-radius:7px;padding:9px 13px;font-weight:bold;width:100%">📅 RED DATE</button><div id="entryRedDateArea" style="display:none;margin-top:10px"><label for="tRedDate" style="display:block;color:#ff5252;font-weight:bold;margin-bottom:5px">RED DATE ONLY</label><input type="date" id="tRedDate"><small style="display:block;color:#aaa;margin-top:4px">இந்த தேதி மட்டும் சேமிக்கப்படும். Credit / Debit தொகை மாறாது.</small></div></div><div style="display:flex;gap:10px;margin-top:10px"><button class="gold" onclick="saveTransaction()" style="flex:1">Save</button><button style="background:#555;color:#fff;flex:1" onclick="closeEntryForm()">Close</button></div></div></div>  
-<div id="actionPopup" class="popup-overlay" onclick="closeActionPopup()"><div class="popup-content" onclick="event.stopPropagation()"><h3 id="popupTitle" style="color:var(--theme-color)">Manage User</h3><button class="gold" id="editBtn" style="width:100%;padding:12px">✏️ Edit User</button><button style="background:#e53935;color:#fff;width:100%;margin-top:10px;padding:12px" id="deleteBtn">🗑️ Delete User</button><button style="background:#555;color:#fff;width:100%;margin-top:10px;padding:12px" onclick="closeActionPopup()">Cancel</button></div></div>  
-<div id="transactionDeleteManager" class="popup-overlay" onclick="closeTransactionDeleteManager()"><div class="popup-content" style="max-width:520px;max-height:88vh" onclick="event.stopPropagation()"><h3 style="color:#ff5252;margin-top:0">🗑️ Transaction Delete</h3><p style="font-size:13px;color:#bbb;text-align:left">நீக்க வேண்டிய transaction-களைத் தேர்வு செய்யவும். Delete செய்ததை மீட்டெடுக்க முடியாது.</p><div style="display:flex;gap:7px;margin-bottom:10px"><button class="gold" style="flex:1;padding:10px" onclick="selectAllTransactionsForDelete(true)">☑ All Select</button><button style="flex:1;padding:10px;background:#555;color:#fff;border:0;border-radius:8px" onclick="selectAllTransactionsForDelete(false)">☐ Manual Clear</button></div><div id="transactionDeleteList" style="text-align:left;max-height:45vh;overflow:auto;border:1px solid #444;border-radius:8px;padding:7px"></div><div id="transactionDeleteCount" style="font-weight:bold;color:#ffb74d;margin:10px 0">0 selected</div><button style="background:#e53935;color:#fff;width:100%;padding:12px;border:0;border-radius:8px;font-weight:bold" onclick="deleteSelectedTransactions()">🗑️ Delete Selected</button><button style="background:#555;color:#fff;width:100%;padding:10px;margin-top:8px;border:0;border-radius:8px" onclick="closeTransactionDeleteManager()">Cancel</button></div></div>
-<div id="txActionPopup" class="popup-overlay" onclick="closeTxActionPopup()"><div class="popup-content" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color)">Transaction Management</h3><button class="gold" id="txEditBtn" style="width:100%">✏️ Edit Entry</button><button style="background:#e53935;color:#fff;width:100%;margin-top:10px" id="txDeleteBtn">🗑️ Delete Entry</button><button style="background:#555;color:#fff;width:100%;margin-top:10px" onclick="closeTxActionPopup()">Cancel</button></div></div>  
-</div>  <script>  
-const CLOUD_URL="https://script.google.com/macros/s/AKfycbx8BkMWLe65CNNm2_Aezqg1OEgdC0SS3kz3L_g71rum__YHvF8GZS9HIYtizRRqldgZGw/exec";  
-
-function applyGlobalAppShade(value){
-  const amount=Math.max(0,Math.min(100,Number(value)||0))/100;
-  // Reduce saturation only: brightness and text contrast are not dimmed.
-  const saturation=1-(amount*0.90);
-  document.documentElement.style.setProperty('--app-saturation',saturation.toFixed(3));
-  try{localStorage.setItem("financeGlobalShade",String(Math.round(amount*100)))}catch(e){}
-}
-function initGlobalColorSlider(){
-  const slider=document.getElementById("globalColorSlider");
-  if(!slider || slider.dataset.colorWired==="1")return;
-  slider.dataset.colorWired="1";
-  let saved=0;try{saved=Number(localStorage.getItem("financeGlobalShade")||0)}catch(e){}
-  slider.value=String(Math.max(0,Math.min(100,saved)));
-  applyGlobalAppShade(slider.value);
-  slider.addEventListener("input",()=>applyGlobalAppShade(slider.value));
-}
-document.addEventListener("DOMContentLoaded",initGlobalColorSlider);
-
-function safeJSON(key,fallback){try{const raw=localStorage.getItem(key);if(!raw)return fallback;const v=JSON.parse(raw);return v??fallback}catch(e){console.warn("Invalid local data:",key,e);return fallback}}
-let users=safeJSON("financeUsersData",[]);
-if(!Array.isArray(users))users=[];
-let appConfig=safeJSON("financeConfig",{title:"S PLUS LOAN APP",bannerNameSize:24,bannerNameColor:"#ffe7a0",bannerOutlineColor:"#80570d",width:500,height:100,fontSize:16,fontWeight:"normal",userNameFontSize:16,pdfFontSize:14,pdfBannerLeft:14,pdfBannerRight:10,pdfTransaction:11,pdfTransactionBold:true,pdfTransactionBox:8,pdfTableHeader:12,pdfTotals:12,color:"#ffd700",showDash:true,showSearch:true,showDateFilter:true,showRedHighlight:false,showBlueHighlight:false,showCloud:true,logo:""});
-if(!appConfig||typeof appConfig!=="object"||Array.isArray(appConfig))appConfig={title:"S PLUS LOAN APP",bannerNameSize:24,bannerNameColor:"#ffe7a0",bannerOutlineColor:"#80570d",width:500,height:100,fontSize:16,fontWeight:"normal",userNameFontSize:16,pdfFontSize:14,pdfBannerLeft:14,pdfBannerRight:10,pdfTransaction:11,pdfTransactionBold:true,pdfTransactionBox:8,pdfTableHeader:12,pdfTotals:12,color:"#ffd700",showDash:true,showSearch:true,showDateFilter:true,showRedHighlight:false,showBlueHighlight:false,showCloud:true,logo:""};
-if(appConfig.userNameFontSize===undefined)appConfig.userNameFontSize=16;if(appConfig.pdfTransactionBold===undefined)appConfig.pdfTransactionBold=true;if(appConfig.pdfFontSize===undefined)appConfig.pdfFontSize=14;if(appConfig.pdfBannerLeft===undefined)appConfig.pdfBannerLeft=14;if(appConfig.pdfBannerRight===undefined)appConfig.pdfBannerRight=10;if(appConfig.pdfTransaction===undefined)appConfig.pdfTransaction=11;if(appConfig.pdfTransactionBox===undefined)appConfig.pdfTransactionBox=8;if(appConfig.pdfTableHeader===undefined)appConfig.pdfTableHeader=12;if(appConfig.pdfTotals===undefined)appConfig.pdfTotals=12;
-if(!appConfig.title||appConfig.title==="Finance Manager Pro"||appConfig.title==="S Plus Loan App")appConfig.title="S PLUS LOAN APP";
-if(appConfig.bannerNameSize===undefined)appConfig.bannerNameSize=24;
-if(appConfig.bannerNameColor===undefined)appConfig.bannerNameColor="#ffe7a0";
-if(appConfig.bannerOutlineColor===undefined)appConfig.bannerOutlineColor="#80570d";
-if(appConfig.logo===undefined)appConfig.logo="";  
-let currentUser=null,editIndex=null,currentLeaderIndex=null,returnToLeaderDetail=false;  
-let leaders=JSON.parse(localStorage.getItem("financeLeadersData"))||[];  
-let leaderCommissions=JSON.parse(localStorage.getItem("financeLeaderCommissions"))||{};
-let leaderCommissionHistory=JSON.parse(localStorage.getItem("financeLeaderCommissionHistory"))||[];
-if(!Array.isArray(leaderCommissionHistory))leaderCommissionHistory=[];
-if(!leaderCommissions||typeof leaderCommissions!=="object"||Array.isArray(leaderCommissions))leaderCommissions={};
-  
-function ensureLeaderMembership(){
- try{
-  if(!Array.isArray(leaders))leaders=[];
-  leaders=leaders.filter(l=>l&&typeof l==="object").map((l,i)=>({id:String(l.id||("leader_"+Date.now()+"_"+i)),name:String(l.name||"").trim(),password:String(l.password??"")})).filter(l=>l.name&&l.name.toLowerCase()!=="company");
-  if(!Array.isArray(users))users=[];
-  users=users.filter(u=>u&&typeof u==="object").map((u,i)=>{if(!Array.isArray(u.transactions))u.transactions=[];if(!u.id)u.id="user_"+Date.now()+"_"+i+"_"+Math.random().toString(36).slice(2,7);if(!u.leaderId||!leaders.some(l=>l.id===u.leaderId))u.leaderId="";return u});
-  localStorage.setItem("financeLeadersData",JSON.stringify(leaders));localStorage.setItem("financeUsersData",JSON.stringify(users));
- }catch(e){console.error("Startup data repair failed",e);if(!Array.isArray(users))users=[];if(!Array.isArray(leaders))leaders=[];}
-}
-function getLeaderName(u){let l=leaders.find(x=>x.id===u.leaderId);return l?l.name:"Unassigned"}function saveLeaders(){localStorage.setItem("financeLeadersData",JSON.stringify(leaders))}  
-function leaderUsers(lid){return users.filter(u=>u.leaderId===lid)}function leaderBalance(lid){return leaderUsers(lid).reduce((s,u)=>s+getBalance(u),0)}  
-function leaderHasRed(lid){return leaderUsers(lid).some(isRed)}function leaderDebit(lid,s,e){return leaderUsers(lid).reduce((sum,u)=>sum+getDebitInDateRange(u,s,e),0)}  
-function leaderCredit(lid,s,e){return leaderUsers(lid).reduce((sum,u)=>sum+getCreditInDateRange(u,s,e),0)}  
-function leaderAllDebit(lid){return leaderUsers(lid).reduce((sum,u)=>sum+(u.transactions||[]).reduce((a,t)=>a+Math.max(0,Number(t.debit||0)),0),0)}  
-function leaderAllCredit(lid){return leaderUsers(lid).reduce((sum,u)=>sum+(u.transactions||[]).reduce((a,t)=>a+Math.max(0,Number(t.credit||0)),0),0)}  
-function showLoading(s){document.getElementById("loading").style.display=s?"block":"none"}  
-function localDate(){let d=new Date(),o=d.getTimezoneOffset();return new Date(d.getTime()-o*60000).toISOString().split("T")[0]}  
-function initConfig(){  
- document.getElementById("setAppTitle").value=appConfig.title;
- document.getElementById("setBannerNameSize").value=appConfig.bannerNameSize||24;document.getElementById("bannerNameSizeVal").innerText=appConfig.bannerNameSize||24;
- document.getElementById("setBannerNameColor").value=appConfig.bannerNameColor||"#ffe7a0";document.getElementById("setBannerOutlineColor").value=appConfig.bannerOutlineColor||"#80570d";document.getElementById("setAppWidth").value=appConfig.width;document.getElementById("setAppHeight").value=appConfig.height||100;document.getElementById("setAppFontSize").value=appConfig.fontSize||16;document.getElementById("setUserNameFontSize").value=appConfig.userNameFontSize||16;document.getElementById("userNameFontSizeVal").innerText=appConfig.userNameFontSize||16;document.getElementById("setAppFontWeight").value=appConfig.fontWeight||"normal";document.getElementById("setPdfFontSize").value=appConfig.pdfFontSize||14;document.getElementById("setPdfBannerLeft").value=appConfig.pdfBannerLeft||14;document.getElementById("setPdfBannerRight").value=appConfig.pdfBannerRight||10;document.getElementById("setPdfTransaction").value=appConfig.pdfTransaction||11;document.getElementById("setPdfTransactionBold").checked=appConfig.pdfTransactionBold!==false;document.getElementById("setPdfTransactionBox").value=appConfig.pdfTransactionBox||8;document.getElementById("setPdfTableHeader").value=appConfig.pdfTableHeader||12;document.getElementById("setPdfTotals").value=appConfig.pdfTotals||12;document.getElementById("setThemeColor").value=appConfig.color;document.getElementById("pdfFontSizeVal").innerText=appConfig.pdfFontSize||14;document.getElementById("pdfBannerLeftVal").innerText=appConfig.pdfBannerLeft||14;document.getElementById("pdfBannerRightVal").innerText=appConfig.pdfBannerRight||10;document.getElementById("pdfTransactionVal").innerText=appConfig.pdfTransaction||11;document.getElementById("pdfTransactionBoxVal").innerText=appConfig.pdfTransactionBox||8;document.getElementById("pdfTableHeaderVal").innerText=appConfig.pdfTableHeader||12;document.getElementById("pdfTotalsVal").innerText=appConfig.pdfTotals||12;  
- ["Dash","Search","DateFilter","RedHighlight","BlueHighlight","Cloud"].forEach(x=>{let id="switch"+x,key=x[0].toLowerCase()+x.slice(1);document.getElementById(id).checked=appConfig[key]!==undefined?appConfig[key]:((x==="Cloud")?true:(x==="RedHighlight"||x==="BlueHighlight")?false:true)});  
- if(!document.getElementById("filterStartDate").value)document.getElementById("filterStartDate").value=localDate();if(!document.getElementById("filterEndDate").value)document.getElementById("filterEndDate").value=localDate();applyConfigUI();applyLogoUI();renderCommissionSettings();  
-}  
-function setPresetColor(c){document.getElementById("setThemeColor").value=c;applySettings()}  
-function applyLogoUI(){const logo=String(appConfig.logo||"");const a=document.getElementById("appLogo"),b=document.getElementById("logoPreview");[a,b].forEach(el=>{if(!el)return;if(logo){el.src=logo;el.classList.add("visible")}else{el.removeAttribute("src");el.classList.remove("visible")}})}
-function handleLogoSelect(e){const f=e.target.files&&e.target.files[0];if(!f)return;if(!f.type.startsWith("image/"))return alert("Please select an image.");const r=new FileReader();r.onload=()=>{const img=new Image();img.onload=()=>{const max=600,scale=Math.min(1,max/Math.max(img.width,img.height)),c=document.createElement("canvas");c.width=Math.max(1,Math.round(img.width*scale));c.height=Math.max(1,Math.round(img.height*scale));c.getContext("2d").drawImage(img,0,0,c.width,c.height);appConfig.logo=c.toDataURL("image/jpeg",.88);localStorage.setItem("financeConfig",JSON.stringify(appConfig));applyLogoUI()};img.src=r.result};r.readAsDataURL(f)}
-function removeAppLogo(){appConfig.logo="";localStorage.setItem("financeConfig",JSON.stringify(appConfig));document.getElementById("logoFileInput").value="";applyLogoUI()}
-let editingLeaderPasswordId=null;
-function renderLeaderPasswordSettings(){
- ensureLeaderMembership();
- const box=document.getElementById("leaderPasswordSettingsList"); if(!box)return; box.innerHTML="";
- if(!leaders.length){box.innerHTML='<div style="color:#aaa;padding:12px 0">No Leaders yet.</div>';return;}
- leaders.forEach(l=>{
-  const row=document.createElement("div"); row.style.cssText="display:grid;grid-template-columns:1.1fr 1fr auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid #444";
-  const name=document.createElement("div");name.style.fontWeight="900";name.textContent=l.name;
-  const pass=document.createElement("div");pass.style.cssText="font-weight:700;word-break:break-all";pass.textContent=l.password||"";
-  const btn=document.createElement("button");btn.className="gold";btn.style.cssText="border:0;border-radius:7px;padding:8px 10px;font-weight:bold";btn.textContent="✏️ Edit";btn.onclick=()=>openLeaderPasswordEdit(l.id);
-  row.append(name,pass,btn);box.appendChild(row);
- });
-}
-function openLeaderPasswordEdit(id){const l=leaders.find(x=>x.id===id);if(!l)return;editingLeaderPasswordId=id;document.getElementById("leaderPasswordEditLeaderName").textContent="👑 "+l.name;document.getElementById("leaderPasswordEditInput").value=l.password||"";document.getElementById("leaderPasswordEditPopup").style.display="flex";}
-function closeLeaderPasswordEdit(){document.getElementById("leaderPasswordEditPopup").style.display="none";editingLeaderPasswordId=null;}
-async function saveLeaderPasswordEdit(){const l=leaders.find(x=>x.id===editingLeaderPasswordId);if(!l)return;l.password=document.getElementById("leaderPasswordEditInput").value;saveLeaders();ensureLeaderMembership();renderLeaderPasswordSettings();closeLeaderPasswordEdit();await saveToCloudOnly();}
-
-function renderUserPasswordSettings(){
- ensureLeaderMembership();
- const box=document.getElementById("userPasswordSettingsList"); if(!box)return;
- const q=String(document.getElementById("userPasswordSearch")?.value||"").trim().toLowerCase();
- box.innerHTML="";
- const list=users.filter(u=>!q||String(u.name||"").toLowerCase().includes(q)||String(u.mobile||"").toLowerCase().includes(q)).sort((a,b)=>{const ap=String(a.password||"").trim().length>0?1:0,bp=String(b.password||"").trim().length>0?1:0;return bp-ap||String(a.name||"").localeCompare(String(b.name||""),"ta")});
- if(!list.length){box.innerHTML='<div style="color:#aaa;padding:12px 0;text-align:center">User கிடைக்கவில்லை.</div>';return;}
- list.forEach(u=>{
-   const row=document.createElement("div");
-   row.style.cssText="display:grid;grid-template-columns:minmax(110px,1.1fr) minmax(90px,1fr) auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid #444";
-   const name=document.createElement("div");name.style.fontWeight="900";name.textContent=u.name||"";
-   const pass=document.createElement("div");pass.style.cssText="font-weight:700;word-break:break-all;color:#ffd700";pass.textContent=String(u.password||"").trim()?String(u.password):"🔓 Password இல்லை";
-   const btn=document.createElement("button");btn.className="gold";btn.style.cssText="border:0;border-radius:7px;padding:8px 10px;font-weight:bold";btn.textContent="✏️ Edit";btn.onclick=()=>openUserPasswordEdit(u.id);
-   row.append(name,pass,btn);box.appendChild(row);
- });
-}
-let editingUserPasswordId=null;
-function openUserPasswordEdit(id){const u=users.find(x=>x.id===id);if(!u)return;editingUserPasswordId=id;document.getElementById("userPasswordEditUserName").textContent="👤 "+(u.name||"");document.getElementById("userPasswordEditInput").value=u.password||"";document.getElementById("userPasswordEditPopup").style.display="flex";}
-function closeUserPasswordEdit(){document.getElementById("userPasswordEditPopup").style.display="none";editingUserPasswordId=null;}
-async function saveUserPasswordEdit(){const u=users.find(x=>x.id===editingUserPasswordId);if(!u)return;u.password=document.getElementById("userPasswordEditInput").value.trim();saveDataLocally();renderUserPasswordSettings();closeUserPasswordEdit();renderUsers();await saveToCloudOnly();}
-
-function openSettingPage(page){document.querySelectorAll('.settings-sub').forEach(x=>x.classList.remove('active'));const sp=document.getElementById('settingsPopup');if(sp)sp.classList.toggle('commission-window-wide',page==='commission');let id=page==='home'?'settingsHome':'settings'+page.charAt(0).toUpperCase()+page.slice(1);let el=document.getElementById(id);if(el)el.classList.add('active');if(page==='commission'){renderCommissionSettings();renderCommissionHistoryPanel();}if(page==='leaderPassword'){renderLeaderPasswordSettings();}if(page==='banner'){applyLogoUI();}}
-function updatePdfPreview(){
- try{
-  const q=id=>document.getElementById(id), tx=Number(q("setPdfTransaction")?.value||11), bold=q("setPdfTransactionBold")?.checked!==false;
-  q("pvTitle").style.fontSize=(Number(q("setPdfBannerLeft")?.value||14)*.7)+"px";
-  q("pvDate").style.fontSize=(Number(q("setPdfBannerRight")?.value||10)*.7)+"px";
-  q("pvLeaderName").style.fontSize=(Number(q("setPdfFontSize")?.value||14)*.72)+"px";
-  q("pvDue").style.fontSize=(Number(q("setPdfFontSize")?.value||14)*.62)+"px";
-  q("pvUsers").style.fontSize=(Number(q("setPdfTotals")?.value||12)*.62)+"px";
-  q("pvBalance").style.fontSize=(Number(q("setPdfTotals")?.value||12)*.62)+"px";
-  q("pvTh1").style.fontSize=(Number(q("setPdfTableHeader")?.value||12)*.62)+"px";
-  ["pvTh2","pvTh3","pvTh4","pvTh5","pvTh6"].forEach(id=>q(id).style.fontSize=(Number(q("setPdfTableHeader")?.value||12)*.62)+"px");
-  document.querySelectorAll("#pdfLivePreview .pv-tx").forEach(el=>{el.style.fontSize=(tx*.62)+"px";el.style.fontWeight=bold?"900":"400";});
- }catch(e){console.warn("PDF preview",e)}
-}
-function applySettings(){
- appConfig.title=document.getElementById("setAppTitle").value||"S PLUS LOAN APP";appConfig.bannerNameSize=+document.getElementById("setBannerNameSize").value||24;document.getElementById("bannerNameSizeVal").innerText=appConfig.bannerNameSize;appConfig.bannerNameColor=document.getElementById("setBannerNameColor").value||"#ffe7a0";appConfig.bannerOutlineColor=document.getElementById("setBannerOutlineColor").value||"#80570d";appConfig.width=+document.getElementById("setAppWidth").value;appConfig.height=+document.getElementById("setAppHeight").value||100;appConfig.fontSize=+document.getElementById("setAppFontSize").value||16;appConfig.userNameFontSize=+document.getElementById("setUserNameFontSize").value||16;document.getElementById("userNameFontSizeVal").innerText=appConfig.userNameFontSize;appConfig.fontWeight=document.getElementById("setAppFontWeight").value;appConfig.pdfFontSize=+document.getElementById("setPdfFontSize").value||14;appConfig.pdfBannerLeft=+document.getElementById("setPdfBannerLeft").value||14;appConfig.pdfBannerRight=+document.getElementById("setPdfBannerRight").value||10;appConfig.pdfTransaction=+document.getElementById("setPdfTransaction").value||11;appConfig.pdfTransactionBold=document.getElementById("setPdfTransactionBold").checked;appConfig.pdfTransactionBox=+document.getElementById("setPdfTransactionBox").value||8;appConfig.pdfTableHeader=+document.getElementById("setPdfTableHeader").value||12;appConfig.pdfTotals=+document.getElementById("setPdfTotals").value||12;document.getElementById("pdfFontSizeVal").innerText=appConfig.pdfFontSize;document.getElementById("pdfBannerLeftVal").innerText=appConfig.pdfBannerLeft;document.getElementById("pdfBannerRightVal").innerText=appConfig.pdfBannerRight;document.getElementById("pdfTransactionVal").innerText=appConfig.pdfTransaction;document.getElementById("pdfTransactionBoxVal").innerText=appConfig.pdfTransactionBox;document.getElementById("pdfTableHeaderVal").innerText=appConfig.pdfTableHeader;document.getElementById("pdfTotalsVal").innerText=appConfig.pdfTotals;appConfig.color=document.getElementById("setThemeColor").value;appConfig.showDash=document.getElementById("switchDash").checked;appConfig.showSearch=document.getElementById("switchSearch").checked;appConfig.showDateFilter=document.getElementById("switchDateFilter").checked;appConfig.showRedHighlight=document.getElementById("switchRedHighlight").checked;appConfig.showBlueHighlight=document.getElementById("switchBlueHighlight").checked;appConfig.showCloud=document.getElementById("switchCloud").checked;localStorage.setItem("financeConfig",JSON.stringify(appConfig));applyConfigUI();renderUsers();refreshLeaderDashboard();updatePdfPreview();}
-function applyConfigUI(){  
- document.getElementById("headerTitleText").innerText=appConfig.title;document.documentElement.style.setProperty("--banner-name-size",(appConfig.bannerNameSize||24)+"px");document.documentElement.style.setProperty("--banner-name-color",appConfig.bannerNameColor||"#ffe7a0");document.documentElement.style.setProperty("--banner-outline-color",appConfig.bannerOutlineColor||"#80570d");document.getElementById("widthVal").innerText=appConfig.width;document.getElementById("heightVal").innerText=appConfig.height;document.getElementById("fontSizeVal").innerText=appConfig.fontSize;document.documentElement.style.setProperty("--app-width",appConfig.width+"px");document.documentElement.style.setProperty("--app-height",appConfig.height+"vh");document.documentElement.style.setProperty("--app-font-size",appConfig.fontSize+"px");document.documentElement.style.setProperty("--app-font-weight",appConfig.fontWeight);document.documentElement.style.setProperty("--user-name-font-size",appConfig.userNameFontSize+"px");document.documentElement.style.setProperty("--theme-color",appConfig.color);document.documentElement.style.setProperty("--theme-gradient",`linear-gradient(145deg,${appConfig.color},#333)`);  
- document.getElementById("dashboardWrapper").style.display=appConfig.showDash?"grid":"none";document.getElementById("searchBoxWrapper").style.display=appConfig.showSearch?"block":"none";document.getElementById("redDashboardBox").style.display=appConfig.showRedHighlight?"block":"none";document.getElementById("tenPercentDashboardBox").style.display=appConfig.showRedHighlight?"block":"none";let v=appConfig.showDateFilter&&appConfig.showBlueHighlight;document.getElementById("dateFilterWrapper").style.display=v?"flex":"none";document.getElementById("dateDashboardWrapper").style.display=v?"grid":"none";document.getElementById("ledLight").style.display=appConfig.showCloud?"flex":"none"  
-}  
-function openSettingsPopup(){initConfig();renderCommissionSettings();document.getElementById("settingsPopup").style.display="flex";setTimeout(updatePdfPreview,0)}function closeSettingsPopup(){const sp=document.getElementById("settingsPopup");sp.classList.remove("commission-window-wide");sp.style.display="none"}  
-function saveDataLocally(){ensureLeaderMembership();localStorage.setItem("financeUsersData",JSON.stringify(users));localStorage.setItem("financeLeaderCommissions",JSON.stringify(leaderCommissions));localStorage.setItem("financeLeaderCommissionHistory",JSON.stringify(leaderCommissionHistory));saveLeaders()}  
-let cloudSyncTimer=null,cloudSyncBusy=false,cloudSyncQueued=false;
-function queueCloudSync(){
- saveDataLocally();
- if(!appConfig.showCloud||!CLOUD_URL||CLOUD_URL==="xxx"){
-   document.getElementById("ledLight").classList.remove("connected");
-   return;
- }
- clearTimeout(cloudSyncTimer);
- cloudSyncTimer=setTimeout(()=>sendCloudSync(),350);
-}
-function sendCloudSync(){
- if(cloudSyncBusy){cloudSyncQueued=true;return;}
- if(!appConfig.showCloud||!CLOUD_URL||CLOUD_URL==="xxx")return;
- cloudSyncBusy=true;cloudSyncQueued=false;
- const body="data="+encodeURIComponent(JSON.stringify({users,leaders,leaderCommissions,leaderCommissionHistory}));
- fetch(CLOUD_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded"},body,keepalive:true})
- .catch(()=>{})
- .finally(()=>{
-   cloudSyncBusy=false;
-   if(cloudSyncQueued)sendCloudSync();
- });
-}
-function saveToCloudOnly(){ queueCloudSync(); }
-async function fetchFromCloud(silent=false){
- const led=document.getElementById("ledLight");
- if(!appConfig.showCloud||!CLOUD_URL||CLOUD_URL==="xxx"){
-   led.classList.remove("connected");ensureLeaderMembership();renderUsers();return;
- }
- if(!silent)showLoading(true);
- try{
-   let r=await fetch(CLOUD_URL,{cache:"no-store"});if(!r.ok)throw new Error("Cloud HTTP "+r.status);let d=await r.json();
-   if(Array.isArray(d))users=d;
-   else if(d&&Array.isArray(d.users)){users=d.users;if(Array.isArray(d.leaders))leaders=d.leaders;if(d.leaderCommissions&&typeof d.leaderCommissions==="object"&&!Array.isArray(d.leaderCommissions))leaderCommissions=d.leaderCommissions;if(Array.isArray(d.leaderCommissionHistory))leaderCommissionHistory=d.leaderCommissionHistory;localStorage.setItem("financeLeaderCommissionHistory",JSON.stringify(leaderCommissionHistory));}
-   localStorage.setItem("financeLeaderCommissions",JSON.stringify(leaderCommissions));
-   ensureLeaderMembership();renderUsers();led.classList.add("connected");
- }catch(e){
-   led.classList.remove("connected");ensureLeaderMembership();renderUsers();
- }finally{if(!silent)showLoading(false);}
-}  
-function formatDate(d){if(!d)return"";let x=new Date(d);if(isNaN(x))return String(d);return `${x.getDate()}-${x.getMonth()+1}-${String(x.getFullYear()).slice(2)}`}  
-function getBalance(u){return(u.transactions||[]).reduce((a,t)=>a+Number(t.credit||0)-Number(t.debit||0),0)}  
-function isRed(u){if(!u.transactions?.length)return false;let td=localDate();return u.transactions.some(t=>{let d=String(t.date||"").split("T")[0],c=String(t.credit??"").trim(),db=String(t.debit??"").trim();return d&&d<=td&&!c&&!db})}  
-function getTenPercent(u){if(!isRed(u))return 0;return(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.debit||0))*0.10,0)}  
-function addLeaderCommission(leaderId,debit){
-  const lid=String(leaderId||"").trim(),amount=Math.max(0,Number(debit||0))*0.01;
-  if(!lid||!amount)return;
-  leaderCommissions[lid]=Math.max(0,Number(leaderCommissions[lid]||0))+amount;
-  localStorage.setItem("financeLeaderCommissions",JSON.stringify(leaderCommissions));
-}
-function getLeaderCommission(lid){return Math.max(0,Number(leaderCommissions[String(lid||"")]||0));}
-function totalLeaderCommission(){return leaders.reduce((s,l)=>s+getLeaderCommission(l.id),0);}
-function renderCommissionSettings(){const box=document.getElementById("leaderCommissionSettings");if(!box)return;const active=leaders.filter(l=>getLeaderCommission(l.id)>0);if(!active.length){box.innerHTML='<div style="padding:16px;border:1px dashed #555;border-radius:10px;color:#aaa;text-align:center">Commission உள்ள Leader எதுவும் இல்லை.</div>';return;}box.innerHTML='<div class="commission-names-only">'+active.map(l=>`<button type="button" class="commission-name-only" onclick="openCommissionHistory('${jsq(l.id)}')">👑 ${esc(l.name)}</button>`).join('')+'</div>';}
-function clearLeaderCommission(lid){const l=leaders.find(x=>x.id===lid);if(!l)return;if(!confirm('"'+l.name+'" Leader-ன் சேமித்த 1% Commission amount-ஐ மட்டும் Delete செய்யவா? History பாதுகாப்பாக இருக்கும்.'))return;delete leaderCommissions[lid];localStorage.setItem("financeLeaderCommissions",JSON.stringify(leaderCommissions));renderCommissionSettings();refreshLeaderDashboard();if(currentLeaderIndex===lid)renderLeaderDetail();saveToCloudOnly();}
-function commissionHistoryForLeader(lid){return leaderCommissionHistory.filter(x=>x.leaderId===lid).slice().sort((a,b)=>String(b.date).localeCompare(String(a.date)))}
-function renderCommissionHistoryPanel(){const box=document.getElementById('commissionHistoryPanel');if(!box)return;box.innerHTML='<div style="padding:14px;color:#aaa;text-align:center">ஒரு Leader-ஐ மேலே click செய்தால் முழு Commission History இங்கே திறக்கும்.</div>';}
-function openCommissionHistory(lid){const l=leaders.find(x=>x.id===lid);if(!l)return;const box=document.getElementById('commissionHistoryPanel');if(!box)return;let rows=commissionHistoryForLeader(lid);box.innerHTML=`<div class="settings-card commission-history-wide"><button class="settings-back" onclick="renderCommissionHistoryPanel()">← Commission List</button><h4>👑 ${esc(l.name)} — Commission History</h4><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div><label>From</label><input type="date" id="commFrom" value="${rows.length?rows[rows.length-1].date:localDate()}"></div><div><label>To</label><input type="date" id="commTo" value="${localDate()}"></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:9px 0"><button class="gold" onclick="renderCommissionHistoryTable('${jsq(lid)}')">View / Refresh</button><button style="background:#555;color:#fff;border:0;border-radius:8px;padding:9px" onclick="selectAllCommissionHistory('${jsq(lid)}')">☑ Select All</button><button style="background:#444;color:#fff;border:0;border-radius:8px;padding:9px" onclick="clearCommissionHistorySelection()">☐ Clear</button><button style="background:#e53935;color:#fff;border:0;border-radius:8px;padding:9px;font-weight:800" onclick="deleteSelectedCommissionHistory('${jsq(lid)}')">🗑 Delete Selected</button><button style="background:#25D366;color:#fff;border:0;border-radius:8px;padding:9px" onclick="shareCommissionHistory('${jsq(lid)}')">WhatsApp</button><button style="background:#1e88e5;color:#fff;border:0;border-radius:8px;padding:9px" onclick="printCommissionHistory('${jsq(lid)}')">🖨 Print</button></div><div id="commissionHistoryTableWrap"></div></div>`;renderCommissionHistoryTable(lid);}
-function filteredCommissionHistory(lid){let f=document.getElementById('commFrom')?.value||'';let t=document.getElementById('commTo')?.value||localDate();return commissionHistoryForLeader(lid).filter(x=>String(x.date)>=f&&String(x.date)<=t)}
-let selectedCommissionHistoryIds=new Set();
-function clearCommissionHistorySelection(){selectedCommissionHistoryIds.clear();document.querySelectorAll('.commission-history-pick').forEach(x=>x.checked=false);let c=document.getElementById('commissionHistorySelectedCount');if(c)c.innerText='0 selected';}
-function selectAllCommissionHistory(lid){selectedCommissionHistoryIds=new Set(filteredCommissionHistory(lid).map(x=>String(x.id)));document.querySelectorAll('.commission-history-pick').forEach(x=>x.checked=true);let c=document.getElementById('commissionHistorySelectedCount');if(c)c.innerText=selectedCommissionHistoryIds.size+' selected';}
-function toggleCommissionHistory(id,on){if(on)selectedCommissionHistoryIds.add(String(id));else selectedCommissionHistoryIds.delete(String(id));let c=document.getElementById('commissionHistorySelectedCount');if(c)c.innerText=selectedCommissionHistoryIds.size+' selected';}
-function deleteSelectedCommissionHistory(lid){let ids=[...selectedCommissionHistoryIds];if(!ids.length)return alert('முதலில் History records-ஐ Select செய்யவும்.');if(!confirm(ids.length+' Commission History records-ஐ Delete செய்யவா?'))return;let idset=new Set(ids);let removed=leaderCommissionHistory.filter(x=>idset.has(String(x.id)));leaderCommissionHistory=leaderCommissionHistory.filter(x=>!idset.has(String(x.id)));let cut=removed.reduce((s,x)=>s+Number(x.commission||0),0);leaderCommissions[String(lid)]=Math.max(0,Number(leaderCommissions[String(lid)]||0)-cut);if(leaderCommissions[String(lid)]<=0)delete leaderCommissions[String(lid)];selectedCommissionHistoryIds.clear();saveDataLocally();renderCommissionSettings();refreshLeaderDashboard();renderCommissionHistoryTable(lid);}
-function renderCommissionHistoryTable(lid){const box=document.getElementById('commissionHistoryTableWrap');if(!box)return;let rows=filteredCommissionHistory(lid),total=rows.reduce((s,x)=>s+Number(x.commission||0),0);box.innerHTML=rows.length?`<div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#aaa;margin:7px 0"><span>Records: ${rows.length} | Total Commission: ₹ ${total.toLocaleString()}</span><span id="commissionHistorySelectedCount">${selectedCommissionHistoryIds.size} selected</span></div><div class="commission-history-scroll"><table class="history-table"><thead><tr><th class="commission-select-cell">✓</th><th>Date</th><th>User</th><th>Debit</th><th>1%</th><th>Description</th></tr></thead><tbody>${rows.map(x=>`<tr><td class="commission-select-cell"><input type="checkbox" class="commission-history-pick" ${selectedCommissionHistoryIds.has(String(x.id))?'checked':''} onchange="toggleCommissionHistory('${jsq(x.id)}',this.checked)"></td><td>${esc(x.date)}</td><td>${esc(x.userName)}</td><td>₹ ${Number(x.debit||0).toLocaleString()}</td><td>₹ ${Number(x.commission||0).toLocaleString()}</td><td>${esc(x.desc||'')}</td></tr>`).join('')}</tbody></table></div>`:'<div style="padding:20px;text-align:center;color:#aaa">இந்த date range-ல் Commission history இல்லை.</div>';}
-function commissionHistoryText(lid){let l=leaders.find(x=>x.id===lid),rows=filteredCommissionHistory(lid);let total=rows.reduce((s,x)=>s+Number(x.commission||0),0);return `Leader: ${l?.name||''}\nCommission History\nFrom: ${document.getElementById('commFrom')?.value||''} To: ${document.getElementById('commTo')?.value||''}\nTotal Commission: ₹ ${total.toLocaleString()}\n\n`+rows.map((x,i)=>`${i+1}. ${x.date} | ${x.userName} | Debit ₹ ${Number(x.debit||0).toLocaleString()} | 1% ₹ ${Number(x.commission||0).toLocaleString()} | ${x.desc||''}`).join('\n');}
-async function shareCommissionHistory(lid){let txt=commissionHistoryText(lid);if(navigator.share){try{await navigator.share({title:'Leader Commission History',text:txt})}catch(e){}}else{await navigator.clipboard.writeText(txt);alert('History copied.')}}
-function printCommissionHistory(lid){let l=leaders.find(x=>x.id===lid),rows=filteredCommissionHistory(lid),total=rows.reduce((s,x)=>s+Number(x.commission||0),0),w=window.open('','_blank');if(!w)return;w.document.write('<html><head><title>Commission History</title><style>body{font-family:Arial;padding:25px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #555;padding:7px;text-align:center}th{background:#eee}h2{margin-bottom:5px}</style></head><body><h2>'+esc(appConfig.title)+'</h2><h3>Leader: '+esc(l?.name||'')+'</h3><p>From: '+esc(document.getElementById('commFrom')?.value||'')+' &nbsp; To: '+esc(document.getElementById('commTo')?.value||'')+' &nbsp; <b>Total Commission: ₹ '+total.toLocaleString()+'</b></p><table><tr><th>Date</th><th>User</th><th>Debit</th><th>1% Commission</th><th>Description</th></tr>'+rows.map(x=>'<tr><td>'+esc(x.date)+'</td><td>'+esc(x.userName)+'</td><td>₹ '+Number(x.debit||0).toLocaleString()+'</td><td>₹ '+Number(x.commission||0).toLocaleString()+'</td><td>'+esc(x.desc||'')+'</td></tr>').join('')+'</table></body></html>');w.document.close();w.print();}
-function getLeaderTenPercent(u){return(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.debit||0))*0.10,0)}  
-function getDebitInDateRange(u,s,e){return(u.transactions||[]).reduce((sum,t)=>{let d=String(t.date||"").split("T")[0],v=Number(t.debit||0);return d>=s&&d<=e&&v>0?sum+v:sum},0)}  
-function getCreditInDateRange(u,s,e){return(u.transactions||[]).reduce((sum,t)=>{let d=String(t.date||"").split("T")[0],v=Number(t.credit||0);return d>=s&&d<=e&&v>0?sum+v:sum},0)}  
-  
-let selectedUserIds=new Set();
-function openMainPDFSelector(){selectedUserIds=new Set(users.map(u=>u.id));renderPDFSelectorModal('users');}
-function pdfSelectorRed(type){let set=type==='users'?selectedUserIds:selectedLeaderIds,items=type==='users'?users:leaders.filter(l=>leaderHasRed(l.id));set.clear();items.forEach(x=>set.add(x.id));document.querySelectorAll('#pdfSelectorPopup .pdf-pick').forEach(c=>{c.checked=set.has(c.dataset.id)});}
-function openLeaderPDFSelector(){selectedLeaderIds=new Set(leaders.map(l=>l.id));renderPDFSelectorModal('leaders');}
-function renderPDFSelectorModal(type){let isUsers=type==='users',items=isUsers?users:leaders;let title=isUsers?'Select Users for PDF':'Select Leaders for PDF';let set=isUsers?selectedUserIds:selectedLeaderIds;let rows=items.map((x,i)=>`<label style="display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid #333"><input type="checkbox" class="pdf-pick" data-id="${jsq(x.id)}" ${set.has(x.id)?'checked':''}><span>${i+1}. ${esc(x.name)}</span></label>`).join('');let pop=document.getElementById('pdfSelectorPopup');if(!pop){pop=document.createElement('div');pop.id='pdfSelectorPopup';pop.className='popup-overlay';document.body.appendChild(pop);}pop.innerHTML=`<div class="popup-content" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color);margin-top:0">📄 ${title}</h3><div style="display:flex;gap:6px;margin-bottom:10px"><button class="gold" onclick="pdfSelectorAll(true,'${type}')">☑ All Select</button><button style="background:#e53935;color:#fff" onclick="pdfSelectorRed('${type}')">🔴 Red Select</button><button style="background:#555;color:#fff" onclick="pdfSelectorAll(false,'${type}')">☐ Clear</button></div><div style="max-height:55vh;overflow:auto;text-align:left">${rows}</div><div style="display:flex;gap:7px;margin-top:12px"><button style="background:#e53935;color:#fff;flex:1;padding:11px;border:0;border-radius:9px;font-weight:bold" onclick="printSelectedPDF('${type}')">🖨 Print</button><button style="background:#555;color:#fff;flex:1;padding:11px;border:0;border-radius:9px" onclick="closePDFSelector()">Close</button></div></div>`;pop.style.display='flex';}
-function pdfSelectorAll(flag,type){let set=type==='users'?selectedUserIds:selectedLeaderIds;document.querySelectorAll('#pdfSelectorPopup .pdf-pick').forEach(c=>{c.checked=flag;if(flag)set.add(c.dataset.id);else set.delete(c.dataset.id)});}
-function syncPDFSelectorSet(type){let set=type==='users'?selectedUserIds:selectedLeaderIds;set.clear();document.querySelectorAll('#pdfSelectorPopup .pdf-pick:checked').forEach(c=>set.add(c.dataset.id));}
-function closePDFSelector(){let p=document.getElementById('pdfSelectorPopup');if(p)p.style.display='none';}
-function printSelectedPDF(type){syncPDFSelectorSet(type);if(type==='users')generateSelectedUsersPDF();else generateSelectedLeadersPDF();closePDFSelector();}
-function selectedUsers(){return users.filter(u=>selectedUserIds.has(u.id));}
-function shareAllUsersWhatsApp(){let arr=users;if(!arr.length)return alert('Users இல்லை.');let txt=`${appConfig.title||'Finance Manager'}\nTotal Users: ${arr.length}\nTotal Balance: ₹ ${arr.reduce((s,u)=>s+getBalance(u),0).toLocaleString()}\n\n`+arr.map((u,i)=>`${i+1}. ${u.name} - ₹ ${getBalance(u).toLocaleString()}`).join('\n');if(navigator.share){navigator.share({title:appConfig.title||'Finance Manager',text:txt}).catch(()=>{})}else{window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank')}}
-function generateSelectedUsersPDF(){let arr=selectedUsers();if(!arr.length)return alert('முதலில் User-களை Select செய்யவும்.');if(!window.jspdf)return alert('PDF library load ஆகவில்லை.');let {jsPDF}=window.jspdf,doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'}),w=doc.internal.pageSize.getWidth(),now=new Date(),bal=arr.reduce((s,u)=>s+getBalance(u),0);doc.setFont('helvetica','bold');doc.setFontSize(+appConfig.pdfBannerLeft||14);doc.text(String(appConfig.title||'FINANCE MANAGER'),10,14);doc.setFontSize(+appConfig.pdfBannerRight||10);doc.text(now.toLocaleString(),w-10,14,{align:'right'});doc.setFontSize(+appConfig.pdfTotals||12);doc.text('TOTAL USERS: '+arr.length,w-10,21,{align:'right'});doc.text('TOTAL BALANCE: Rs. '+bal.toLocaleString(),w-10,28,{align:'right'});let rows=arr.map(u=>[u.name||'',u.mobile||'',(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.credit||0)),0).toLocaleString(),(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.debit||0)),0).toLocaleString(),getBalance(u).toLocaleString()]);doc.autoTable({startY:34,head:[['USER','MOBILE','CREDIT','DEBIT','BALANCE']],body:rows,theme:'grid',styles:{fontSize:+appConfig.pdfTransaction||11,cellPadding:Math.max(.5,(+appConfig.pdfTransactionBox||8)/4),fontStyle:appConfig.pdfTransactionBold===false?'normal':'bold'},headStyles:{fontSize:+appConfig.pdfTableHeader||12}});doc.save('Finance_Manager_Selected.pdf');}
-
-function renderUsers(){  
- ensureLeaderMembership();let search=(document.getElementById("userSearch").value||"").toLowerCase().trim(),list=document.getElementById("userList");list.innerHTML="";let total=0,rc=0,ten=0,cr=0,db=0,crUsers=new Set(),dbUsers=new Set(),s=document.getElementById("filterStartDate").value,e=document.getElementById("filterEndDate").value;  
- users.forEach(u=>{total+=getBalance(u);if(isRed(u)){rc++;ten+=getTenPercent(u)};(u.transactions||[]).forEach(t=>{let d=String(t.date||"").split("T")[0],cv=Number(t.credit||0),dv=Number(t.debit||0);if(d>=s&&d<=e){if(cv>0){cr+=cv;crUsers.add(u.id)}if(dv>0){db+=dv;dbUsers.add(u.id)}}})});  
- document.getElementById("totalUsers").innerText=users.length;document.getElementById("totalBalance").innerText="₹ "+total.toLocaleString();document.getElementById("redUsersCount").innerText=rc;document.getElementById("tenPercentTotal").innerText="₹ "+ten.toLocaleString();document.getElementById("dateTotalCredit").innerText=crUsers.size+" / ₹ "+cr.toLocaleString();document.getElementById("dateTotalDebit").innerText=dbUsers.size+" / ₹ "+db.toLocaleString();  
- let f=users.filter(u=>(u.name||"").toLowerCase().includes(search)||(u.mobile||"").toLowerCase().includes(search));  
- f.sort((a,b)=>{let redA=appConfig.showRedHighlight&&isRed(a),redB=appConfig.showRedHighlight&&isRed(b),blueA=!redA&&appConfig.showBlueHighlight&&appConfig.showDateFilter&&getDebitInDateRange(a,s,e)>0,blueB=!redB&&appConfig.showBlueHighlight&&appConfig.showDateFilter&&getDebitInDateRange(b,s,e)>0,groupA=redA?0:blueA?1:2,groupB=redB?0:blueB?1:2;return groupA-groupB||Math.abs(getBalance(a))-Math.abs(getBalance(b))||((b.transactions||[]).filter(t=>Number(t.credit||0)>0).length-(a.transactions||[]).filter(t=>Number(t.credit||0)>0).length)});  
- f.forEach(u=>{let i=users.indexOf(u),red=appConfig.showRedHighlight&&isRed(u),da=getDebitInDateRange(u,s,e),blue=appConfig.showBlueHighlight&&appConfig.showDateFilter&&da>0,card=document.createElement("div");card.className="user-card"+(red?" redbg":blue?" bluebg":"");card.onclick=()=>openUser(i);card.innerHTML=`<div class="row"><div style="display:flex;align-items:center"><div style="min-width:0;max-width:100%"><b class="user-name-main" style="font-size:${Math.max(8,Math.min(Number(appConfig.userNameFontSize||16),String(u.name||"").length>20?11:String(u.name||"").length>16?12:16))}px">${esc(u.name)}</b><br><small>${esc(u.mobile||"")}</small></div></div><div style="font-weight:bold">₹ ${getBalance(u).toLocaleString()}</div></div><button class="menu-dot-btn" onclick="triggerActionMenu(event,${i},'${jsq(u.name)}')">&#8942;</button>`;list.appendChild(card)})  
-}  
-function esc(x){return String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}function jsq(x){return String(x??"").replace(/\\/g,"\\\\").replace(/'/g,"\\'")}  
-function triggerActionMenu(e,i,n){e.stopPropagation();openActionPopup(n,i)}function openActionPopup(n,i){document.getElementById("popupTitle").innerText=n;document.getElementById("actionPopup").style.display="flex";document.getElementById("editBtn").onclick=()=>editUser(i);document.getElementById("deleteBtn").onclick=()=>deleteUser(i)}function closeActionPopup(){document.getElementById("actionPopup").style.display="none"}  
-  
-function openUser(i,fromLeader=false){  
- currentUser=i;returnToLeaderDetail=!!fromLeader;document.getElementById("mainScreen").classList.add("hidden");document.getElementById("leaderScreen").classList.add("hidden");document.getElementById("leaderDetailScreen").classList.add("hidden");document.getElementById("userScreen").classList.remove("hidden");renderTransactions()  
-}  
-function goBack(){  
- document.getElementById("userScreen").classList.add("hidden");  
- if(returnToLeaderDetail){returnToLeaderDetail=false;document.getElementById("leaderDetailScreen").classList.remove("hidden");renderLeaderDetail()}  
- else{document.getElementById("mainScreen").classList.remove("hidden");renderUsers()}  
-}  
-function toggleEntryRedDate(){const area=document.getElementById("entryRedDateArea"),opening=area.style.display==="none"||!area.style.display;area.style.display=opening?"block":"none";if(opening&&!document.getElementById("tRedDate").value)document.getElementById("tRedDate").value=localDate();if(!opening)document.getElementById("tRedDate").value=""}
-function resetEntryRedDate(){document.getElementById("entryRedDateArea").style.display="none";document.getElementById("tRedDate").value="";}
-function openEntryForm(){document.getElementById("tDate").value=localDate();document.getElementById("tDesc").value="";document.getElementById("tCredit").value="";document.getElementById("tDebit").value="";editIndex=null;resetEntryRedDate();document.getElementById("entryPopup").style.display="flex"}function closeEntryForm(){document.getElementById("entryPopup").style.display="none";editIndex=null;resetEntryRedDate()}  
-async function saveTransaction(){let d=document.getElementById("tDate").value;if(!d)return alert("Date is required!");let u=users[currentUser];u.transactions=Array.isArray(u.transactions)?u.transactions:[];let redArea=document.getElementById("entryRedDateArea"),redDate=redArea.style.display!=="none"?document.getElementById("tRedDate").value:"";if(redArea.style.display!=="none"&&!redDate)return alert("RED தேதி தேர்வு செய்யவும்!");let tx={date:d,desc:document.getElementById("tDesc").value,credit:document.getElementById("tCredit").value,debit:document.getElementById("tDebit").value};if(editIndex===null){const isZeroTransaction=t=>{const credit=Number(t.credit||0),debit=Number(t.debit||0);return credit===0&&debit===0;};const isNoEntryPlaceholder=t=>{const label=String(t.desc||"").trim().toUpperCase().replace(/[\s_-]+/g," ");return ["NO ENTRY","NO ENTRY TRANSACTION","NO ENTRY TRANSLATION","NO ENTRY TXN","NO ENTRY RECORD","RED DATE"].includes(label)||t.redDateOnly===true;};/* Same user + same date + zero credit/debit: update that existing row instead of creating another transaction. */const placeholderIndex=u.transactions.findIndex(t=>String(t.date||"").split("T")[0]===d&&isZeroTransaction(t));if(placeholderIndex>=0){u.transactions[placeholderIndex]={...tx};/* Remove duplicate zero-value placeholder rows for the same date, but never remove real credit/debit transactions. */for(let i=u.transactions.length-1;i>=0;i--){if(i!==placeholderIndex&&String(u.transactions[i].date||"").split("T")[0]===d&&isZeroTransaction(u.transactions[i])&&isNoEntryPlaceholder(u.transactions[i]))u.transactions.splice(i,1);}}else{u.transactions.push(tx);}if(Number(tx.debit||0)>0){let lid=u.leaderId,lead=leaders.find(x=>x.id===lid),amount=Math.max(0,Number(tx.debit||0))*0.01;if(lid&&lead&&amount){addLeaderCommission(lid,tx.debit);leaderCommissionHistory.push({id:"comm_"+Date.now()+"_"+Math.random().toString(36).slice(2,7),date:tx.date,userId:u.id,userName:u.name,leaderId:lid,leaderName:lead.name,debit:Number(tx.debit||0),commission:amount,desc:tx.desc||""});localStorage.setItem("financeLeaderCommissionHistory",JSON.stringify(leaderCommissionHistory));}}}else u.transactions[editIndex]=tx;if(redDate){const alreadyExists=u.transactions.some((t,i)=>i!==editIndex&&String(t.date||"").split("T")[0]===redDate&&!String(t.credit??"").trim()&&!String(t.debit??"").trim()&&(t.redDateOnly===true||String(t.desc||"").toUpperCase()==="RED DATE"));if(!alreadyExists)u.transactions.push({date:redDate,desc:"RED DATE",credit:"",debit:"",redDateOnly:true,redDateBatchKey:`entryRedDate:${u.id}:${redDate}`});}closeEntryForm();renderTransactions();refreshLeaderDashboard();if(returnToLeaderDetail)renderLeaderDetail();await saveToCloudOnly()}  
-function renderTransactions(){let u=users[currentUser];u.transactions=u.transactions||[];u.transactions.sort((a,b)=>new Date(a.date)-new Date(b.date));document.getElementById("profName").innerText=u.name;document.getElementById("profMobile").innerText=u.mobile||"No Mobile";document.getElementById("profLeader").innerText="👑 "+getLeaderName(u);document.getElementById("profBalance").innerText="Bal: ₹"+getBalance(u).toLocaleString();let body=document.getElementById("transactionTable");body.innerHTML="";let bal=0,arr=[];u.transactions.forEach((t,i)=>{let note=!String(t.credit??"").trim()&&!String(t.debit??"").trim();if(!note)bal+=Number(t.credit||0)-Number(t.debit||0);arr.push({...t,cumulative:note?"":bal,actualIdx:i})});arr.reverse().forEach(t=>{let r=document.createElement("tr");let hasCredit=Number(t.credit||0)>0,hasDebit=Number(t.debit||0)>0;r.className=hasCredit?"credit-row":hasDebit?"debit-row":"pending-row";r.innerHTML=`<td>${formatDate(t.date)}</td><td>${esc(t.desc||"")}</td><td>${t.credit||""}</td><td>${t.debit||""}</td><td><b>${t.cumulative!==""?"₹ "+Number(t.cumulative).toLocaleString():""}</b></td>`;setupLongPress(r,()=>openTxActionPopup(t.actualIdx));body.appendChild(r)})}  
-function setupLongPress(el,cb){let tm;const st=()=>tm=setTimeout(cb,800),cl=()=>clearTimeout(tm);el.addEventListener("mousedown",st);el.addEventListener("touchstart",st,{passive:true});["click","mouseout","touchend","touchcancel"].forEach(x=>el.addEventListener(x,cl))}  
-function openTransactionDeleteManager(){const u=users[currentUser];if(!u)return;u.transactions=Array.isArray(u.transactions)?u.transactions:[];const list=document.getElementById("transactionDeleteList");list.innerHTML="";if(!u.transactions.length){list.innerHTML='<div style="color:#aaa;padding:12px">Transactions இல்லை.</div>';}else{u.transactions.map((t,i)=>({t,i})).sort((a,b)=>new Date(b.t.date)-new Date(a.t.date)).forEach(({t,i})=>{const row=document.createElement("label");row.style.cssText="display:flex;gap:9px;align-items:flex-start;padding:9px 4px;border-bottom:1px solid #333;font-size:13px;cursor:pointer";const cb=document.createElement("input");cb.type="checkbox";cb.className="tx-delete-check";cb.value=String(i);cb.style.cssText="width:18px;height:18px;flex:0 0 auto;margin:2px 0";cb.onchange=updateTransactionDeleteCount;const details=document.createElement("span");details.style.cssText="flex:1;overflow-wrap:anywhere";details.textContent=`${formatDate(t.date)} • ${t.desc||"Transaction"} • Cr: ${t.credit||"-"} • Db: ${t.debit||"-"}`;row.append(cb,details);list.appendChild(row)});}document.getElementById("transactionDeleteManager").style.display="flex";updateTransactionDeleteCount()}function closeTransactionDeleteManager(){document.getElementById("transactionDeleteManager").style.display="none"}function selectAllTransactionsForDelete(checked){document.querySelectorAll("#transactionDeleteList .tx-delete-check").forEach(cb=>cb.checked=checked);updateTransactionDeleteCount()}function updateTransactionDeleteCount(){const n=document.querySelectorAll("#transactionDeleteList .tx-delete-check:checked").length;document.getElementById("transactionDeleteCount").textContent=`${n} selected`; }async function deleteSelectedTransactions(){const checks=[...document.querySelectorAll("#transactionDeleteList .tx-delete-check:checked")];if(!checks.length)return alert("முதலில் நீக்க வேண்டிய transaction-ஐ select செய்யவும்!");if(!confirm(`தேர்வு செய்த ${checks.length} transaction-களை நிரந்தரமாக delete செய்யவா?`))return;const indexes=checks.map(cb=>Number(cb.value)).sort((a,b)=>b-a);const u=users[currentUser];indexes.forEach(i=>{if(i>=0&&i<u.transactions.length)u.transactions.splice(i,1)});closeTransactionDeleteManager();renderTransactions();refreshLeaderDashboard();if(returnToLeaderDetail)renderLeaderDetail();await saveToCloudOnly();alert("தேர்வு செய்த transaction-கள் delete செய்யப்பட்டன.")}
-function openTxActionPopup(i){document.getElementById("txActionPopup").style.display="flex";document.getElementById("txEditBtn").onclick=()=>{closeTxActionPopup();editTransaction(i)};document.getElementById("txDeleteBtn").onclick=()=>{closeTxActionPopup();deleteTransaction(i)}}function closeTxActionPopup(){document.getElementById("txActionPopup").style.display="none"}  
-function editTransaction(i){let t=users[currentUser].transactions[i];document.getElementById("tDate").value=String(t.date).split("T")[0];document.getElementById("tDesc").value=t.desc||"";document.getElementById("tCredit").value=t.credit||"";document.getElementById("tDebit").value=t.debit||"";editIndex=i;document.getElementById("entryPopup").style.display="flex"}  
-async function deleteTransaction(i){if(confirm("இந்த எண்ட்ரியை நீக்கவா?")){users[currentUser].transactions.splice(i,1);renderTransactions();await saveToCloudOnly();if(returnToLeaderDetail)renderLeaderDetail()}}  
-function leaderOptions(selected){ensureLeaderMembership();return `<option value="" ${!selected?"selected":""}>Unassigned</option>`+leaders.map(l=>`<option value="${esc(l.id)}" ${l.id===selected?"selected":""}>${esc(l.name)}</option>`).join("")}  
-function openUserForm(i=null){editIndex=i;document.getElementById("userFormTitle").innerText=i===null?"Add User":"Edit User";document.getElementById("uName").value=i===null?"":(users[i]?.name||"");document.getElementById("uMobile").value=i===null?"":(users[i]?.mobile||"");document.getElementById("uPassword").value=i===null?"":(users[i]?.password||"");document.getElementById("uLeader").innerHTML=leaderOptions(i===null?(leaders[0]?.id||""):(users[i]?.leaderId||""));document.getElementById("userFormPopup").style.display="flex"}  
-function closeUserForm(){document.getElementById("userFormPopup").style.display="none";editIndex=null}  
-async function saveUserForm(){let n=document.getElementById("uName").value.trim(),m=document.getElementById("uMobile").value.trim(),pw=document.getElementById("uPassword").value.trim(),lid=document.getElementById("uLeader").value;if(!n)return alert("User name is required!");if(editIndex===null)users.push({id:"user_"+Date.now()+"_"+Math.random().toString(36).slice(2,8),name:n,mobile:m,password:pw,leaderId:lid,transactions:[]});else{users[editIndex].name=n;users[editIndex].mobile=m;users[editIndex].password=pw;users[editIndex].leaderId=lid}closeUserForm();renderUsers();refreshLeaderDashboard();await saveToCloudOnly()}  
-function addUser(){openUserForm()}function editUser(i){closeActionPopup();openUserForm(i)}async function deleteUser(i){if(confirm("இந்த யூசரை ஆப்பிலிருந்து நிரந்தரமாக நீக்கவா?")){users.splice(i,1);closeActionPopup();renderUsers();refreshLeaderDashboard();await saveToCloudOnly()}}  
-function exportData(){let a=document.createElement("a");a.href="data:text/json;charset=utf-8,"+encodeURIComponent(JSON.stringify({users,leaders,leaderCommissions,leaderCommissionHistory}));a.download="Finance_Backup_2026.json";a.click()}  
-function allDeleteWithExport(){if(!users.length)return alert("நீக்குவதற்கு டேட்டா எதுவும் இல்லை!");if(confirm("அனைத்து டேட்டாவும் நிரந்தரமாக நீக்கப்படும். முதலில் பேக்கப் எடுக்கப்படும். தொடரலாமா?")){exportData();setTimeout(async()=>{users=[];leaders=[];leaderCommissions={};leaderCommissionHistory=[];saveDataLocally();await saveToCloudOnly();renderUsers();refreshLeaderDashboard();closeSettingsPopup();alert("அனைத்து டேட்டாக்களும் நீக்கப்பட்டது!")},500)}}  
-function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=async x=>{try{let d=JSON.parse(x.target.result);if(Array.isArray(d)){users=d}else{users=Array.isArray(d.users)?d.users:[];leaders=Array.isArray(d.leaders)?d.leaders:leaders;if(d.leaderCommissions&&typeof d.leaderCommissions==="object"&&!Array.isArray(d.leaderCommissions))leaderCommissions=d.leaderCommissions}ensureLeaderMembership();saveDataLocally();renderUsers();refreshLeaderDashboard();await saveToCloudOnly()}catch(err){alert("Invalid backup file")}};r.readAsText(f)}  
-  
-function openLeaderManager(){ensureLeaderMembership();document.getElementById("mainScreen").classList.add("hidden");document.getElementById("userScreen").classList.add("hidden");document.getElementById("leaderDetailScreen").classList.add("hidden");document.getElementById("leaderScreen").classList.remove("hidden");renderLeaderManager()}  
-function closeLeaderScreen(){document.getElementById("leaderScreen").classList.add("hidden");document.getElementById("leaderDetailScreen").classList.add("hidden");document.getElementById("mainScreen").classList.remove("hidden");renderUsers()}  
-function openLeaderCreate(editId=null){document.getElementById("leaderFormTitle").innerText=editId?"Edit Leader":"Create Leader";document.getElementById("leaderNameInput").value=editId?(leaders.find(l=>l.id===editId)?.name||""):"";document.getElementById("leaderCreatePopup").dataset.editId=editId||"";document.getElementById("leaderCreatePopup").style.display="flex"}function openLeaderEdit(id){openLeaderCreate(id)}function closeLeaderCreate(){document.getElementById("leaderCreatePopup").style.display="none"}  
-async function saveLeader(){let n=document.getElementById("leaderNameInput").value.trim(),id=document.getElementById("leaderCreatePopup").dataset.editId;if(!n)return alert("Leader name is required!");if(id){let l=leaders.find(x=>x.id===id);if(l)l.name=n}else{if(leaders.some(l=>l.name.toLowerCase()===n.toLowerCase()))return alert("இந்த Leader பெயர் ஏற்கனவே உள்ளது.");leaders.push({id:"leader_"+Date.now()+"_"+Math.random().toString(36).slice(2,7),name:n,password:""})}closeLeaderCreate();saveLeaders();ensureLeaderMembership();renderLeaderManager();await saveToCloudOnly()}  
-async function deleteLeaderById(id){let l=leaders.find(x=>x.id===id);if(!l||!confirm('"'+l.name+'" Leader-ஐ Delete செய்யவா?'))return;users.forEach(u=>{if(u.leaderId===id)u.leaderId=""});leaders=leaders.filter(x=>x.id!==id);ensureLeaderMembership();saveLeaders();renderLeaderManager();await saveToCloudOnly()}  
-function leaderSortCompare(a,b){let s=document.getElementById("filterStartDate").value,e=document.getElementById("filterEndDate").value;if(appConfig.showRedHighlight){let ar=leaderHasRed(a.id),br=leaderHasRed(b.id);if(ar!==br)return br-ar}if(appConfig.showBlueHighlight&&appConfig.showDateFilter){let ad=leaderDebit(a.id,s,e),bd=leaderDebit(b.id,s,e),ab=ad>0,bb=bd>0;if(ab!==bb)return bb-ab;if(ab&&ad!==bd)return ad-bd}return Math.abs(leaderBalance(a.id))-Math.abs(leaderBalance(b.id))}  
-function refreshLeaderDashboard(){  
- if(!document.getElementById("leaderScreen")||document.getElementById("leaderScreen").classList.contains("hidden"))return;  
- document.getElementById("leaderCount").innerText=leaders.length;  
- let activeLeaders=selectedLeaderIds.size?leaders.filter(l=>selectedLeaderIds.has(l.id)):leaders;let tc=0,td=0,tb=0;activeLeaders.forEach(l=>{tc+=leaderAllCredit(l.id);td+=leaderAllDebit(l.id);tb+=leaderBalance(l.id)});  
- document.getElementById("leaderTotalCredit").innerText="₹ "+tc.toLocaleString();document.getElementById("leaderTotalDebit").innerText="₹ "+td.toLocaleString();document.getElementById("leaderGrandBalance").innerText="₹ "+tb.toLocaleString();let activeCommission=activeLeaders.reduce((sum,l)=>sum+getLeaderCommission(l.id),0);let commissionLeaderCount=activeLeaders.filter(l=>getLeaderCommission(l.id)>0).length;document.getElementById("leaderGrandCommission").innerText="₹ "+activeCommission.toLocaleString();document.getElementById("leaderCommissionLeaderCount").innerText=commissionLeaderCount;document.getElementById("leaderCommissionLeaderCountValue").innerText=commissionLeaderCount;  
-}  
-let selectedLeaderIds=new Set();
-function toggleLeaderDashboardSelection(id,on){if(on)selectedLeaderIds.add(id);else selectedLeaderIds.delete(id);document.getElementById("leaderManagerSelectedCount").innerText=selectedLeaderIds.size+" selected";refreshLeaderDashboard();renderLeaderManager();}
-function shareSelectedLeadersWhatsApp(){let arr=leaders.filter(l=>selectedLeaderIds.has(l.id));if(!arr.length)arr=leaders;let txt=`${appConfig.title||"Finance Manager"}\nSelected Leaders: ${arr.length}\n\n`+arr.map((l,i)=>`${i+1}. ${l.name} - Balance ₹ ${leaderBalance(l.id).toLocaleString()} - Commission ₹ ${getLeaderCommission(l.id).toLocaleString()}`).join("\n");if(navigator.share){navigator.share({title:"Leader List",text:txt}).catch(()=>{})}else{window.open("https://wa.me/?text="+encodeURIComponent(txt),"_blank")}}
-function generateSelectedLeadersPDF(){let arr=leaders.filter(l=>selectedLeaderIds.has(l.id));if(!arr.length)return alert("Leader-களை Select செய்யவும்.");if(!window.jspdf)return alert("PDF library load ஆகவில்லை.");let {jsPDF}=window.jspdf,doc=new jsPDF({orientation:"portrait",unit:"mm",format:"a4"}),w=doc.internal.pageSize.getWidth(),now=new Date();doc.setFont("helvetica","bold");doc.setFontSize(+appConfig.pdfBannerLeft||14);doc.text(String(appConfig.title||"FINANCE MANAGER"),10,14);doc.setFontSize(+appConfig.pdfBannerRight||10);doc.text(now.toLocaleString(),w-10,14,{align:"right"});let rows=arr.map(l=>[l.name,leaderUsers(l.id).length,leaderAllCredit(l.id).toLocaleString(),leaderAllDebit(l.id).toLocaleString(),leaderBalance(l.id).toLocaleString(),getLeaderCommission(l.id).toLocaleString()]);doc.autoTable({startY:24,head:[["LEADER","USERS","CREDIT","DEBIT","BALANCE","1% COMMISSION"]],body:rows,theme:"grid",styles:{fontSize:+appConfig.pdfTransaction||11,cellPadding:Math.max(.5,(+appConfig.pdfTransactionBox||8)/4),fontStyle:appConfig.pdfTransactionBold===false?"normal":"bold"},headStyles:{fontSize:+appConfig.pdfTableHeader||12}});doc.setFontSize(+appConfig.pdfTotals||12);doc.text("Selected Leaders: "+arr.length,10,(doc.lastAutoTable?.finalY||100)+8);doc.save("Leader_List.pdf");}
-function renderLeaderManager(){ensureLeaderMembership();if(!selectedLeaderIds.size)selectedLeaderIds=new Set(leaders.map(x=>x.id));refreshLeaderDashboard();let list=document.getElementById("leaderManagerList");list.innerHTML="";if(!leaders.length){list.innerHTML='<div style="margin:20px;padding:25px;text-align:center;border:1px dashed #777;border-radius:12px;color:#aaa">No Leaders yet.<br><br>Create your first Leader.</div>';return}if(!selectedLeaderIds.size)selectedLeaderIds=new Set(leaders.map(x=>x.id));document.getElementById("leaderManagerSelectedCount").innerText=selectedLeaderIds.size+" selected";leaders.slice().sort(leaderSortCompare).forEach(l=>{let us=leaderUsers(l.id),red=leaderHasRed(l.id),s=document.getElementById("filterStartDate").value,e=document.getElementById("filterEndDate").value,blue=appConfig.showBlueHighlight&&appConfig.showDateFilter&&leaderDebit(l.id,s,e)>0,card=document.createElement("div");card.className="leader-card"+(appConfig.showRedHighlight&&red?" redbg":blue?" bluebg":"");card.innerHTML=`<input type="checkbox" ${selectedLeaderIds.has(l.id)?"checked":""} onclick="event.stopPropagation();toggleLeaderDashboardSelection('${jsq(l.id)}',this.checked)"><div class="lc-main"><b>👑 ${esc(l.name)}</b><div class="lc-commission">Comm ₹ ${getLeaderCommission(l.id).toLocaleString()}</div><small>${us.length} Users</small></div><div class="lc-bal">₹ ${leaderBalance(l.id).toLocaleString()}</div><button onclick="event.stopPropagation();openLeaderEdit('${jsq(l.id)}')" style="background:#ffd700;border:0;border-radius:7px;padding:7px">✏️</button><button onclick="event.stopPropagation();deleteLeaderById('${jsq(l.id)}')" style="background:#e53935;color:#fff;border:0;border-radius:7px;padding:7px">🗑️</button>`;card.onclick=()=>openLeaderDetail(l.id);list.appendChild(card)})}  
-let selectedLeaderUserIds=new Set();  
-function openLeaderDetail(id){ensureLeaderMembership();currentLeaderIndex=id;selectedLeaderUserIds=new Set(leaderUsers(id).map(u=>u.id));document.getElementById("leaderScreen").classList.add("hidden");document.getElementById("leaderDetailScreen").classList.remove("hidden");renderLeaderDetail()}  
-function backToLeaderManager(){document.getElementById("leaderDetailScreen").classList.add("hidden");document.getElementById("leaderScreen").classList.remove("hidden");renderLeaderManager()}  
-function renderLeaderDetail(){  
- let l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;document.getElementById("leaderDetailTitle").innerText="👑 "+l.name;let s=document.getElementById("filterStartDate").value,e=document.getElementById("filterEndDate").value,arr=leaderUsers(l.id).slice().sort((a,b)=>{if(appConfig.showRedHighlight){let x=isRed(a),y=isRed(b);if(x!==y)return y-x}if(appConfig.showBlueHighlight&&appConfig.showDateFilter){let x=getDebitInDateRange(a,s,e),y=getDebitInDateRange(b,s,e),xb=x>0,yb=y>0;if(xb!==yb)return yb-xb;if(xb)return x-y}return Math.abs(getBalance(a))-Math.abs(getBalance(b))});let box=document.getElementById("leaderList");box.innerHTML="";  
- let add=document.createElement("div");add.className="leader-add-users";add.innerHTML='<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="gold" onclick="openLeaderUserPicker()">☑ Select Users & Add</button><input id="leaderFolderSearch" type="text" placeholder="🔍 Search User" oninput="filterLeaderUsersInFolder(this.value)" style="flex:1;min-width:150px;margin:0"></div><span style="display:block;color:#aaa;font-size:12px;margin-top:8px">Users already in this Leader are shown below</span>';box.appendChild(add);  
- arr.forEach((u,idx)=>{let red=appConfig.showRedHighlight&&isRed(u),db=getDebitInDateRange(u,s,e),blue=appConfig.showBlueHighlight&&appConfig.showDateFilter&&db>0,card=document.createElement("div");card.className="leader-card"+(red?" redbg":blue?" bluebg":"");card.dataset.search=((u.name||"")+" "+(u.mobile||"")).toLowerCase();let cb=document.createElement("input");cb.type="checkbox";cb.checked=selectedLeaderUserIds.has(u.id);cb.onchange=()=>{cb.checked?selectedLeaderUserIds.add(u.id):selectedLeaderUserIds.delete(u.id);updateLeaderSummary()};let main=document.createElement("div");main.className="lc-main";main.innerHTML=`<b>${idx+1}. ${esc(u.name)}</b><br><small>${esc(u.mobile||"")}</small>`;let right=document.createElement("div");right.className="lc-right";right.innerHTML=`<div class="lc-balance">₹ ${getBalance(u).toLocaleString()}</div><div class="lc-ten">10% ₹ ${getLeaderTenPercent(u).toLocaleString()}</div>`;card.append(cb,main,right);  
- // NEW: tap/click the farmer card to open the same user profile + entry screen.  
- card.addEventListener("click",e=>{if(e.target===cb)return;openUser(users.indexOf(u),true)});  
- box.appendChild(card)})  
- updateLeaderSummary()  
-}  
-function filterLeaderUsersInFolder(q){const term=String(q||"").toLowerCase().trim();document.querySelectorAll("#leaderList .leader-card").forEach(c=>{c.style.display=!term||c.dataset.search.includes(term)?"flex":"none";});}
-let tenPercentManualIds=new Set();
-function openTenPercentCollection(){const l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;document.getElementById("tenPercentDate").value=localDate();document.getElementById("tenPercentRedDate").value="";document.getElementById("tenPercentDesc").value="10% Collection";document.getElementById("tenPercentMode").value="all";tenPercentManualIds=new Set();document.getElementById("tenPercentCollectionPopup").style.display="flex";updateTenPercentPicker();}
-function closeTenPercentCollection(){document.getElementById("tenPercentCollectionPopup").style.display="none"}
-let redDateManualIds=new Set();
-function openRedDateOnly(){const l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;document.getElementById("redDateValue").value=localDate();document.getElementById("redDateDesc").value="RED DATE";document.getElementById("redDateMode").value="all";redDateManualIds=new Set();document.getElementById("redDateOnlyPopup").style.display="flex";updateRedDatePicker();}
-function closeRedDateOnly(){document.getElementById("redDateOnlyPopup").style.display="none"}
-function updateRedDatePicker(){const mode=document.getElementById("redDateMode").value,box=document.getElementById("redDateManualList"),l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;box.style.display=mode==="manual"?"block":"none";box.innerHTML="";if(mode==="manual"){leaderUsers(l.id).slice().sort((a,b)=>String(a.name||"").localeCompare(String(b.name||""))).forEach(u=>{const label=document.createElement("label");label.style.cssText="display:flex;align-items:center;gap:8px;padding:7px;border-bottom:1px solid #333";const cb=document.createElement("input");cb.type="checkbox";cb.checked=redDateManualIds.has(u.id);cb.onchange=()=>{cb.checked?redDateManualIds.add(u.id):redDateManualIds.delete(u.id);updateRedDatePreview()};label.append(cb,document.createTextNode(u.name||"Unnamed user"));box.appendChild(label);});}updateRedDatePreview();}
-function getRedDateTargetUsers(){const l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return[];const mode=document.getElementById("redDateMode").value,arr=leaderUsers(l.id);if(mode==="red")return arr.filter(isRed);if(mode==="manual")return arr.filter(u=>redDateManualIds.has(u.id));return arr;}
-function updateRedDatePreview(){const arr=getRedDateTargetUsers(),el=document.getElementById("redDatePreview");if(el)el.textContent=`Selected: ${arr.length} users`;}
-async function saveRedDateOnly(){const l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;const date=document.getElementById("redDateValue").value,desc=(document.getElementById("redDateDesc").value||"").trim()||"RED DATE";if(!date)return alert("RED Date தேர்வு செய்யவும்.");const arr=getRedDateTargetUsers();if(!arr.length)return alert("இந்த selection-ல் Users இல்லை.");let added=0,skipped=0;arr.forEach(u=>{u.transactions=Array.isArray(u.transactions)?u.transactions:[];const exists=u.transactions.some(t=>String(t.date||"").split("T")[0]===date&&!String(t.credit??"").trim()&&!String(t.debit??"").trim()&&(t.redDateOnly===true||String(t.desc||"").toUpperCase()==="RED DATE"||String(t.desc||"").toUpperCase()===desc.toUpperCase()));if(exists){skipped++;return;}u.transactions.push({date,desc,credit:"",debit:"",redDateOnly:true,redDateBatchKey:`redDate:${l.id}:${date}`});added++;});if(!added)return alert(`புதிய RED DATE சேர்க்கப்படவில்லை. ${skipped} User-களுக்கு இந்த தேதி ஏற்கெனவே உள்ளது.`);saveDataLocally();closeRedDateOnly();renderLeaderDetail();refreshLeaderDashboard();renderUsers();await saveToCloudOnly();alert(`RED DATE மட்டும் சேமிக்கப்பட்டது. ${added} User-கள் பதிவு செய்யப்பட்டனர்.${skipped?` ${skipped} User duplicate என்பதால் தவிர்க்கப்பட்டனர்.`:""} Credit / Debit மாற்றப்படவில்லை.`);}
-function updateTenPercentPicker(){const mode=document.getElementById("tenPercentMode").value,box=document.getElementById("tenPercentManualList"),l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;box.style.display=mode==="manual"?"block":"none";box.innerHTML="";if(mode==="manual"){leaderUsers(l.id).slice().sort((a,b)=>String(a.name||"").localeCompare(String(b.name||""))).forEach(u=>{const label=document.createElement("label");label.style.cssText="display:flex;align-items:center;gap:8px;padding:7px;border-bottom:1px solid #333";const cb=document.createElement("input");cb.type="checkbox";cb.checked=tenPercentManualIds.has(u.id);cb.onchange=()=>{cb.checked?tenPercentManualIds.add(u.id):tenPercentManualIds.delete(u.id);updateTenPercentPreview()};label.append(cb,document.createTextNode(u.name||"Unnamed user"));box.appendChild(label)});}updateTenPercentPreview();}
-function getTenPercentTargetUsers(){const l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return[];const mode=document.getElementById("tenPercentMode").value,arr=leaderUsers(l.id);if(mode==="red")return arr.filter(isRed);if(mode==="manual")return arr.filter(u=>tenPercentManualIds.has(u.id));return arr;}
-function updateTenPercentPreview(){const arr=getTenPercentTargetUsers(),total=arr.reduce((sum,u)=>sum+(u.transactions||[]).reduce((a,t)=>a+Math.max(0,Number(t.debit||0)),0)*.1,0);const el=document.getElementById("tenPercentPreview");if(el)el.textContent=`Selected: ${arr.length} • Total: ₹${total.toLocaleString()}`;}
-async function applyTenPercentCollection(){const l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;const date=document.getElementById("tenPercentDate").value,redDate=document.getElementById("tenPercentRedDate").value,desc=document.getElementById("tenPercentDesc").value.trim()||"10% Collection";if(!date&&!redDate)return alert("10% Collection அல்லது RED DATE-க்கு தேதியைத் தேர்வு செய்யவும்.");if(date&&!date.trim())return alert("Date தேர்வு செய்யவும்.");const arr=getTenPercentTargetUsers();if(!arr.length)return alert("இந்த selection-ல் Users இல்லை.");const batchKey=`leader10:${l.id}:${date}:${desc.toLowerCase()}`;let added=0,skipped=0,redAdded=0,redSkipped=0;arr.forEach(u=>{u.transactions=Array.isArray(u.transactions)?u.transactions:[];if(redDate){const ix=u.transactions.findIndex(t=>String(t.date||"").split("T")[0]===redDate&&!String(t.credit??"").trim()&&!String(t.debit??"").trim()&&(t.redDateOnly===true||["RED DATE","NO ENTRY","NO-ENTRY","NO ENTRY TRANSACTION"].includes(String(t.desc||"").trim().toUpperCase())));if(ix>=0){u.transactions[ix]={...u.transactions[ix],date:redDate,desc:"RED DATE",credit:"",debit:"",redDateOnly:true,redDateBatchKey:`redDate:${l.id}:${redDate}`};redSkipped++;}else{u.transactions.push({date:redDate,desc:"RED DATE",credit:"",debit:"",redDateOnly:true,redDateBatchKey:`redDate:${l.id}:${redDate}`});redAdded++;}}if(date){if(u.transactions.some(t=>t.collectionBatchKey===batchKey)){skipped++;return;}const debitTotal=u.transactions.reduce((sum,t)=>sum+Math.max(0,Number(t.debit||0)),0);const amount=Math.round((debitTotal*.10+Number.EPSILON)*100)/100;if(amount<=0){skipped++;return;}const isZero=t=>Number(t.credit||0)===0&&Number(t.debit||0)===0;const isPlaceholder=t=>{const label=String(t.desc||"").trim().toUpperCase().replace(/[\s_-]+/g," ");return t.redDateOnly===true||["NO ENTRY","NO ENTRY TRANSACTION","NO ENTRY TRANSLATION","NO ENTRY TXN","NO ENTRY RECORD","RED DATE"].includes(label);};const zeroIndex=u.transactions.findIndex(t=>String(t.date||"").split("T")[0]===date&&isZero(t)&&isPlaceholder(t));const creditTx={date,desc,credit:String(amount),debit:"",collectionBatchKey:batchKey,collectionType:"leader10",leaderId:l.id};if(zeroIndex>=0){u.transactions[zeroIndex]=creditTx;for(let i=u.transactions.length-1;i>=0;i--){if(i!==zeroIndex&&String(u.transactions[i].date||"").split("T")[0]===date&&isZero(u.transactions[i])&&isPlaceholder(u.transactions[i]))u.transactions.splice(i,1);}}else{u.transactions.push(creditTx);}added++;}});if(!added&&!redAdded&&!redSkipped){return alert(`புதிய Credit சேர்க்கப்படவில்லை. Duplicate/₹0 காரணமாக ${skipped} User தவிர்க்கப்பட்டனர்.`);}saveDataLocally();closeTenPercentCollection();renderLeaderDetail();refreshLeaderDashboard();renderUsers();await saveToCloudOnly();alert(`${added?`10% Collection: ${added} User-களுக்கு Credit சேர்க்கப்பட்டது. `:""}${redDate?`RED DATE: ${redAdded} புதிய பதிவு; ${redSkipped} ஏற்கெனவே இருந்த NO ENTRY/RED DATE பதிவுகள் RED DATE ஆக மாற்றப்பட்டன. `:""}${skipped?`${skipped} User-களுக்கு 10% Credit duplicate அல்லது ₹0 என்பதால் தவிர்க்கப்பட்டது.`:""}`);}
-function selectAllLeaderUsers(){  
- let l=leaders.find(x=>x.id===currentLeaderIndex);  
- if(!l)return;  
- let ids=leaderUsers(l.id).map(u=>u.id);  
- let allSelected=ids.length>0&&ids.every(id=>selectedLeaderUserIds.has(id));  
- selectedLeaderUserIds=allSelected?new Set():new Set(ids);  
- renderLeaderDetail();  
-}  
-async function removeSelectedLeaderUsers(){  
- let l=leaders.find(x=>x.id===currentLeaderIndex);  
- if(!l)return;  
- let ids=[...selectedLeaderUserIds];  
- if(!ids.length)return alert("முதலில் நீக்க வேண்டிய User-களை Select செய்யவும்.");  
- if(!confirm(ids.length+" User-களை இந்த Leader-லிருந்து Clear செய்யவா?"))return;  
- users.forEach(u=>{if(ids.includes(u.id)&&u.leaderId===l.id)u.leaderId=""});  
- selectedLeaderUserIds=new Set();  
- ensureLeaderMembership();  
- saveDataLocally();  
- saveLeaders();  
- renderLeaderDetail();  
- refreshLeaderDashboard();  
- await saveToCloudOnly();  
-}  
-function selectedLeaderUsers(){return users.filter(u=>selectedLeaderUserIds.has(u.id))}  
-function clearLeaderSelection(){selectedLeaderUserIds=new Set();renderLeaderDetail()}
-function updateLeaderSummary(){let arr=selectedLeaderUsers(),bal=arr.reduce((s,u)=>s+getBalance(u),0),ten=arr.reduce((s,u)=>s+getLeaderTenPercent(u),0);document.getElementById("leaderSelectedCount").innerText=arr.length;let tc=document.getElementById("leaderToolbarCount");if(tc)tc.innerText=arr.length+" selected";document.getElementById("leaderTotalBalance").innerText="₹ "+bal.toLocaleString();document.getElementById("leaderTenTotal").innerText="₹ "+ten.toLocaleString();let el=document.getElementById("leaderCommissionDetail");if(el)el.innerText="₹ "+getLeaderCommission(currentLeaderIndex).toLocaleString()}  
-let pickerUserIds=new Set();  
-function openLeaderUserPicker(){pickerUserIds=new Set();let l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;let box=document.getElementById("leaderUserPickerList");box.innerHTML="";let available=users.filter(u=>!u.leaderId);if(!available.length)box.innerHTML='<div style="padding:15px;text-align:center;color:#aaa">All available Users are already assigned to a Leader.</div>';available.slice().sort((a,b)=>Math.abs(getBalance(a))-Math.abs(getBalance(b))||((b.transactions||[]).filter(t=>Number(t.credit||0)>0).length-(a.transactions||[]).filter(t=>Number(t.credit||0)>0).length)).forEach((u,idx)=>{let row=document.createElement("label");row.style.cssText="display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid #333;cursor:pointer";row.innerHTML=`<input type="checkbox" data-pick-user="${jsq(u.id)}"><span>${idx+1}. ${esc(u.name)} <small style="color:#aaa">₹ ${getBalance(u).toLocaleString()}</small></span>`;box.appendChild(row)});document.getElementById("leaderUserPickerPopup").style.display="flex"}  
-function closeLeaderUserPicker(){document.getElementById("leaderUserPickerPopup").style.display="none"}function togglePicker(flag){document.querySelectorAll("#leaderUserPickerList input[type=checkbox]").forEach(x=>x.checked=flag)}  
-async function addPickedUsersToLeader(){let l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;let picks=[...document.querySelectorAll("#leaderUserPickerList input[type=checkbox]:checked")].map(x=>x.dataset.pickUser);if(!picks.length)return alert("User-களை Select செய்யவும்.");users.forEach(u=>{if(picks.includes(u.id))u.leaderId=l.id});closeLeaderUserPicker();saveDataLocally();renderLeaderDetail();await saveToCloudOnly()}  
-function openLeaderDetailPDFSelector(){let l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;selectedLeaderUserIds=new Set(leaderUsers(l.id).map(u=>u.id));let items=leaderUsers(l.id),pop=document.getElementById('pdfSelectorPopup');if(!pop){pop=document.createElement('div');pop.id='pdfSelectorPopup';pop.className='popup-overlay';document.body.appendChild(pop);}pop.innerHTML=`<div class="popup-content" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color);margin-top:0">📄 ${esc(l.name)} — Select Users</h3><div style="display:flex;gap:6px;margin-bottom:10px"><button class="gold" onclick="detailPdfAll(true)">☑ All Select</button><button style="background:#e53935;color:#fff" onclick="detailPdfRed()">🔴 Red Select</button><button style="background:#555;color:#fff" onclick="detailPdfAll(false)">☐ Clear</button></div><div style="max-height:55vh;overflow:auto;text-align:left">${items.map((u,i)=>`<label style="display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid #333"><input type="checkbox" class="detail-pdf-pick" data-id="${jsq(u.id)}" checked><span>${i+1}. ${esc(u.name)} — ₹ ${getBalance(u).toLocaleString()}</span></label>`).join('')}</div><div style="display:flex;gap:7px;margin-top:12px"><button style="background:#e53935;color:#fff;flex:1;padding:11px;border:0;border-radius:9px;font-weight:bold" onclick="printLeaderDetailPDF()">🖨 Print</button><button style="background:#555;color:#fff;flex:1;padding:11px;border:0;border-radius:9px" onclick="closePDFSelector()">Close</button></div></div>`;pop.style.display='flex';}
-function detailPdfAll(flag){document.querySelectorAll('#pdfSelectorPopup .detail-pdf-pick').forEach(c=>{c.checked=flag;if(flag)selectedLeaderUserIds.add(c.dataset.id);else selectedLeaderUserIds.delete(c.dataset.id)});}
-function detailPdfRed(){selectedLeaderUserIds=new Set(leaderUsers(currentLeaderIndex).filter(isRed).map(u=>u.id));document.querySelectorAll('#pdfSelectorPopup .detail-pdf-pick').forEach(c=>c.checked=selectedLeaderUserIds.has(c.dataset.id));}
-function printLeaderDetailPDF(){selectedLeaderUserIds=new Set([...document.querySelectorAll('#pdfSelectorPopup .detail-pdf-pick:checked')].map(c=>c.dataset.id));generateLeaderPDF();closePDFSelector();}
-function generateLeaderPDF(){
- if(!window.jspdf)return alert("PDF library load ஆகவில்லை.");
- let l=leaders.find(x=>x.id===currentLeaderIndex),arr=selectedLeaderUsers();
- if(!l)return;if(!arr.length)return alert("PDF-க்கு குறைந்தது ஒரு User-ஐ Select செய்யவும்.");
- let {jsPDF}=window.jspdf,doc=new jsPDF({orientation:"portrait",unit:"mm",format:"a4"}),w=doc.internal.pageSize.getWidth(),bal=arr.reduce((s,u)=>s+getBalance(u),0),ten=arr.reduce((s,u)=>s+getLeaderTenPercent(u),0),loanTotal=arr.reduce((s,u)=>s+(u.transactions||[]).reduce((a,t)=>a+Math.max(0,Number(t.debit||0)),0),0),now=new Date(),dateTime=now.toLocaleString(),fs=Math.max(8,Math.min(30,Number(appConfig.pdfFontSize||14)));
- let titleSize=fs+10,smallSize=fs,tableSize=fs;
- doc.setFont("helvetica","bold");doc.setFontSize(titleSize);doc.text(String(appConfig.title||"FINANCE MANAGER"),w/2,14,{align:"center"});
- doc.setFontSize(smallSize);doc.text(dateTime,w-10,23,{align:"right"});
- doc.text("LEADER",10,32);doc.setFontSize(fs+2);doc.text(String(l.name||""),10,40);
- doc.setFontSize(smallSize);doc.text("DUE AMOUNT Rs. "+ten.toLocaleString(),10,48);
- doc.setFontSize(smallSize);doc.text("TOTAL USERS "+arr.length,w-10,32,{align:"right"});doc.text("TOTAL LOAN Rs. "+loanTotal.toLocaleString(),w-10,40,{align:"right"});doc.text("TOTAL BALANCE Rs. "+bal.toLocaleString(),w-10,48,{align:"right"});
- let rows=arr.map(u=>{let d=(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.debit||0)),0),cr=(u.transactions||[]).filter(t=>Math.max(0,Number(t.credit||0))>0).length,c=(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.credit||0)),0);return{user:u,loan:d,entry:cr,credit:c,balance:getBalance(u),due:d*.1}}).sort((a,b)=>Math.abs(a.balance)-Math.abs(b.balance)||b.entry-a.entry).map(r=>[r.user.name||"",r.loan.toLocaleString(),r.entry.toString(),r.credit.toLocaleString(),r.balance.toLocaleString(),r.due.toLocaleString()]);
- doc.autoTable({startY:66,margin:{left:10,right:10},tableWidth:w-20,head:[["USER","LOAN","ENTRY","CREDIT","BALANCE","10%"]],body:rows,theme:"grid",styles:{fontSize:tableSize,cellPadding:{top:Math.max(2,fs/3),bottom:Math.max(2,fs/3),left:2,right:2},fontStyle:appConfig.pdfTransactionBold===false?"normal":"bold",textColor:[20,20,20],lineColor:[90,90,90],lineWidth:0.3,overflow:"linebreak"},headStyles:{fontSize:tableSize,fontStyle:"bold",fillColor:[235,235,235],textColor:[20,20,20],halign:"center",valign:"middle"},columnStyles:{0:{cellWidth:70,halign:"left"},1:{cellWidth:25,halign:"right"},2:{cellWidth:18,halign:"center"},3:{cellWidth:20,halign:"right"},4:{cellWidth:29,halign:"right"},5:{cellWidth:20,halign:"right"}}});
- doc.save("Finance_Manager_"+String(l.name||"Leader").replace(/[^a-z0-9_-]/gi,"_")+".pdf");
-}
-async function shareLeaderSummary(){let l=leaders.find(x=>x.id===currentLeaderIndex),arr=selectedLeaderUsers();if(!l||!arr.length)return alert("முதலில் User-களை Select செய்யவும்.");let bal=arr.reduce((s,u)=>s+getBalance(u),0),ten=arr.reduce((s,u)=>s+getLeaderTenPercent(u),0),msg=`Leader: ${l.name}\nSelected Users: ${arr.length}\nTotal Balance: ₹ ${bal.toLocaleString()}\n10% Total: ₹ ${ten.toLocaleString()}\nGrand Total: ₹ ${(bal+ten).toLocaleString()}\n\n`+arr.map((u,i)=>`${i+1}. ${u.name} - ₹ ${getBalance(u).toLocaleString()}`).join("\n");if(navigator.share){try{await navigator.share({title:l.name+" Report",text:msg})}catch(e){}}else{await navigator.clipboard.writeText(msg);alert("Summary copied.")}}  
-  
-
-const ADMIN_PASSWORD="1982";
-function submitAdminLogin(){
- const input=document.getElementById("adminPassword"),err=document.getElementById("loginError");
- if(input.value!==ADMIN_PASSWORD){err.textContent="Password தவறு. மீண்டும் முயற்சிக்கவும்.";input.value="";input.focus();const card=document.getElementById("loginCard");card.animate([{transform:"translateX(0)"},{transform:"translateX(-7px)"},{transform:"translateX(7px)"},{transform:"translateX(0)"}],{duration:260});return;}
- err.textContent="";
- document.getElementById("loginCard").classList.add("hidden");
- document.getElementById("loginTransition").classList.remove("hidden");
- setTimeout(()=>{document.getElementById("loginGate").classList.add("hidden");document.getElementById("appWrapper").style.visibility="visible";},1550);
-}
-// Reliable login button binding for desktop browsers and embedded WebViews.
-(function bindAdminLoginButton(){
- const bind=()=>{
-  const btn=document.getElementById("adminLoginBtn"), input=document.getElementById("adminPassword");
-  if(btn && !btn.dataset.loginBound){btn.dataset.loginBound="1";btn.addEventListener("click",function(ev){ev.preventDefault();try{submitAdminLogin();}catch(e){const err=document.getElementById("loginError");if(err)err.textContent="Login error. Please reload the app.";console.error(e);}});}
-  if(input && !input.dataset.loginEnterBound){input.dataset.loginEnterBound="1";input.addEventListener("keydown",function(ev){if(ev.key==="Enter"){ev.preventDefault();submitAdminLogin();}});}
- };
- if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",bind,{once:true});else bind();
-})();
-function signOutAdmin(){
- const gate=document.getElementById("loginGate"), app=document.getElementById("appWrapper");
- gate.classList.remove("hidden");
- document.getElementById("loginCard").classList.remove("hidden");
- document.getElementById("loginTransition").classList.add("hidden");
- document.getElementById("adminPassword").value="";
- document.getElementById("loginError").textContent="";
- app.style.visibility="hidden";
- document.getElementById("adminPassword").focus();
-}
-function tryAdminBiometric(){
- const err=document.getElementById("loginError");
- if(window.isSecureContext && window.PublicKeyCredential && navigator.credentials){
-   err.textContent="Fingerprint sign-in is not configured yet. It requires secure HTTPS hosting and a registered device credential. Please use Admin Password.";
- }else{
-   err.textContent="Fingerprint sign-in requires secure HTTPS hosting and a registered device credential. Please use Admin Password.";
- }
-}
-document.addEventListener("keydown",e=>{if(e.key==="Enter"&&!document.getElementById("loginGate").classList.contains("hidden"))submitAdminLogin();});
-window.addEventListener("input",e=>{if(e.target&&["tenPercentDate","tenPercentDesc"].includes(e.target.id))updateTenPercentPreview();});
-window.onload=()=>{try{ensureLeaderMembership();initConfig();renderUsers();setTimeout(()=>{try{fetchFromCloud(true)}catch(e){console.error("Cloud startup error",e)}},300)}catch(e){console.error("APP STARTUP ERROR",e);try{applyConfigUI()}catch(_){}try{renderUsers()}catch(_){}alert("App startup error. Local data was not deleted. Please reload once.")}}  
-</script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
-<script>
-
-
-
-// The header sign-out control is intentionally invisible but remains clickable.
-
-</script>  
-<style id="accessible-action-buttons-fix">
-button:not(#signOutBtn):not(#bannerTransactionDeleteBtn):not(.menu-dot-btn){min-height:44px;padding:10px 14px;font-size:max(14px,calc(var(--app-font-size,16px) - 1px));line-height:1.2;font-weight:700;}
-.top-buttons button{min-height:44px;padding:9px 4px;font-size:max(11px,calc(var(--app-font-size,16px) - 4px));white-space:normal;overflow-wrap:anywhere;}
-.leader-toolbar button,.leader-add-users button,.prof-header-buttons button,.popup-content button{min-height:44px;padding:11px 14px;}
-@media(max-width:480px){button:not(#signOutBtn):not(#bannerTransactionDeleteBtn):not(.menu-dot-btn){min-height:46px;padding:11px 12px;}.top-buttons{gap:5px;}.top-buttons button{min-height:44px;padding:8px 2px;font-size:max(10px,calc(var(--app-font-size,16px) - 5px));}}
-</style>
-</body>  
-</html>
-
-
-<style id="user-back-to-entry-equal-height-plus-10">
-/* User screen: Back through Entry buttons have the same height, increased by 10%; widths stay unchanged. */
-#userScreen .prof-header-buttons button {
-  height: 48.4px !important;
-  min-height: 48.4px !important;
-  max-height: 48.4px !important;
-  box-sizing: border-box !important;
-  padding-top: 8px !important;
-  padding-bottom: 8px !important;
-}
-</style>
-<style id="dashboard-button-layout-fix-final">
-/* Main dashboard: five equal buttons; labels wrap inside the button */
-.top-buttons{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:6px!important;align-items:stretch!important;width:100%!important;box-sizing:border-box!important;}
-.top-buttons>button{width:100%!important;min-width:0!important;min-height:64px!important;height:auto!important;box-sizing:border-box!important;padding:7px 2px!important;display:flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;white-space:normal!important;overflow-wrap:break-word!important;word-break:normal!important;line-height:1.12!important;font-size:clamp(10px,2.8vw,14px)!important;font-weight:800!important;}
-/* Leader dashboard: exactly five equal buttons, no sixth blank/count slot */
-.leader-toolbar{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:6px!important;flex-wrap:nowrap!important;align-items:stretch!important;width:100%!important;box-sizing:border-box!important;}
-.leader-toolbar>button{width:100%!important;min-width:0!important;max-width:100%!important;min-height:78px!important;height:auto!important;box-sizing:border-box!important;padding:7px 2px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;text-align:center!important;white-space:normal!important;overflow-wrap:anywhere!important;word-break:normal!important;line-height:1.12!important;font-size:clamp(9px,2.35vw,12px)!important;font-weight:800!important;}
-.leader-toolbar .selected-count{display:none!important;}
-.leader-toolbar>button:nth-child(3){font-size:clamp(10px,2.5vw,13px)!important;}
-</style>
+%PDF-1.3
+%ºß¬à
+3 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 4 0 R
+>>
+endobj
+4 0 obj
+<<
+/Length 9435
+>>
+stream
+0.5670000000000001 w
+0 G
+BT
+/F2 21.5 Tf
+24.7249999999999979 TL
+0 g
+221.5299999999999443 802.2049606299212883 Td
+(S-PLUS -LOAN) Tj
+ET
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0 g
+443.7685433070865884 776.69314960629913 Td
+(11/10/2026, 1:04:26 pm) Tj
+ET
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0 g
+28.3464566929133888 751.1813385826771992 Td
+(LEADER) Tj
+ET
+BT
+/F2 13.5 Tf
+15.5249999999999986 TL
+0 g
+28.3464566929133888 728.5041732283464171 Td
+(KARTHIKAYANI) Tj
+ET
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0 g
+28.3464566929133888 705.8270078740157487 Td
+(DUE AMOUNT Rs. 7,000) Tj
+ET
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0 g
+476.5435433070865088 751.1813385826771992 Td
+(TOTAL USERS 5) Tj
+ET
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0 g
+433.7635433070864792 728.5041732283464171 Td
+(TOTAL LOAN Rs. 70,000) Tj
+ET
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0 g
+406.5085433070864838 705.8270078740157487 Td
+(TOTAL BALANCE Rs. -46,000) Tj
+ET
+0. G
+0.5670000000000001 w
+0. G
+0.5670000000000001 w
+0.92 g
+0.35 G
+0.8503937007874016 w
+0.92 g
+28.3464566929133888 654.8033858267716596 198.4251968503937178 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+111.6890551181102609 634.1622440944881873 Td
+(USER) Tj
+ET
+0.92 g
+0.35 G
+0.8503937007874016 w
+0.92 g
+226.7716535433071101 654.8033858267716596 70.8661417322834666 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+245.9322244094488497 634.1622440944881873 Td
+(LOAN) Tj
+ET
+0.92 g
+0.35 G
+0.8503937007874016 w
+0.92 g
+297.6377952755905767 654.8033858267716596 51.0236220472441033 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+303.7721062992126235 634.1622440944881873 Td
+(ENTRY) Tj
+ET
+0.92 g
+0.35 G
+0.8503937007874016 w
+0.92 g
+348.6614173228346658 654.8033858267716596 56.6929133858267775 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+355.6753740157481047 634.1622440944881873 Td
+(CREDIT) Tj
+ET
+0.92 g
+0.35 G
+0.8503937007874016 w
+0.92 g
+405.3543307086614504 654.8033858267716596 82.2047244094488292 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+418.4541929133858957 634.1622440944881873 Td
+(BALANCE) Tj
+ET
+0.92 g
+0.35 G
+0.8503937007874016 w
+0.92 g
+487.5590551181102796 654.8033858267716596 56.6929133858267775 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+504.4630118110236481 634.1622440944881873 Td
+(10%) Tj
+ET
+0. G
+0.5670000000000001 w
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+28.3464566929133888 619.8461023622047605 198.4251968503937178 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+34.0157480314960665 599.2049606299212883 Td
+(PALANIYAMAL- MKP) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+226.7716535433071101 619.8461023622047605 70.8661417322834666 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+257.1235039370079107 599.2049606299212883 Td
+(10,000) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+297.6377952755905767 619.8461023622047605 51.0236220472441033 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+319.9871062992126554 599.2049606299212883 Td
+(6) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+348.6614173228346658 619.8461023622047605 56.6929133858267775 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+371.1650393700787731 599.2049606299212883 Td
+(6,000) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+405.3543307086614504 619.8461023622047605 82.2047244094488292 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+449.5747637795276432 599.2049606299212883 Td
+(-4,000) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+487.5590551181102796 619.8461023622047605 56.6929133858267775 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+510.0626771653543869 599.2049606299212883 Td
+(1,000) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+28.3464566929133888 584.8888188976377478 198.4251968503937178 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+34.0157480314960665 564.2476771653543892 Td
+(JAYALAKSHMI TNHB) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+226.7716535433071101 584.8888188976377478 70.8661417322834666 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+257.1235039370079107 564.2476771653543892 Td
+(15,000) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+297.6377952755905767 584.8888188976377478 51.0236220472441033 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+319.9871062992126554 564.2476771653543892 Td
+(5) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+348.6614173228346658 584.8888188976377478 56.6929133858267775 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+371.1650393700787731 564.2476771653543892 Td
+(7,500) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+405.3543307086614504 584.8888188976377478 82.2047244094488292 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+449.5747637795276432 564.2476771653543892 Td
+(-7,500) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+487.5590551181102796 584.8888188976377478 56.6929133858267775 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+510.0626771653543869 564.2476771653543892 Td
+(1,500) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+28.3464566929133888 549.9315354330707351 198.4251968503937178 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+34.0157480314960665 529.2903937007873765 Td
+(KARTHIKAYANI) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+226.7716535433071101 549.9315354330707351 70.8661417322834666 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+257.1235039370079107 529.2903937007873765 Td
+(15,000) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+297.6377952755905767 549.9315354330707351 51.0236220472441033 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+319.9871062992126554 529.2903937007873765 Td
+(5) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+348.6614173228346658 549.9315354330707351 56.6929133858267775 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+371.1650393700787731 529.2903937007873765 Td
+(7,500) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+405.3543307086614504 549.9315354330707351 82.2047244094488292 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+449.5747637795276432 529.2903937007873765 Td
+(-7,500) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+487.5590551181102796 549.9315354330707351 56.6929133858267775 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+510.0626771653543869 529.2903937007873765 Td
+(1,500) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+28.3464566929133888 514.974251968503836 198.4251968503937178 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+34.0157480314960665 494.3331102362204206 Td
+(ASIA MAMI) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+226.7716535433071101 514.974251968503836 70.8661417322834666 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+257.1235039370079107 494.3331102362204206 Td
+(15,000) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+297.6377952755905767 514.974251968503836 51.0236220472441033 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+319.9871062992126554 494.3331102362204206 Td
+(2) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+348.6614173228346658 514.974251968503836 56.6929133858267775 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+371.1650393700787731 494.3331102362204206 Td
+(3,000) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+405.3543307086614504 514.974251968503836 82.2047244094488292 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+443.2497637795275978 494.3331102362204206 Td
+(-12,000) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+487.5590551181102796 514.974251968503836 56.6929133858267775 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+510.0626771653543869 494.3331102362204206 Td
+(1,500) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+28.3464566929133888 480.0169685039369938 198.4251968503937178 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+34.0157480314960665 459.3758267716535215 Td
+(NISHA) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+226.7716535433071101 480.0169685039369938 70.8661417322834666 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+257.1235039370079107 459.3758267716535215 Td
+(15,000) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+297.6377952755905767 480.0169685039369938 51.0236220472441033 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+319.9871062992126554 459.3758267716535215 Td
+(0) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+348.6614173228346658 480.0169685039369938 56.6929133858267775 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+393.3600393700788231 459.3758267716535215 Td
+(0) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+405.3543307086614504 480.0169685039369938 82.2047244094488292 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+443.2497637795275978 459.3758267716535215 Td
+(-15,000) Tj
+ET
+1. g
+0.35 G
+0.8503937007874016 w
+1. g
+487.5590551181102796 480.0169685039369938 56.6929133858267775 -34.9572834645669346 re
+B
+BT
+/F2 11.5 Tf
+13.2249999999999996 TL
+0.078 g
+510.0626771653543869 459.3758267716535215 Td
+(1,500) Tj
+ET
+0. G
+0.5670000000000001 w
+0.78 G
+0. w
+0. G
+0.5670000000000001 w
+0. G
+0.5670000000000001 w
+endstream
+endobj
+1 0 obj
+<</Type /Pages
+/Kids [3 0 R ]
+/Count 1
+>>
+endobj
+5 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+6 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+7 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-Oblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+8 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-BoldOblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+9 0 obj
+<<
+/Type /Font
+/BaseFont /Courier
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+10 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+11 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-Oblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+12 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-BoldOblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+13 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Roman
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+14 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+15 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Italic
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+16 0 obj
+<<
+/Type /Font
+/BaseFont /Times-BoldItalic
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+17 0 obj
+<<
+/Type /Font
+/BaseFont /ZapfDingbats
+/Subtype /Type1
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+18 0 obj
+<<
+/Type /Font
+/BaseFont /Symbol
+/Subtype /Type1
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+2 0 obj
+<<
+/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
+/Font <<
+/F1 5 0 R
+/F2 6 0 R
+/F3 7 0 R
+/F4 8 0 R
+/F5 9 0 R
+/F6 10 0 R
+/F7 11 0 R
+/F8 12 0 R
+/F9 13 0 R
+/F10 14 0 R
+/F11 15 0 R
+/F12 16 0 R
+/F13 17 0 R
+/F14 18 0 R
+>>
+/XObject <<
+>>
+>>
+endobj
+19 0 obj
+<<
+/Producer (jsPDF 2.5.1)
+/CreationDate (D:20261011130426+05'30')
+>>
+endobj
+20 0 obj
+<<
+/Type /Catalog
+/Pages 1 0 R
+/OpenAction [3 0 R /FitH null]
+/PageLayout /OneColumn
+>>
+endobj
+xref
+0 21
+0000000000 65535 f 
+0000009639 00000 n 
+0000011456 00000 n 
+0000000015 00000 n 
+0000000152 00000 n 
+0000009696 00000 n 
+0000009821 00000 n 
+0000009951 00000 n 
+0000010084 00000 n 
+0000010221 00000 n 
+0000010344 00000 n 
+0000010473 00000 n 
+0000010605 00000 n 
+0000010741 00000 n 
+0000010869 00000 n 
+0000010996 00000 n 
+0000011125 00000 n 
+0000011258 00000 n 
+0000011360 00000 n 
+0000011704 00000 n 
+0000011790 00000 n 
+trailer
+<<
+/Size 21
+/Root 20 0 R
+/Info 19 0 R
+/ID [ <FA0560A91C6CAA7317810DDC62A4C224> <FA0560A91C6CAA7317810DDC62A4C224> ]
+>>
+startxref
+11894
+%%EOF
