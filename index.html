@@ -852,6 +852,15 @@ function submitAdminLogin(){
  document.getElementById("loginTransition").classList.remove("hidden");
  setTimeout(()=>{document.getElementById("loginGate").classList.add("hidden");document.getElementById("appWrapper").style.visibility="visible";},1550);
 }
+// Reliable login button binding for desktop browsers and embedded WebViews.
+(function bindAdminLoginButton(){
+ const bind=()=>{
+  const btn=document.getElementById("adminLoginBtn"), input=document.getElementById("adminPassword");
+  if(btn && !btn.dataset.loginBound){btn.dataset.loginBound="1";btn.addEventListener("click",function(ev){ev.preventDefault();try{submitAdminLogin();}catch(e){const err=document.getElementById("loginError");if(err)err.textContent="Login error. Please reload the app.";console.error(e);}});}
+  if(input && !input.dataset.loginEnterBound){input.dataset.loginEnterBound="1";input.addEventListener("keydown",function(ev){if(ev.key==="Enter"){ev.preventDefault();submitAdminLogin();}});}
+ };
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",bind,{once:true});else bind();
+})();
 function signOutAdmin(){
  const gate=document.getElementById("loginGate"), app=document.getElementById("appWrapper");
  gate.classList.remove("hidden");
@@ -880,5 +889,25 @@ window.onload=()=>{try{ensureLeaderMembership();initConfig();renderUsers();setTi
 
 // The header sign-out control is intentionally invisible but remains clickable.
 
-</script>  </body>  
+</script>  
+<style id="accessible-action-buttons-fix">
+button:not(#signOutBtn):not(#bannerTransactionDeleteBtn):not(.menu-dot-btn){min-height:44px;padding:10px 14px;font-size:max(14px,calc(var(--app-font-size,16px) - 1px));line-height:1.2;font-weight:700;}
+.top-buttons button{min-height:44px;padding:9px 4px;font-size:max(11px,calc(var(--app-font-size,16px) - 4px));white-space:normal;overflow-wrap:anywhere;}
+.leader-toolbar button,.leader-add-users button,.prof-header-buttons button,.popup-content button{min-height:44px;padding:11px 14px;}
+@media(max-width:480px){button:not(#signOutBtn):not(#bannerTransactionDeleteBtn):not(.menu-dot-btn){min-height:46px;padding:11px 12px;}.top-buttons{gap:5px;}.top-buttons button{min-height:44px;padding:8px 2px;font-size:max(10px,calc(var(--app-font-size,16px) - 5px));}}
+</style>
+</body>  
 </html>
+
+
+<style id="user-back-to-entry-equal-height-plus-10">
+/* User screen: Back through Entry buttons have the same height, increased by 10%; widths stay unchanged. */
+#userScreen .prof-header-buttons button {
+  height: 48.4px !important;
+  min-height: 48.4px !important;
+  max-height: 48.4px !important;
+  box-sizing: border-box !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+</style>
