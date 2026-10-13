@@ -872,6 +872,13 @@ function printCommissionHistory(lid){
 }
 </style>
 
+<style id="user-name-controller-leader-folder-fix">
+/* Only the assigned-user name inside a Leader folder follows the existing User Name Size controller. */
+#leaderDetailScreen #leaderList > .leader-card > .lc-main > b {
+  font-size: var(--user-name-font-size, 16px) !important;
+}
+</style>
+
 </body></html>`);
  w.document.close(); w.print();
 }
