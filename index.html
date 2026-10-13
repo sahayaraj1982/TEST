@@ -863,6 +863,15 @@ function printCommissionHistory(lid){
 }
 </style>
 
+
+<style id="leader-manager-name-controller-final-fix">
+/* Apply the existing Leader Name size/color controller to names in the Leader list only. */
+#leaderScreen #leaderManagerList .leader-card > .lc-main b {
+  font-size: var(--leader-name-size, 18px) !important;
+  color: var(--leader-name-color, #ffe7a0) !important;
+}
+</style>
+
 </body></html>`);
  w.document.close(); w.print();
 }
@@ -1453,6 +1462,15 @@ button:not(#signOutBtn):not(#bannerTransactionDeleteBtn):not(.menu-dot-btn){min-
   #leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-ten{
     font-size:clamp(11px,3vw,14px) !important;
   }
+}
+</style>
+
+
+<style id="leader-manager-name-controller-final-fix">
+/* Apply the existing Leader Name size/color controller to names in the Leader list only. */
+#leaderScreen #leaderManagerList .leader-card > .lc-main b {
+  font-size: var(--leader-name-size, 18px) !important;
+  color: var(--leader-name-color, #ffe7a0) !important;
 }
 </style>
 
