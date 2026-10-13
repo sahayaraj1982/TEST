@@ -118,6 +118,20 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 #globalColorSlider{display:block;width:100%;max-width:420px;min-width:60px;margin:0;accent-color:#2368d8;cursor:ew-resize}
 @media(max-width:480px){#globalColorControl{padding:4px 8px}}
 
+
+/* FIX: Leader name settings must control both Leader dashboard names and names inside a Leader folder. */
+#leaderScreen .leader-card .lc-main b,
+#leaderDetailScreen .leader-card .lc-main b,
+#leaderScreen .leader-card .lc-main > b,
+#leaderDetailScreen .leader-card .lc-main > b {
+  font-size: var(--leader-name-size, 18px) !important;
+  color: var(--leader-name-color, #ffe7a0) !important;
+  line-height: 1.18 !important;
+}
+#leaderDetailScreen .leader-card .lc-main small {
+  font-size: clamp(11px, 2.9vw, 14px) !important;
+}
+
 </style>  
 
 <style>
@@ -369,6 +383,86 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
   }
 }
 </style>
+
+<style id="leader-folder-two-line-alignment-fix">
+/* Leader folder: make the name/mobile and balance/collection lines evenly aligned */
+#leaderDetailScreen .leader-card{
+  display:grid !important;
+  grid-template-columns:26px minmax(0,1.45fr) minmax(104px,1fr) !important;
+  grid-template-rows:repeat(2,minmax(30px,1fr)) !important;
+  align-items:stretch !important;
+  column-gap:8px !important;
+  row-gap:0 !important;
+  min-height:68px !important;
+  padding:5px 9px !important;
+}
+#leaderDetailScreen .leader-card > .lc-check{
+  grid-column:1 !important;
+  grid-row:1 / 3 !important;
+  align-self:center !important;
+  justify-self:center !important;
+}
+#leaderDetailScreen .leader-card > .lc-main{
+  grid-column:2 !important;
+  grid-row:1 / 3 !important;
+  display:grid !important;
+  grid-template-rows:repeat(2,minmax(30px,1fr)) !important;
+  align-content:stretch !important;
+  align-self:stretch !important;
+  min-width:0 !important;
+  overflow:hidden !important;
+}
+#leaderDetailScreen .leader-card .lc-main b{
+  grid-row:1 !important;
+  align-self:center !important;
+  min-width:0 !important;
+  margin:0 !important;
+  line-height:1.15 !important;
+  overflow-wrap:anywhere !important;
+}
+#leaderDetailScreen .leader-card .lc-main small{
+  grid-row:2 !important;
+  align-self:center !important;
+  margin:0 !important;
+  min-width:0 !important;
+  overflow-wrap:anywhere !important;
+  line-height:1.15 !important;
+}
+#leaderDetailScreen .leader-card > .lc-right{
+  grid-column:3 !important;
+  grid-row:1 / 3 !important;
+  display:grid !important;
+  grid-template-rows:repeat(2,minmax(30px,1fr)) !important;
+  align-self:stretch !important;
+  align-items:center !important;
+  min-width:0 !important;
+}
+#leaderDetailScreen .leader-card .lc-balance,
+#leaderDetailScreen .leader-card .lc-ten{
+  align-self:center !important;
+  min-width:0 !important;
+  text-align:right !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:clip !important;
+  margin:0 !important;
+}
+#leaderDetailScreen .leader-card .lc-balance{grid-row:1 !important}
+#leaderDetailScreen .leader-card .lc-ten{grid-row:2 !important;color:#ffd700;font-weight:900;font-size:clamp(10px,2.8vw,13px)}
+@media(max-width:480px){
+  #leaderDetailScreen .leader-card{
+    grid-template-columns:23px minmax(0,1.35fr) minmax(94px,1fr) !important;
+    min-height:64px !important;
+    padding:4px 6px !important;
+    column-gap:5px !important;
+  }
+  #leaderDetailScreen .leader-card > .lc-main,
+  #leaderDetailScreen .leader-card > .lc-right{
+    grid-template-rows:repeat(2,minmax(28px,1fr)) !important;
+  }
+}
+</style>
+
 </head>  
 <body>
 
@@ -420,7 +514,7 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 <div class="leader-toolbar"><button class="gold" onclick="selectAllLeaderUsers()">☑ Select</button><button style="background:#555;color:#fff" onclick="clearLeaderSelection()">☐ Clear</button><button style="background:#16803c;color:#fff" onclick="openTenPercentCollection()">💰 10% Collection</button><button style="background:#e53935;color:#fff" onclick="openLeaderDetailPDFSelector()">📄 PDF</button><button style="background:#25D366;color:#fff" onclick="shareLeaderSummary()">📱 WhatsApp</button><span id="leaderToolbarCount" class="selected-count">0 selected</span></div>  
 <div class="leader-summary"><div class="leader-summary-grid"><div class="box"><small>Selected Users</small><strong id="leaderSelectedCount">0</strong></div><div class="box"><small>Total Balance</small><strong id="leaderTotalBalance">₹ 0</strong></div><div class="box"><small>10% Collection</small><strong id="leaderTenTotal">₹ 0</strong></div><div class="box"><small>1% Commission</small><strong id="leaderCommissionDetail">₹ 0</strong></div></div></div>  
 <div id="leaderList"></div>  
-</div>  <div id="tenPercentCollectionPopup" class="popup-overlay" onclick="closeTenPercentCollection()"><div class="popup-content" style="max-height:88vh;overflow:auto" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color);margin-top:0">💰 10% Collection Entry</h3><label style="display:block;text-align:left;color:#aaa;font-size:13px">Select Users</label><select id="tenPercentMode" onchange="updateTenPercentPicker()" style="width:100%;margin:6px 0 10px"><option value="all">ALL USERS</option><option value="red">RED USERS</option><option value="manual">MANUAL</option></select><div id="tenPercentManualList" style="display:none;max-height:30vh;overflow:auto;border:1px solid #444;border-radius:8px;padding:5px;margin-bottom:10px"></div><label style="display:block;text-align:left;color:#aaa;font-size:13px">10% Collection Date</label><input type="date" id="tenPercentDate"><label style="display:block;text-align:left;color:#ff5252;font-size:13px;font-weight:bold">RED DATE (Optional)</label><input type="date" id="tenPercentRedDate"><small style="display:block;color:#aaa;text-align:left;margin-top:-4px;margin-bottom:9px">RED DATE தேர்வு செய்தால், அதே selected users-க்கு தொகை சேர்க்காமல் தேதி மட்டும் பதிவாகும்.</small><label style="display:block;text-align:left;color:#aaa;font-size:13px">Description</label><input type="text" id="tenPercentDesc" placeholder="10% Collection"><div id="tenPercentPreview" style="color:#2eaa55;font-weight:bold;margin:8px 0">Selected: 0 • Total: ₹0</div><button class="gold" style="width:100%;padding:12px" onclick="applyTenPercentCollection()">OK — Add Credit</button><button style="background:#555;color:#fff;width:100%;padding:11px;margin-top:9px" onclick="closeTenPercentCollection()">Cancel</button></div></div>
+</div>  <div id="tenPercentCollectionPopup" class="popup-overlay" onclick="closeTenPercentCollection()"><div class="popup-content" style="max-height:88vh;overflow:auto" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color);margin-top:0">💰 10% Collection Entry</h3><label style="display:block;text-align:left;color:#aaa;font-size:13px">Select Users</label><select id="tenPercentMode" onchange="updateTenPercentPicker()" style="width:100%;margin:6px 0 10px"><option value="all">ALL USERS</option><option value="red">RED USERS</option><option value="manual">MANUAL</option></select><div id="tenPercentManualList" style="display:none;max-height:30vh;overflow:auto;border:1px solid #444;border-radius:8px;padding:5px;margin-bottom:10px"></div><label style="display:block;text-align:left;color:#aaa;font-size:13px">10% Collection Date</label><input type="date" id="tenPercentDate"><label style="display:block;text-align:left;color:#ff5252;font-size:13px;font-weight:bold">RED DATE (Optional)</label><input type="date" id="tenPercentRedDate"><small style="display:block;color:#aaa;text-align:left;margin-top:-4px;margin-bottom:9px">NEXT DUE தேர்வு செய்தால், அதே selected users-க்கு தொகை சேர்க்காமல் தேதி மட்டும் பதிவாகும்.</small><label style="display:block;text-align:left;color:#aaa;font-size:13px">Description</label><input type="text" id="tenPercentDesc" placeholder="10% Collection"><div id="tenPercentPreview" style="color:#2eaa55;font-weight:bold;margin:8px 0">Selected: 0 • Total: ₹0</div><button class="gold" style="width:100%;padding:12px" onclick="applyTenPercentCollection()">OK — Add Credit</button><button style="background:#555;color:#fff;width:100%;padding:11px;margin-top:9px" onclick="closeTenPercentCollection()">Cancel</button></div></div>
 <div id="redDateOnlyPopup" class="popup-overlay" onclick="closeRedDateOnly()"><div class="popup-content" style="max-height:88vh;overflow:auto" onclick="event.stopPropagation()"><h3 style="color:#ff5252;margin-top:0">📅 RED DATE ONLY</h3><p style="color:#aaa;font-size:13px;text-align:left;margin-top:0">தேதி மட்டும் சேமிக்கப்படும். Credit / Debit தொகை சேராது.</p><label style="display:block;text-align:left;color:#aaa;font-size:13px">Select Users</label><select id="redDateMode" onchange="updateRedDatePicker()" style="width:100%;margin:6px 0 10px"><option value="all">ALL USERS</option><option value="red">RED USERS</option><option value="manual">MANUAL USER</option></select><div id="redDateManualList" style="display:none;max-height:30vh;overflow:auto;border:1px solid #444;border-radius:8px;padding:5px;margin-bottom:10px"></div><label style="display:block;text-align:left;color:#aaa;font-size:13px">RED Date</label><input type="date" id="redDateValue"><label style="display:block;text-align:left;color:#aaa;font-size:13px">Description (optional)</label><input type="text" id="redDateDesc" placeholder="RED DATE"><div id="redDatePreview" style="color:#ff5252;font-weight:bold;margin:8px 0">Selected: 0 users</div><button style="background:#b71c1c;color:#fff;width:100%;padding:12px;border:0;border-radius:8px;font-weight:bold" onclick="saveRedDateOnly()">SAVE RED DATE ONLY</button><button style="background:#555;color:#fff;width:100%;padding:11px;margin-top:9px;border:0;border-radius:8px" onclick="closeRedDateOnly()">Cancel</button></div></div>
 <div id="leaderUserPickerPopup" class="popup-overlay" onclick="closeLeaderUserPicker()"><div class="popup-content" style="max-height:85vh;overflow:auto" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color);margin-top:0">Select Users</h3><div style="display:flex;gap:8px;margin-bottom:10px"><button class="gold" onclick="togglePicker(true)">☑ All</button><button style="background:#555;color:#fff" onclick="togglePicker(false)">☐ Clear</button></div><div id="leaderUserPickerList"></div><button class="gold" style="width:100%;padding:12px;margin-top:12px" onclick="addPickedUsersToLeader()">Add Selected Users</button><button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeLeaderUserPicker()">Cancel</button></div></div>  
 <div id="leaderCreatePopup" class="popup-overlay" onclick="closeLeaderCreate()"><div class="popup-content" onclick="event.stopPropagation()"><h3 id="leaderFormTitle" style="color:var(--theme-color);margin-top:0">Create Leader</h3><input type="text" id="leaderNameInput" placeholder="Leader Name"><button class="gold" style="width:100%;padding:12px;margin-top:8px" onclick="saveLeader()">Save Leader</button><button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeLeaderCreate()">Cancel</button></div></div>  <div id="userFormPopup" class="popup-overlay" onclick="closeUserForm()"><div class="popup-content" onclick="event.stopPropagation()"><h3 id="userFormTitle" style="color:var(--theme-color);margin-top:0">Add User</h3><input type="text" id="uName" placeholder="User Name"><input type="text" id="uMobile" placeholder="Mobile"><input type="text" id="uPassword" placeholder="User Password" autocomplete="off"><label style="display:block;text-align:left;color:#aaa;font-size:13px;margin-top:5px">Leader</label><select id="uLeader"></select><button class="gold" style="width:100%;padding:12px;margin-top:10px" onclick="saveUserForm()">Save User</button><button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeUserForm()">Cancel</button></div></div>  <div id="settingsPopup" class="popup-overlay" onclick="closeSettingsPopup()"><div class="popup-content" onclick="event.stopPropagation()">
@@ -444,12 +538,12 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 </div></div>
 <div id="settingsBanner" class="settings-sub">
 <button class="settings-back" onclick="openSettingPage('home')">← Settings</button>
-<div class="settings-card"><h4>🏷️ Banner</h4><label>Banner Name</label><input type="text" id="setAppTitle" oninput="applySettings()"><div style="color:#888;font-size:12px">இந்த பெயர் App banner மற்றும் PDF header இரண்டிலும் பயன்படுத்தப்படும்.</div><label>Banner Name Font Size: <span id="bannerNameSizeVal">24</span>px</label><input type="range" id="setBannerNameSize" min="14" max="42" step="1" oninput="applySettings()"><label>Banner Text Color</label><input type="color" id="setBannerNameColor" value="#ffe7a0" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><label>Banner Letter Outline Color</label><input type="color" id="setBannerOutlineColor" value="#80570d" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><hr style="border-color:#444;margin:16px 0"><h4>👤 User Screen Name</h4><label>User Name Font Size: <span id="profileNameSizeVal">22</span>px</label><input type="range" id="setProfileNameSize" min="12" max="40" step="1" oninput="applySettings()"><label>User Name Color</label><input type="color" id="setProfileNameColor" value="#2196f3" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><div style="color:#aaa;font-size:12px">User Screen-ல் பெயரின் நிறம் மற்றும் அளவை இங்கே மாற்றலாம்.</div></div>
+<div class="settings-card"><h4>🏷️ Banner</h4><label>Banner Name</label><input type="text" id="setAppTitle" oninput="applySettings()"><div style="color:#888;font-size:12px">இந்த பெயர் App banner மற்றும் PDF header இரண்டிலும் பயன்படுத்தப்படும்.</div><label>Banner Name Font Size: <span id="bannerNameSizeVal">24</span>px</label><input type="range" id="setBannerNameSize" min="14" max="42" step="1" oninput="applySettings()"><label>Banner Text Color</label><input type="color" id="setBannerNameColor" value="#ffe7a0" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><label>Banner Letter Outline Color</label><input type="color" id="setBannerOutlineColor" value="#80570d" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><hr style="border-color:#444;margin:16px 0"><h4>👤 User Screen Name</h4><label>User Name Font Size: <span id="profileNameSizeVal">22</span>px</label><input type="range" id="setProfileNameSize" min="12" max="40" step="1" oninput="applySettings()"><label>User Name Color</label><input type="color" id="setProfileNameColor" value="#2196f3" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><div style="color:#aaa;font-size:12px">User Screen-ல் பெயரின் நிறம் மற்றும் அளவை இங்கே மாற்றலாம்.</div><hr style="border-color:#444;margin:16px 0"><h4>👑 Leader User Name</h4><label>Leader Name Font Size: <span id="leaderNameSizeVal">18</span>px</label><input type="range" id="setLeaderNameSize" min="10" max="32" step="1" oninput="applySettings()"><label>Leader Name Color</label><input type="color" id="setLeaderNameColor" value="#ffe7a0" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><div style="color:#aaa;font-size:12px">Leader பட்டியல் மற்றும் Leader folder-க்குள் உள்ள User பெயர்களின் அளவு, நிறத்தை இங்கே மாற்றலாம்.</div></div>
 <div class="settings-card"><h4>🖼️ App Logo</h4><div class="logo-preview-wrap"><img id="logoPreview" class="logo-preview" alt="Logo Preview"><div style="flex:1;color:#aaa;font-size:12px">Gallery / Photos-ல் இருந்து logo தேர்வு செய்யலாம்.</div><button class="logo-remove" type="button" onclick="removeAppLogo()">Remove</button></div><input id="logoFileInput" class="logo-picker" type="file" accept="image/*" onchange="handleLogoSelect(event)"></div>
 </div>
 <div id="settingsAppearance" class="settings-sub">
 <button class="settings-back" onclick="openSettingPage('home')">← Settings</button>
-<div class="settings-card"><h4>📐 Appearance</h4><label>📱 Leader List Font Size: <span id="leaderListFontSizeVal">100</span>%</label><input type="range" id="leaderListFontSizeControl" min="100" max="160" step="5" value="100" oninput="applyLeaderListFontSize(this.value)"><div style="color:#aaa;font-size:12px">Leader பெயர், Balance Amount, Users, Commission எழுத்துகளை ஒரே control மூலம் பெரிதாக்கலாம்.</div><label>App Width: <span id="widthVal">500</span>px</label><input type="range" id="setAppWidth" min="360" max="800" step="10" oninput="applySettings()"><label>App Height: <span id="heightVal">100</span>%</label><input type="range" id="setAppHeight" min="50" max="100" step="5" oninput="applySettings()"><label>App Font Size: <span id="fontSizeVal">16</span>px</label><input type="range" id="setAppFontSize" min="12" max="24" step="1" oninput="applySettings()"><label>Main Dashboard User Name Font: <span id="userNameFontSizeVal">16</span>px</label><input type="range" id="setUserNameFontSize" min="8" max="24" step="0.5" oninput="applySettings()"><div style="color:#888;font-size:12px">நீளமான User பெயர்கள் ஒரே வரியில் காட்டப்படும். இந்த control மூலம் எழுத்தின் அளவை குறைக்கலாம்.</div><label>Font Weight</label><select id="setAppFontWeight" onchange="applySettings()"><option value="normal">Normal</option><option value="bold">Bold</option></select><label>Theme Color</label><div class="color-presets"><div class="color-dot" style="background:#ffd700" onclick="setPresetColor('#ffd700')"></div><div class="color-dot" style="background:#ffb300" onclick="setPresetColor('#ffb300')"></div><div class="color-dot" style="background:#ff3d00" onclick="setPresetColor('#ff3d00')"></div><div class="color-dot" style="background:#e53935" onclick="setPresetColor('#e53935')"></div><div class="color-dot" style="background:#8e24aa" onclick="setPresetColor('#8e24aa')"></div><div class="color-dot" style="background:#1e88e5" onclick="setPresetColor('#1e88e5')"></div><div class="color-dot" style="background:#00e5ff" onclick="setPresetColor('#00e5ff')"></div><input type="color" id="setThemeColor" style="width:100%;height:100%;border:none;background:transparent" oninput="applySettings()"></div></div></div>
+<div class="settings-card"><h4>📐 Appearance</h4><label>App Width: <span id="widthVal">500</span>px</label><input type="range" id="setAppWidth" min="360" max="800" step="10" oninput="applySettings()"><label>App Height: <span id="heightVal">100</span>%</label><input type="range" id="setAppHeight" min="50" max="100" step="5" oninput="applySettings()"><label>App Font Size: <span id="fontSizeVal">16</span>px</label><input type="range" id="setAppFontSize" min="12" max="24" step="1" oninput="applySettings()"><label>Main Dashboard User Name Font: <span id="userNameFontSizeVal">16</span>px</label><input type="range" id="setUserNameFontSize" min="8" max="24" step="0.5" oninput="applySettings()"><div style="color:#888;font-size:12px">நீளமான User பெயர்கள் ஒரே வரியில் காட்டப்படும். இந்த control மூலம் எழுத்தின் அளவை குறைக்கலாம்.</div><label>Font Weight</label><select id="setAppFontWeight" onchange="applySettings()"><option value="normal">Normal</option><option value="bold">Bold</option></select><label>Theme Color</label><div class="color-presets"><div class="color-dot" style="background:#ffd700" onclick="setPresetColor('#ffd700')"></div><div class="color-dot" style="background:#ffb300" onclick="setPresetColor('#ffb300')"></div><div class="color-dot" style="background:#ff3d00" onclick="setPresetColor('#ff3d00')"></div><div class="color-dot" style="background:#e53935" onclick="setPresetColor('#e53935')"></div><div class="color-dot" style="background:#8e24aa" onclick="setPresetColor('#8e24aa')"></div><div class="color-dot" style="background:#1e88e5" onclick="setPresetColor('#1e88e5')"></div><div class="color-dot" style="background:#00e5ff" onclick="setPresetColor('#00e5ff')"></div><input type="color" id="setThemeColor" style="width:100%;height:100%;border:none;background:transparent" oninput="applySettings()"></div></div></div>
 <div id="settingsPdf" class="settings-sub">
 <button class="settings-back" onclick="openSettingPage('home')">← Settings</button>
 <div class="settings-card"><h4>📄 PDF Controls + Live Preview</h4>
@@ -470,7 +564,7 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 <div class="pdf-preview-head"><span id="pvTitle">Finance Manager Pro</span><span id="pvDate">25/09/2026, 09:00</span></div>
 <div class="pdf-preview-leader"><div class="label">LEADER</div><div class="name" id="pvLeaderName">Leader Name</div><div class="due" id="pvDue">DUE AMOUNT Rs. 3,000</div></div>
 <div class="pdf-preview-summary"><div id="pvUsers">TOTAL USERS 5</div><div id="pvBalance">TOTAL BALANCE Rs. 25,000</div></div>
-<table class="pdf-preview-table"><thead><tr><th id="pvTh1">USER</th><th id="pvTh2">LOAN</th><th id="pvTh3">CR</th><th id="pvTh4">CREDIT</th><th id="pvTh5">BALANCE</th><th id="pvTh6">10%</th></tr></thead><tbody><tr><td class="pv-tx">Name</td><td class="pv-tx">10,000</td><td class="pv-tx">2</td><td class="pv-tx">5,000</td><td class="pv-tx">15,000</td><td class="pv-tx">1,000</td></tr><tr><td class="pv-tx">Name 2</td><td class="pv-tx">20,000</td><td class="pv-tx">3</td><td class="pv-tx">8,000</td><td class="pv-tx">28,000</td><td class="pv-tx">2,000</td></tr></tbody></table>
+<table class="pdf-preview-table"><thead><tr><th id="pvTh1">S.NO</th><th id="pvTh2">USER</th><th id="pvTh3">LOAN</th><th id="pvTh4">ENTRY</th><th id="pvTh5">BALANCE</th><th id="pvTh6">10%</th></tr></thead><tbody><tr><td class="pv-tx">1</td><td class="pv-tx">Name</td><td class="pv-tx">10,000</td><td class="pv-tx">2</td><td class="pv-tx">15,000</td><td class="pv-tx">1,000</td></tr><tr><td class="pv-tx">2</td><td class="pv-tx">Name 2</td><td class="pv-tx">20,000</td><td class="pv-tx">3</td><td class="pv-tx">28,000</td><td class="pv-tx">2,000</td></tr></tbody></table>
 <div class="pdf-preview-note">இது மாதிரி Preview மட்டும் — PDF export அதே control-களை பயன்படுத்தும்.</div>
 </div></div></div></div></div>
 <div id="settingsDashboard" class="settings-sub">
@@ -572,7 +666,7 @@ function localDate(){let d=new Date(),o=d.getTimezoneOffset();return new Date(d.
 function initConfig(){  
  document.getElementById("setAppTitle").value=appConfig.title;
  document.getElementById("setBannerNameSize").value=appConfig.bannerNameSize||24;document.getElementById("bannerNameSizeVal").innerText=appConfig.bannerNameSize||24;
- document.getElementById("setBannerNameColor").value=appConfig.bannerNameColor||"#ffe7a0";document.getElementById("setBannerOutlineColor").value=appConfig.bannerOutlineColor||"#80570d";document.getElementById("setProfileNameSize").value=appConfig.profileNameSize||22;document.getElementById("profileNameSizeVal").innerText=appConfig.profileNameSize||22;document.getElementById("setProfileNameColor").value=appConfig.profileNameColor||"#2196f3";document.getElementById("setAppWidth").value=appConfig.width;document.getElementById("setAppHeight").value=appConfig.height||100;document.getElementById("setAppFontSize").value=appConfig.fontSize||16;document.getElementById("setUserNameFontSize").value=appConfig.userNameFontSize||16;document.getElementById("userNameFontSizeVal").innerText=appConfig.userNameFontSize||16;document.getElementById("setAppFontWeight").value=appConfig.fontWeight||"normal";document.getElementById("setPdfFontSize").value=appConfig.pdfFontSize||14;document.getElementById("setPdfBannerLeft").value=appConfig.pdfBannerLeft||14;document.getElementById("setPdfBannerRight").value=appConfig.pdfBannerRight||10;document.getElementById("setPdfTransaction").value=appConfig.pdfTransaction||11;document.getElementById("setPdfTransactionBold").checked=appConfig.pdfTransactionBold!==false;document.getElementById("setPdfTransactionBox").value=appConfig.pdfTransactionBox||8;document.getElementById("setPdfTableHeader").value=appConfig.pdfTableHeader||12;document.getElementById("setPdfTotals").value=appConfig.pdfTotals||12;document.getElementById("setThemeColor").value=appConfig.color;document.getElementById("pdfFontSizeVal").innerText=appConfig.pdfFontSize||14;document.getElementById("pdfBannerLeftVal").innerText=appConfig.pdfBannerLeft||14;document.getElementById("pdfBannerRightVal").innerText=appConfig.pdfBannerRight||10;document.getElementById("pdfTransactionVal").innerText=appConfig.pdfTransaction||11;document.getElementById("pdfTransactionBoxVal").innerText=appConfig.pdfTransactionBox||8;document.getElementById("pdfTableHeaderVal").innerText=appConfig.pdfTableHeader||12;document.getElementById("pdfTotalsVal").innerText=appConfig.pdfTotals||12;  
+ document.getElementById("setBannerNameColor").value=appConfig.bannerNameColor||"#ffe7a0";document.getElementById("setBannerOutlineColor").value=appConfig.bannerOutlineColor||"#80570d";document.getElementById("setLeaderNameSize").value=appConfig.leaderNameSize||18;document.getElementById("leaderNameSizeVal").innerText=appConfig.leaderNameSize||18;document.getElementById("setLeaderNameColor").value=appConfig.leaderNameColor||"#ffe7a0";document.getElementById("setProfileNameSize").value=appConfig.profileNameSize||22;document.getElementById("profileNameSizeVal").innerText=appConfig.profileNameSize||22;document.getElementById("setProfileNameColor").value=appConfig.profileNameColor||"#2196f3";document.getElementById("setAppWidth").value=appConfig.width;document.getElementById("setAppHeight").value=appConfig.height||100;document.getElementById("setAppFontSize").value=appConfig.fontSize||16;document.getElementById("setUserNameFontSize").value=appConfig.userNameFontSize||16;document.getElementById("userNameFontSizeVal").innerText=appConfig.userNameFontSize||16;document.getElementById("setAppFontWeight").value=appConfig.fontWeight||"normal";document.getElementById("setPdfFontSize").value=appConfig.pdfFontSize||14;document.getElementById("setPdfBannerLeft").value=appConfig.pdfBannerLeft||14;document.getElementById("setPdfBannerRight").value=appConfig.pdfBannerRight||10;document.getElementById("setPdfTransaction").value=appConfig.pdfTransaction||11;document.getElementById("setPdfTransactionBold").checked=appConfig.pdfTransactionBold!==false;document.getElementById("setPdfTransactionBox").value=appConfig.pdfTransactionBox||8;document.getElementById("setPdfTableHeader").value=appConfig.pdfTableHeader||12;document.getElementById("setPdfTotals").value=appConfig.pdfTotals||12;document.getElementById("setThemeColor").value=appConfig.color;document.getElementById("pdfFontSizeVal").innerText=appConfig.pdfFontSize||14;document.getElementById("pdfBannerLeftVal").innerText=appConfig.pdfBannerLeft||14;document.getElementById("pdfBannerRightVal").innerText=appConfig.pdfBannerRight||10;document.getElementById("pdfTransactionVal").innerText=appConfig.pdfTransaction||11;document.getElementById("pdfTransactionBoxVal").innerText=appConfig.pdfTransactionBox||8;document.getElementById("pdfTableHeaderVal").innerText=appConfig.pdfTableHeader||12;document.getElementById("pdfTotalsVal").innerText=appConfig.pdfTotals||12;  
  ["Dash","Search","DateFilter","RedHighlight","BlueHighlight","Cloud"].forEach(x=>{let id="switch"+x,key=x[0].toLowerCase()+x.slice(1);document.getElementById(id).checked=appConfig[key]!==undefined?appConfig[key]:((x==="Cloud")?true:(x==="RedHighlight"||x==="BlueHighlight")?false:true)});  
  if(!document.getElementById("filterStartDate").value)document.getElementById("filterStartDate").value=localDate();if(!document.getElementById("filterEndDate").value)document.getElementById("filterEndDate").value=localDate();applyConfigUI();applyLogoUI();renderCommissionSettings();  
 }  
@@ -634,9 +728,9 @@ function updatePdfPreview(){
  }catch(e){console.warn("PDF preview",e)}
 }
 function applySettings(){
- appConfig.title=document.getElementById("setAppTitle").value||"S PLUS LOAN APP";appConfig.bannerNameSize=+document.getElementById("setBannerNameSize").value||24;document.getElementById("bannerNameSizeVal").innerText=appConfig.bannerNameSize;appConfig.bannerNameColor=document.getElementById("setBannerNameColor").value||"#ffe7a0";appConfig.bannerOutlineColor=document.getElementById("setBannerOutlineColor").value||"#80570d";appConfig.profileNameSize=+document.getElementById("setProfileNameSize").value||22;document.getElementById("profileNameSizeVal").innerText=appConfig.profileNameSize;appConfig.profileNameColor=document.getElementById("setProfileNameColor").value||"#2196f3";appConfig.width=+document.getElementById("setAppWidth").value;appConfig.height=+document.getElementById("setAppHeight").value||100;appConfig.fontSize=+document.getElementById("setAppFontSize").value||16;appConfig.userNameFontSize=+document.getElementById("setUserNameFontSize").value||16;document.getElementById("userNameFontSizeVal").innerText=appConfig.userNameFontSize;appConfig.fontWeight=document.getElementById("setAppFontWeight").value;appConfig.pdfFontSize=+document.getElementById("setPdfFontSize").value||14;appConfig.pdfBannerLeft=+document.getElementById("setPdfBannerLeft").value||14;appConfig.pdfBannerRight=+document.getElementById("setPdfBannerRight").value||10;appConfig.pdfTransaction=+document.getElementById("setPdfTransaction").value||11;appConfig.pdfTransactionBold=document.getElementById("setPdfTransactionBold").checked;appConfig.pdfTransactionBox=+document.getElementById("setPdfTransactionBox").value||8;appConfig.pdfTableHeader=+document.getElementById("setPdfTableHeader").value||12;appConfig.pdfTotals=+document.getElementById("setPdfTotals").value||12;document.getElementById("pdfFontSizeVal").innerText=appConfig.pdfFontSize;document.getElementById("pdfBannerLeftVal").innerText=appConfig.pdfBannerLeft;document.getElementById("pdfBannerRightVal").innerText=appConfig.pdfBannerRight;document.getElementById("pdfTransactionVal").innerText=appConfig.pdfTransaction;document.getElementById("pdfTransactionBoxVal").innerText=appConfig.pdfTransactionBox;document.getElementById("pdfTableHeaderVal").innerText=appConfig.pdfTableHeader;document.getElementById("pdfTotalsVal").innerText=appConfig.pdfTotals;appConfig.color=document.getElementById("setThemeColor").value;appConfig.showDash=document.getElementById("switchDash").checked;appConfig.showSearch=document.getElementById("switchSearch").checked;appConfig.showDateFilter=document.getElementById("switchDateFilter").checked;appConfig.showRedHighlight=document.getElementById("switchRedHighlight").checked;appConfig.showBlueHighlight=document.getElementById("switchBlueHighlight").checked;appConfig.showCloud=document.getElementById("switchCloud").checked;localStorage.setItem("financeConfig",JSON.stringify(appConfig));applyConfigUI();renderUsers();refreshLeaderDashboard();updatePdfPreview();}
+ appConfig.title=document.getElementById("setAppTitle").value||"S PLUS LOAN APP";appConfig.bannerNameSize=+document.getElementById("setBannerNameSize").value||24;document.getElementById("bannerNameSizeVal").innerText=appConfig.bannerNameSize;appConfig.bannerNameColor=document.getElementById("setBannerNameColor").value||"#ffe7a0";appConfig.bannerOutlineColor=document.getElementById("setBannerOutlineColor").value||"#80570d";appConfig.leaderNameSize=+document.getElementById("setLeaderNameSize").value||18;document.getElementById("leaderNameSizeVal").innerText=appConfig.leaderNameSize;appConfig.leaderNameColor=document.getElementById("setLeaderNameColor").value||"#ffe7a0";appConfig.profileNameSize=+document.getElementById("setProfileNameSize").value||22;document.getElementById("profileNameSizeVal").innerText=appConfig.profileNameSize;appConfig.profileNameColor=document.getElementById("setProfileNameColor").value||"#2196f3";appConfig.width=+document.getElementById("setAppWidth").value;appConfig.height=+document.getElementById("setAppHeight").value||100;appConfig.fontSize=+document.getElementById("setAppFontSize").value||16;appConfig.userNameFontSize=+document.getElementById("setUserNameFontSize").value||16;document.getElementById("userNameFontSizeVal").innerText=appConfig.userNameFontSize;appConfig.fontWeight=document.getElementById("setAppFontWeight").value;appConfig.pdfFontSize=+document.getElementById("setPdfFontSize").value||14;appConfig.pdfBannerLeft=+document.getElementById("setPdfBannerLeft").value||14;appConfig.pdfBannerRight=+document.getElementById("setPdfBannerRight").value||10;appConfig.pdfTransaction=+document.getElementById("setPdfTransaction").value||11;appConfig.pdfTransactionBold=document.getElementById("setPdfTransactionBold").checked;appConfig.pdfTransactionBox=+document.getElementById("setPdfTransactionBox").value||8;appConfig.pdfTableHeader=+document.getElementById("setPdfTableHeader").value||12;appConfig.pdfTotals=+document.getElementById("setPdfTotals").value||12;document.getElementById("pdfFontSizeVal").innerText=appConfig.pdfFontSize;document.getElementById("pdfBannerLeftVal").innerText=appConfig.pdfBannerLeft;document.getElementById("pdfBannerRightVal").innerText=appConfig.pdfBannerRight;document.getElementById("pdfTransactionVal").innerText=appConfig.pdfTransaction;document.getElementById("pdfTransactionBoxVal").innerText=appConfig.pdfTransactionBox;document.getElementById("pdfTableHeaderVal").innerText=appConfig.pdfTableHeader;document.getElementById("pdfTotalsVal").innerText=appConfig.pdfTotals;appConfig.color=document.getElementById("setThemeColor").value;appConfig.showDash=document.getElementById("switchDash").checked;appConfig.showSearch=document.getElementById("switchSearch").checked;appConfig.showDateFilter=document.getElementById("switchDateFilter").checked;appConfig.showRedHighlight=document.getElementById("switchRedHighlight").checked;appConfig.showBlueHighlight=document.getElementById("switchBlueHighlight").checked;appConfig.showCloud=document.getElementById("switchCloud").checked;localStorage.setItem("financeConfig",JSON.stringify(appConfig));applyConfigUI();renderUsers();refreshLeaderDashboard();updatePdfPreview();}
 function applyConfigUI(){  
- document.getElementById("headerTitleText").innerText=appConfig.title;document.documentElement.style.setProperty("--banner-name-size",(appConfig.bannerNameSize||24)+"px");document.documentElement.style.setProperty("--banner-name-color",appConfig.bannerNameColor||"#ffe7a0");document.documentElement.style.setProperty("--banner-outline-color",appConfig.bannerOutlineColor||"#80570d");document.documentElement.style.setProperty("--profile-name-size",(appConfig.profileNameSize||22)+"px");document.documentElement.style.setProperty("--profile-name-color",appConfig.profileNameColor||"#2196f3");const profileNameEl=document.getElementById("profName");if(profileNameEl){profileNameEl.style.setProperty("font-size",(appConfig.profileNameSize||22)+"px","important");profileNameEl.style.setProperty("color",appConfig.profileNameColor||"#2196f3","important");}document.getElementById("widthVal").innerText=appConfig.width;document.getElementById("heightVal").innerText=appConfig.height;document.getElementById("fontSizeVal").innerText=appConfig.fontSize;document.documentElement.style.setProperty("--app-width",appConfig.width+"px");document.documentElement.style.setProperty("--app-height",appConfig.height+"vh");document.documentElement.style.setProperty("--app-font-size",appConfig.fontSize+"px");document.documentElement.style.setProperty("--app-font-weight",appConfig.fontWeight);document.documentElement.style.setProperty("--user-name-font-size",appConfig.userNameFontSize+"px");document.documentElement.style.setProperty("--theme-color",appConfig.color);document.documentElement.style.setProperty("--theme-gradient",`linear-gradient(145deg,${appConfig.color},#333)`);  
+ document.getElementById("headerTitleText").innerText=appConfig.title;document.documentElement.style.setProperty("--banner-name-size",(appConfig.bannerNameSize||24)+"px");document.documentElement.style.setProperty("--banner-name-color",appConfig.bannerNameColor||"#ffe7a0");document.documentElement.style.setProperty("--banner-outline-color",appConfig.bannerOutlineColor||"#80570d");document.documentElement.style.setProperty("--leader-name-size",(appConfig.leaderNameSize||18)+"px");document.documentElement.style.setProperty("--leader-name-color",appConfig.leaderNameColor||"#ffe7a0");document.documentElement.style.setProperty("--profile-name-size",(appConfig.profileNameSize||22)+"px");document.documentElement.style.setProperty("--profile-name-color",appConfig.profileNameColor||"#2196f3");const profileNameEl=document.getElementById("profName");if(profileNameEl){profileNameEl.style.setProperty("font-size",(appConfig.profileNameSize||22)+"px","important");profileNameEl.style.setProperty("color",appConfig.profileNameColor||"#2196f3","important");}document.getElementById("widthVal").innerText=appConfig.width;document.getElementById("heightVal").innerText=appConfig.height;document.getElementById("fontSizeVal").innerText=appConfig.fontSize;document.documentElement.style.setProperty("--app-width",appConfig.width+"px");document.documentElement.style.setProperty("--app-height",appConfig.height+"vh");document.documentElement.style.setProperty("--app-font-size",appConfig.fontSize+"px");document.documentElement.style.setProperty("--app-font-weight",appConfig.fontWeight);document.documentElement.style.setProperty("--user-name-font-size",appConfig.userNameFontSize+"px");document.documentElement.style.setProperty("--theme-color",appConfig.color);document.documentElement.style.setProperty("--theme-gradient",`linear-gradient(145deg,${appConfig.color},#333)`);  
  document.getElementById("dashboardWrapper").style.display=appConfig.showDash?"grid":"none";document.getElementById("searchBoxWrapper").style.display=appConfig.showSearch?"block":"none";document.getElementById("redDashboardBox").style.display=appConfig.showRedHighlight?"block":"none";document.getElementById("tenPercentDashboardBox").style.display=appConfig.showRedHighlight?"block":"none";let v=appConfig.showDateFilter&&appConfig.showBlueHighlight;document.getElementById("dateFilterWrapper").style.display=v?"flex":"none";document.getElementById("dateDashboardWrapper").style.display=v?"grid":"none";document.getElementById("ledLight").style.display=appConfig.showCloud?"flex":"none"  
 }  
 function openSettingsPopup(){initConfig();renderCommissionSettings();document.getElementById("settingsPopup").style.display="flex";setTimeout(updatePdfPreview,0)}function closeSettingsPopup(){const sp=document.getElementById("settingsPopup");sp.classList.remove("commission-window-wide");sp.style.display="none"}  
@@ -655,9 +749,13 @@ function sendCloudSync(){
  if(cloudSyncBusy){cloudSyncQueued=true;return;}
  if(!appConfig.showCloud||!CLOUD_URL||CLOUD_URL==="xxx")return;
  cloudSyncBusy=true;cloudSyncQueued=false;
- /* Google Sheet only: export RED DATE as NEXT DUE, without changing local app data. */
- const sheetUsers=users.map(u=>({...u,transactions:(u.transactions||[]).map(t=>(t.redDateOnly===true||String(t.desc||"").trim().toUpperCase()==="RED DATE")?({...t,desc:"NEXT DUE",redDateOnly:false}):({...t}))}));
- const body="data="+encodeURIComponent(JSON.stringify({users:sheetUsers,leaders,leaderCommissions,leaderCommissionHistory}));
+ /* Google Sheet only: show RED DATE placeholder rows as "Next Due".
+    Keep the original local/app transaction descriptions unchanged. */
+ const cloudUsers=users.map(u=>({...u,transactions:(Array.isArray(u.transactions)?u.transactions:[]).map(t=>{
+   const isRedDate=t.redDateOnly===true||String(t.desc||"").trim().toUpperCase()==="RED DATE";
+   return isRedDate?{...t,desc:"Next Due"}:{...t};
+ })}));
+ const body="data="+encodeURIComponent(JSON.stringify({users:cloudUsers,leaders,leaderCommissions,leaderCommissionHistory}));
  fetch(CLOUD_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded"},body,keepalive:true})
  .catch(()=>{})
  .finally(()=>{
@@ -676,8 +774,6 @@ async function fetchFromCloud(silent=false){
    let r=await fetch(CLOUD_URL,{cache:"no-store"});if(!r.ok)throw new Error("Cloud HTTP "+r.status);let d=await r.json();
    if(Array.isArray(d))users=d;
    else if(d&&Array.isArray(d.users)){users=d.users;if(Array.isArray(d.leaders))leaders=d.leaders;if(d.leaderCommissions&&typeof d.leaderCommissions==="object"&&!Array.isArray(d.leaderCommissions))leaderCommissions=d.leaderCommissions;if(Array.isArray(d.leaderCommissionHistory))leaderCommissionHistory=d.leaderCommissionHistory;localStorage.setItem("financeLeaderCommissionHistory",JSON.stringify(leaderCommissionHistory));}
-   /* Restore NEXT DUE rows to the app's RED DATE-only format after reading from the Sheet. */
-   users.forEach(u=>(u.transactions||[]).forEach(t=>{if(String(t.desc||"").trim().toUpperCase()==="NEXT DUE"){t.desc="RED DATE";t.redDateOnly=true;}}));
    localStorage.setItem("financeLeaderCommissions",JSON.stringify(leaderCommissions));
    ensureLeaderMembership();renderUsers();led.classList.add("connected");
  }catch(e){
@@ -712,7 +808,64 @@ function deleteSelectedCommissionHistory(lid){let ids=[...selectedCommissionHist
 function renderCommissionHistoryTable(lid){const box=document.getElementById('commissionHistoryTableWrap');if(!box)return;let rows=filteredCommissionHistory(lid),total=rows.reduce((s,x)=>s+Number(x.commission||0),0);box.innerHTML=rows.length?`<div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#aaa;margin:7px 0"><span>Records: ${rows.length} | Total Commission: ₹ ${total.toLocaleString()}</span><span id="commissionHistorySelectedCount">${selectedCommissionHistoryIds.size} selected</span></div><div class="commission-history-scroll"><table class="history-table"><thead><tr><th class="commission-select-cell">✓</th><th>Date</th><th>User</th><th>Debit</th><th>1%</th><th>Description</th></tr></thead><tbody>${rows.map(x=>`<tr><td class="commission-select-cell"><input type="checkbox" class="commission-history-pick" ${selectedCommissionHistoryIds.has(String(x.id))?'checked':''} onchange="toggleCommissionHistory('${jsq(x.id)}',this.checked)"></td><td>${esc(x.date)}</td><td>${esc(x.userName)}</td><td>₹ ${Number(x.debit||0).toLocaleString()}</td><td>₹ ${Number(x.commission||0).toLocaleString()}</td><td>${esc(x.desc||'')}</td></tr>`).join('')}</tbody></table></div>`:'<div style="padding:20px;text-align:center;color:#aaa">இந்த date range-ல் Commission history இல்லை.</div>';}
 function commissionHistoryText(lid){let l=leaders.find(x=>x.id===lid),rows=filteredCommissionHistory(lid);let total=rows.reduce((s,x)=>s+Number(x.commission||0),0);return `Leader: ${l?.name||''}\nCommission History\nFrom: ${document.getElementById('commFrom')?.value||''} To: ${document.getElementById('commTo')?.value||''}\nTotal Commission: ₹ ${total.toLocaleString()}\n\n`+rows.map((x,i)=>`${i+1}. ${x.date} | ${x.userName} | Debit ₹ ${Number(x.debit||0).toLocaleString()} | 1% ₹ ${Number(x.commission||0).toLocaleString()} | ${x.desc||''}`).join('\n');}
 async function shareCommissionHistory(lid){let txt=commissionHistoryText(lid);if(navigator.share){try{await navigator.share({title:'Leader Commission History',text:txt})}catch(e){}}else{await navigator.clipboard.writeText(txt);alert('History copied.')}}
-function printCommissionHistory(lid){let l=leaders.find(x=>x.id===lid),rows=filteredCommissionHistory(lid),total=rows.reduce((s,x)=>s+Number(x.commission||0),0),w=window.open('','_blank');if(!w)return;w.document.write('<html><head><title>Commission History</title><style>body{font-family:Arial;padding:25px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #555;padding:7px;text-align:center}th{background:#eee}h2{margin-bottom:5px}</style></head><body><h2>'+esc(appConfig.title)+'</h2><h3>Leader: '+esc(l?.name||'')+'</h3><p>From: '+esc(document.getElementById('commFrom')?.value||'')+' &nbsp; To: '+esc(document.getElementById('commTo')?.value||'')+' &nbsp; <b>Total Commission: ₹ '+total.toLocaleString()+'</b></p><table><tr><th>Date</th><th>User</th><th>Debit</th><th>1% Commission</th><th>Description</th></tr>'+rows.map(x=>'<tr><td>'+esc(x.date)+'</td><td>'+esc(x.userName)+'</td><td>₹ '+Number(x.debit||0).toLocaleString()+'</td><td>₹ '+Number(x.commission||0).toLocaleString()+'</td><td>'+esc(x.desc||'')+'</td></tr>').join('')+'</table>');w.document.close();w.print();}
+function printCommissionHistory(lid){
+ const l=leaders.find(x=>x.id===lid), rows=filteredCommissionHistory(lid);
+ const total=rows.reduce((sum,x)=>sum+Number(x.commission||0),0);
+ const w=window.open('','_blank'); if(!w)return;
+ const from=document.getElementById('commFrom')?.value||'';
+ const to=document.getElementById('commTo')?.value||'';
+ const body=rows.map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.userName)}</td><td>₹ ${Number(x.debit||0).toLocaleString()}</td><td>₹ ${Number(x.commission||0).toLocaleString()}</td><td>${esc(x.desc||'')}</td></tr>`).join('');
+ w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Commission History</title><style>body{font-family:Arial;padding:25px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #555;padding:7px;text-align:center}th{background:#eee}h2{margin-bottom:5px}</style></head><body><h2>${esc(appConfig.title)}</h2><h3>Leader: ${esc(l?.name||'')}</h3><p>From: ${esc(from)} &nbsp; To: ${esc(to)} &nbsp; <b>Total Commission: ₹ ${total.toLocaleString()}</b></p><table><tr><th>Date</th><th>User</th><th>Debit</th><th>1% Commission</th><th>Description</th></tr>${body}</table>
+<style id="leader-folder-final-user-card-alignment">
+/* Final targeted adjustment only: align assigned-user name rows and place amounts at the card's far right edge. */
+#leaderDetailScreen #leaderList > .leader-card{
+  grid-template-columns:26px minmax(0,1fr) minmax(112px,auto) !important;
+  column-gap:5px !important;
+  padding-left:8px !important;
+  padding-right:8px !important;
+  box-sizing:border-box !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-main{
+  display:grid !important;
+  grid-template-rows:minmax(30px,1fr) minmax(30px,1fr) !important;
+  align-content:stretch !important;
+  min-width:0 !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-main b,
+#leaderDetailScreen #leaderList > .leader-card > .lc-main small{
+  align-self:center !important;
+  margin-top:0 !important;
+  line-height:1.15 !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-right{
+  justify-self:stretch !important;
+  justify-items:stretch !important;
+  width:100% !important;
+  min-width:0 !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-balance,
+#leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-ten{
+  width:100% !important;
+  text-align:right !important;
+  justify-self:stretch !important;
+  margin:0 !important;
+  padding:0 !important;
+  white-space:nowrap !important;
+  box-sizing:border-box !important;
+}
+@media(max-width:480px){
+  #leaderDetailScreen #leaderList > .leader-card{
+    grid-template-columns:23px minmax(0,1fr) minmax(108px,auto) !important;
+    column-gap:4px !important;
+    padding-left:6px !important;
+    padding-right:6px !important;
+  }
+}
+</style>
+
+</body></html>`);
+ w.document.close(); w.print();
+}
 function getLeaderTenPercent(u){return(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.debit||0))*0.10,0)}  
 function getDebitInDateRange(u,s,e){return(u.transactions||[]).reduce((sum,t)=>{let d=String(t.date||"").split("T")[0],v=Number(t.debit||0);return d>=s&&d<=e&&v>0?sum+v:sum},0)}  
 function getCreditInDateRange(u,s,e){return(u.transactions||[]).reduce((sum,t)=>{let d=String(t.date||"").split("T")[0],v=Number(t.credit||0);return d>=s&&d<=e&&v>0?sum+v:sum},0)}  
@@ -728,7 +881,7 @@ function closePDFSelector(){let p=document.getElementById('pdfSelectorPopup');if
 function printSelectedPDF(type){syncPDFSelectorSet(type);if(type==='users')generateSelectedUsersPDF();else generateSelectedLeadersPDF();closePDFSelector();}
 function selectedUsers(){return users.filter(u=>selectedUserIds.has(u.id));}
 function shareAllUsersWhatsApp(){let arr=users;if(!arr.length)return alert('Users இல்லை.');let txt=`${appConfig.title||'Finance Manager'}\nTotal Users: ${arr.length}\nTotal Balance: ₹ ${arr.reduce((s,u)=>s+getBalance(u),0).toLocaleString()}\n\n`+arr.map((u,i)=>`${i+1}. ${u.name} - ₹ ${getBalance(u).toLocaleString()}`).join('\n');if(navigator.share){navigator.share({title:appConfig.title||'Finance Manager',text:txt}).catch(()=>{})}else{window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank')}}
-function generateSelectedUsersPDF(){let arr=selectedUsers();if(!arr.length)return alert('முதலில் User-களை Select செய்யவும்.');if(!window.jspdf)return alert('PDF library load ஆகவில்லை.');let {jsPDF}=window.jspdf,doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'}),w=doc.internal.pageSize.getWidth(),now=new Date(),bal=arr.reduce((s,u)=>s+getBalance(u),0);doc.setFont('helvetica','bold');doc.setFontSize(+appConfig.pdfBannerLeft||14);doc.text(String(appConfig.title||'FINANCE MANAGER'),10,14);doc.setFontSize(+appConfig.pdfBannerRight||10);doc.text(now.toLocaleString(),w-10,14,{align:'right'});doc.setFontSize(+appConfig.pdfTotals||12);doc.text('TOTAL USERS: '+arr.length,w-10,21,{align:'right'});doc.text('TOTAL BALANCE: Rs. '+bal.toLocaleString(),w-10,28,{align:'right'});let rows=arr.map(u=>[u.name||'',u.mobile||'',(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.credit||0)),0).toLocaleString(),(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.debit||0)),0).toLocaleString(),getBalance(u).toLocaleString()]);doc.autoTable({startY:34,head:[['USER','MOBILE','CREDIT','DEBIT','BALANCE']],body:rows,theme:'grid',styles:{fontSize:+appConfig.pdfTransaction||11,cellPadding:Math.max(.5,(+appConfig.pdfTransactionBox||8)/4),fontStyle:appConfig.pdfTransactionBold===false?'normal':'bold'},headStyles:{fontSize:+appConfig.pdfTableHeader||12}});doc.save('Finance_Manager_Selected.pdf');}
+function generateSelectedUsersPDF(){let arr=selectedUsers();if(!arr.length)return alert('முதலில் User-களை Select செய்யவும்.');if(!window.jspdf)return alert('PDF library load ஆகவில்லை.');let {jsPDF}=window.jspdf,doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'}),w=doc.internal.pageSize.getWidth(),now=new Date(),bal=arr.reduce((s,u)=>s+getBalance(u),0);doc.setFont('helvetica','bold');doc.setFontSize(+appConfig.pdfBannerLeft||14);doc.text(String(appConfig.title||'FINANCE MANAGER'),10,14);doc.setFontSize(+appConfig.pdfBannerRight||10);doc.text(now.toLocaleString(),w-10,14,{align:'right'});doc.setFontSize(+appConfig.pdfTotals||12);doc.text('TOTAL USERS: '+arr.length,w-10,21,{align:'right'});doc.text('TOTAL BALANCE: Rs. '+bal.toLocaleString(),w-10,28,{align:'right'});let rows=arr.map((u,i)=>[i+1,u.name||'',u.mobile||'',(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.debit||0)),0).toLocaleString(),getBalance(u).toLocaleString()]);doc.autoTable({startY:34,head:[['S.NO','USER','MOBILE','DEBIT','BALANCE']],body:rows,theme:'grid',styles:{fontSize:+appConfig.pdfTransaction||11,cellPadding:Math.max(.5,(+appConfig.pdfTransactionBox||8)/4),fontStyle:appConfig.pdfTransactionBold===false?'normal':'bold'},headStyles:{fontSize:+appConfig.pdfTableHeader||12}});doc.save('Finance_Manager_Selected.pdf');}
 
 function renderUsers(){  
  ensureLeaderMembership();let search=(document.getElementById("userSearch").value||"").toLowerCase().trim(),list=document.getElementById("userList");list.innerHTML="";let total=0,rc=0,ten=0,cr=0,db=0,crUsers=new Set(),dbUsers=new Set(),s=document.getElementById("filterStartDate").value,e=document.getElementById("filterEndDate").value;  
@@ -752,7 +905,7 @@ function goBack(){
 function toggleEntryRedDate(){const area=document.getElementById("entryRedDateArea"),opening=area.style.display==="none"||!area.style.display;area.style.display=opening?"block":"none";if(opening&&!document.getElementById("tRedDate").value)document.getElementById("tRedDate").value=localDate();if(!opening)document.getElementById("tRedDate").value=""}
 function resetEntryRedDate(){document.getElementById("entryRedDateArea").style.display="none";document.getElementById("tRedDate").value="";}
 function openEntryForm(){document.getElementById("tDate").value=localDate();document.getElementById("tDesc").value="";document.getElementById("tCredit").value="";document.getElementById("tDebit").value="";editIndex=null;resetEntryRedDate();document.getElementById("entryPopup").style.display="flex"}function closeEntryForm(){document.getElementById("entryPopup").style.display="none";editIndex=null;resetEntryRedDate()}  
-async function saveTransaction(){let d=document.getElementById("tDate").value;if(!d)return alert("Date is required!");let u=users[currentUser];u.transactions=Array.isArray(u.transactions)?u.transactions:[];let redArea=document.getElementById("entryRedDateArea"),redDate=redArea.style.display!=="none"?document.getElementById("tRedDate").value:"";if(redArea.style.display!=="none"&&!redDate)return alert("RED தேதி தேர்வு செய்யவும்!");let tx={date:d,desc:document.getElementById("tDesc").value,credit:document.getElementById("tCredit").value,debit:document.getElementById("tDebit").value};if(editIndex===null){const isZeroTransaction=t=>{const credit=Number(t.credit||0),debit=Number(t.debit||0);return credit===0&&debit===0;};const isNoEntryPlaceholder=t=>{const label=String(t.desc||"").trim().toUpperCase().replace(/[\s_-]+/g," ");return ["NO ENTRY","NO ENTRY TRANSACTION","NO ENTRY TRANSLATION","NO ENTRY TXN","NO ENTRY RECORD","RED DATE"].includes(label)||t.redDateOnly===true;};/* Same user + same date + zero credit/debit: update that existing row instead of creating another transaction. */const placeholderIndex=u.transactions.findIndex(t=>entryDateKey(t.date)===entryDateKey(d)&&isZeroTransaction(t)&&t.redDateOnly!==true&&String(t.desc||"").trim().toUpperCase()!=="RED DATE");if(placeholderIndex>=0){u.transactions[placeholderIndex]={...tx};/* Remove duplicate zero-value placeholder rows for the same date, but never remove real credit/debit transactions. */for(let i=u.transactions.length-1;i>=0;i--){if(i!==placeholderIndex&&entryDateKey(u.transactions[i].date)===entryDateKey(d)&&isZeroTransaction(u.transactions[i])&&isNoEntryPlaceholder(u.transactions[i])&&u.transactions[i].redDateOnly!==true&&String(u.transactions[i].desc||"").trim().toUpperCase()!=="RED DATE")u.transactions.splice(i,1);}}else{u.transactions.push(tx);}if(Number(tx.debit||0)>0){let lid=u.leaderId,lead=leaders.find(x=>x.id===lid),amount=Math.max(0,Number(tx.debit||0))*0.01;if(lid&&lead&&amount){addLeaderCommission(lid,tx.debit);leaderCommissionHistory.push({id:"comm_"+Date.now()+"_"+Math.random().toString(36).slice(2,7),date:tx.date,userId:u.id,userName:u.name,leaderId:lid,leaderName:lead.name,debit:Number(tx.debit||0),commission:amount,desc:tx.desc||""});localStorage.setItem("financeLeaderCommissionHistory",JSON.stringify(leaderCommissionHistory));}}}else u.transactions[editIndex]=tx;if(redDate){const alreadyExists=u.transactions.some((t,i)=>i!==editIndex&&String(t.date||"").split("T")[0]===redDate&&!String(t.credit??"").trim()&&!String(t.debit??"").trim()&&(t.redDateOnly===true||String(t.desc||"").toUpperCase()==="RED DATE"));if(!alreadyExists)u.transactions.push({date:redDate,desc:"RED DATE",credit:"",debit:"",redDateOnly:true,redDateBatchKey:`entryRedDate:${u.id}:${redDate}`});}closeEntryForm();renderTransactions();refreshLeaderDashboard();if(returnToLeaderDetail)renderLeaderDetail();await saveToCloudOnly()}  
+async function saveTransaction(){let d=document.getElementById("tDate").value;if(!d)return alert("Date is required!");let u=users[currentUser];u.transactions=Array.isArray(u.transactions)?u.transactions:[];let redArea=document.getElementById("entryRedDateArea"),redDate=redArea.style.display!=="none"?document.getElementById("tRedDate").value:"";if(redArea.style.display!=="none"&&!redDate)return alert("RED தேதி தேர்வு செய்யவும்!");let tx={date:d,desc:document.getElementById("tDesc").value,credit:document.getElementById("tCredit").value,debit:document.getElementById("tDebit").value};if(editIndex===null){const isZeroTransaction=t=>{const credit=Number(t.credit||0),debit=Number(t.debit||0);return credit===0&&debit===0;};const isNoEntryPlaceholder=t=>{const label=String(t.desc||"").trim().toUpperCase().replace(/[\s_-]+/g," ");return ["NO ENTRY","NO ENTRY TRANSACTION","NO ENTRY TRANSLATION","NO ENTRY TXN","NO ENTRY RECORD","RED DATE"].includes(label)||t.redDateOnly===true;};/* Same user + same date + zero credit/debit: update that existing row instead of creating another transaction. */const placeholderIndex=u.transactions.findIndex(t=>entryDateKey(t.date)===entryDateKey(d)&&isZeroTransaction(t)&&t.redDateOnly!==true&&String(t.desc||"").trim().toUpperCase()!=="RED DATE");if(placeholderIndex>=0){u.transactions[placeholderIndex]={...tx};const savedTx=u.transactions[placeholderIndex];/* Deduplicate ALL zero-value rows for this user/date, even if their description differs; never touch RED DATE or real money transactions. */for(let i=u.transactions.length-1;i>=0;i--){const row=u.transactions[i];if(row!==savedTx&&entryDateKey(row.date)===entryDateKey(d)&&isZeroTransaction(row)&&row.redDateOnly!==true&&String(row.desc||"").trim().toUpperCase()!=="RED DATE")u.transactions.splice(i,1);}}else{u.transactions.push(tx);}if(Number(tx.debit||0)>0){let lid=u.leaderId,lead=leaders.find(x=>x.id===lid),amount=Math.max(0,Number(tx.debit||0))*0.01;if(lid&&lead&&amount){addLeaderCommission(lid,tx.debit);leaderCommissionHistory.push({id:"comm_"+Date.now()+"_"+Math.random().toString(36).slice(2,7),date:tx.date,userId:u.id,userName:u.name,leaderId:lid,leaderName:lead.name,debit:Number(tx.debit||0),commission:amount,desc:tx.desc||""});localStorage.setItem("financeLeaderCommissionHistory",JSON.stringify(leaderCommissionHistory));}}}else u.transactions[editIndex]=tx;if(redDate){const alreadyExists=u.transactions.some((t,i)=>i!==editIndex&&String(t.date||"").split("T")[0]===redDate&&!String(t.credit??"").trim()&&!String(t.debit??"").trim()&&(t.redDateOnly===true||String(t.desc||"").toUpperCase()==="RED DATE"));if(!alreadyExists)u.transactions.push({date:redDate,desc:"RED DATE",credit:"",debit:"",redDateOnly:true,redDateBatchKey:`entryRedDate:${u.id}:${redDate}`});}closeEntryForm();renderTransactions();refreshLeaderDashboard();if(returnToLeaderDetail)renderLeaderDetail();await saveToCloudOnly()}  
 function renderTransactions(){let u=users[currentUser];u.transactions=u.transactions||[];u.transactions.sort((a,b)=>new Date(a.date)-new Date(b.date));document.getElementById("profName").innerText=u.name;document.getElementById("profMobile").innerText=u.mobile||"No Mobile";document.getElementById("profLeader").innerText="👑 "+getLeaderName(u);document.getElementById("profBalance").innerText="Bal: ₹"+getBalance(u).toLocaleString();let body=document.getElementById("transactionTable");body.innerHTML="";let bal=0,arr=[];u.transactions.forEach((t,i)=>{let note=!String(t.credit??"").trim()&&!String(t.debit??"").trim();if(!note)bal+=Number(t.credit||0)-Number(t.debit||0);arr.push({...t,cumulative:note?"":bal,actualIdx:i})});arr.reverse().forEach(t=>{let r=document.createElement("tr");let hasCredit=Number(t.credit||0)>0,hasDebit=Number(t.debit||0)>0;r.className=hasCredit?"credit-row":hasDebit?"debit-row":"pending-row";const displayDesc=(t.redDateOnly===true||String(t.desc||"").trim().toUpperCase()==="RED DATE")?"Next due":(t.desc||"");r.innerHTML=`<td>${formatDate(t.date)}</td><td>${esc(displayDesc)}</td><td>${t.credit||""}</td><td>${t.debit||""}</td><td><b>${t.cumulative!==""?"₹ "+Number(t.cumulative).toLocaleString():""}</b></td>`;setupLongPress(r,()=>openTxActionPopup(t.actualIdx));body.appendChild(r)})}  
 function setupLongPress(el,cb){let tm;const st=()=>tm=setTimeout(cb,800),cl=()=>clearTimeout(tm);el.addEventListener("mousedown",st);el.addEventListener("touchstart",st,{passive:true});["click","mouseout","touchend","touchcancel"].forEach(x=>el.addEventListener(x,cl))}  
 function openTransactionDeleteManager(){const u=users[currentUser];if(!u)return;u.transactions=Array.isArray(u.transactions)?u.transactions:[];const list=document.getElementById("transactionDeleteList");list.innerHTML="";if(!u.transactions.length){list.innerHTML='<div style="color:#aaa;padding:12px">Transactions இல்லை.</div>';}else{u.transactions.map((t,i)=>({t,i})).sort((a,b)=>new Date(b.t.date)-new Date(a.t.date)).forEach(({t,i})=>{const row=document.createElement("label");row.style.cssText="display:flex;gap:9px;align-items:flex-start;padding:9px 4px;border-bottom:1px solid #333;font-size:13px;cursor:pointer";const cb=document.createElement("input");cb.type="checkbox";cb.className="tx-delete-check";cb.value=String(i);cb.style.cssText="width:18px;height:18px;flex:0 0 auto;margin:2px 0";cb.onchange=updateTransactionDeleteCount;const details=document.createElement("span");details.style.cssText="flex:1;overflow-wrap:anywhere";details.textContent=`${formatDate(t.date)} • ${t.desc||"Transaction"} • Cr: ${t.credit||"-"} • Db: ${t.debit||"-"}`;row.append(cb,details);list.appendChild(row)});}document.getElementById("transactionDeleteManager").style.display="flex";updateTransactionDeleteCount()}function closeTransactionDeleteManager(){document.getElementById("transactionDeleteManager").style.display="none"}function selectAllTransactionsForDelete(checked){document.querySelectorAll("#transactionDeleteList .tx-delete-check").forEach(cb=>cb.checked=checked);updateTransactionDeleteCount()}function updateTransactionDeleteCount(){const n=document.querySelectorAll("#transactionDeleteList .tx-delete-check:checked").length;document.getElementById("transactionDeleteCount").textContent=`${n} selected`; }async function deleteSelectedTransactions(){const checks=[...document.querySelectorAll("#transactionDeleteList .tx-delete-check:checked")];if(!checks.length)return alert("முதலில் நீக்க வேண்டிய transaction-ஐ select செய்யவும்!");if(!confirm(`தேர்வு செய்த ${checks.length} transaction-களை நிரந்தரமாக delete செய்யவா?`))return;const indexes=checks.map(cb=>Number(cb.value)).sort((a,b)=>b-a);const u=users[currentUser];indexes.forEach(i=>{if(i>=0&&i<u.transactions.length)u.transactions.splice(i,1)});closeTransactionDeleteManager();renderTransactions();refreshLeaderDashboard();if(returnToLeaderDetail)renderLeaderDetail();await saveToCloudOnly();alert("தேர்வு செய்த transaction-கள் delete செய்யப்பட்டன.")}
@@ -783,7 +936,7 @@ function refreshLeaderDashboard(){
 let selectedLeaderIds=new Set();
 function toggleLeaderDashboardSelection(id,on){if(on)selectedLeaderIds.add(id);else selectedLeaderIds.delete(id);document.getElementById("leaderManagerSelectedCount").innerText=selectedLeaderIds.size+" selected";refreshLeaderDashboard();renderLeaderManager();}
 function shareSelectedLeadersWhatsApp(){let arr=leaders.filter(l=>selectedLeaderIds.has(l.id));if(!arr.length)arr=leaders;let txt=`${appConfig.title||"Finance Manager"}\nSelected Leaders: ${arr.length}\n\n`+arr.map((l,i)=>`${i+1}. ${l.name} - Balance ₹ ${leaderBalance(l.id).toLocaleString()} - Commission ₹ ${getLeaderCommission(l.id).toLocaleString()}`).join("\n");if(navigator.share){navigator.share({title:"Leader List",text:txt}).catch(()=>{})}else{window.open("https://wa.me/?text="+encodeURIComponent(txt),"_blank")}}
-function generateSelectedLeadersPDF(){let arr=leaders.filter(l=>selectedLeaderIds.has(l.id));if(!arr.length)return alert("Leader-களை Select செய்யவும்.");if(!window.jspdf)return alert("PDF library load ஆகவில்லை.");let {jsPDF}=window.jspdf,doc=new jsPDF({orientation:"portrait",unit:"mm",format:"a4"}),w=doc.internal.pageSize.getWidth(),now=new Date();doc.setFont("helvetica","bold");doc.setFontSize(+appConfig.pdfBannerLeft||14);doc.text(String(appConfig.title||"FINANCE MANAGER"),10,14);doc.setFontSize(+appConfig.pdfBannerRight||10);doc.text(now.toLocaleString(),w-10,14,{align:"right"});let rows=arr.map(l=>[l.name,leaderUsers(l.id).length,leaderAllCredit(l.id).toLocaleString(),leaderAllDebit(l.id).toLocaleString(),leaderBalance(l.id).toLocaleString(),getLeaderCommission(l.id).toLocaleString()]);doc.autoTable({startY:24,head:[["LEADER","USERS","CREDIT","DEBIT","BALANCE","1% COMMISSION"]],body:rows,theme:"grid",styles:{fontSize:+appConfig.pdfTransaction||11,cellPadding:Math.max(.5,(+appConfig.pdfTransactionBox||8)/4),fontStyle:appConfig.pdfTransactionBold===false?"normal":"bold"},headStyles:{fontSize:+appConfig.pdfTableHeader||12}});doc.setFontSize(+appConfig.pdfTotals||12);doc.text("Selected Leaders: "+arr.length,10,(doc.lastAutoTable?.finalY||100)+8);doc.save("Leader_List.pdf");}
+function generateSelectedLeadersPDF(){let arr=leaders.filter(l=>selectedLeaderIds.has(l.id));if(!arr.length)return alert("Leader-களை Select செய்யவும்.");if(!window.jspdf)return alert("PDF library load ஆகவில்லை.");let {jsPDF}=window.jspdf,doc=new jsPDF({orientation:"portrait",unit:"mm",format:"a4"}),w=doc.internal.pageSize.getWidth(),now=new Date();doc.setFont("helvetica","bold");doc.setFontSize(+appConfig.pdfBannerLeft||14);doc.text(String(appConfig.title||"FINANCE MANAGER"),10,14);doc.setFontSize(+appConfig.pdfBannerRight||10);doc.text(now.toLocaleString(),w-10,14,{align:"right"});let rows=arr.map((l,i)=>[i+1,l.name,leaderUsers(l.id).length,leaderAllDebit(l.id).toLocaleString(),leaderBalance(l.id).toLocaleString(),getLeaderCommission(l.id).toLocaleString()]);doc.autoTable({startY:24,head:[["S.NO","LEADER","USERS","DEBIT","BALANCE","1% COMMISSION"]],body:rows,theme:"grid",styles:{fontSize:+appConfig.pdfTransaction||11,cellPadding:Math.max(.5,(+appConfig.pdfTransactionBox||8)/4),fontStyle:appConfig.pdfTransactionBold===false?"normal":"bold"},headStyles:{fontSize:+appConfig.pdfTableHeader||12}});doc.setFontSize(+appConfig.pdfTotals||12);doc.text("Selected Leaders: "+arr.length,10,(doc.lastAutoTable?.finalY||100)+8);doc.save("Leader_List.pdf");}
 function renderLeaderManager(){ensureLeaderMembership();if(!selectedLeaderIds.size)selectedLeaderIds=new Set(leaders.map(x=>x.id));refreshLeaderDashboard();let list=document.getElementById("leaderManagerList");list.innerHTML="";if(!leaders.length){list.innerHTML='<div style="margin:20px;padding:25px;text-align:center;border:1px dashed #777;border-radius:12px;color:#aaa">No Leaders yet.<br><br>Create your first Leader.</div>';return}if(!selectedLeaderIds.size)selectedLeaderIds=new Set(leaders.map(x=>x.id));document.getElementById("leaderManagerSelectedCount").innerText=selectedLeaderIds.size+" selected";leaders.slice().sort(leaderSortCompare).forEach(l=>{let us=leaderUsers(l.id),red=leaderHasRed(l.id),s=document.getElementById("filterStartDate").value,e=document.getElementById("filterEndDate").value,blue=appConfig.showBlueHighlight&&appConfig.showDateFilter&&leaderDebit(l.id,s,e)>0,card=document.createElement("div");card.className="leader-card"+(appConfig.showRedHighlight&&red?" redbg":blue?" bluebg":"");card.innerHTML=`<span class="lc-crown">👑</span><input class="lc-check" type="checkbox" ${selectedLeaderIds.has(l.id)?"checked":""} onclick="event.stopPropagation();toggleLeaderDashboardSelection('${jsq(l.id)}',this.checked)" aria-label="Select ${esc(l.name)}"><div class="lc-main"><b>${esc(l.name)}</b><small>${us.length} Users</small></div><div class="lc-balance">₹ ${leaderBalance(l.id).toLocaleString()}</div><div class="lc-commission">Comm ₹ ${getLeaderCommission(l.id).toLocaleString()}</div><button class="lc-edit" onclick="event.stopPropagation();openLeaderEdit('${jsq(l.id)}')" aria-label="Edit leader">✏️</button><button class="lc-delete" onclick="event.stopPropagation();deleteLeaderById('${jsq(l.id)}')" aria-label="Delete leader">🗑️</button>`;card.onclick=()=>openLeaderDetail(l.id);list.appendChild(card)})}  
 let selectedLeaderUserIds=new Set();  
 function openLeaderDetail(id){ensureLeaderMembership();currentLeaderIndex=id;selectedLeaderUserIds=new Set(leaderUsers(id).map(u=>u.id));document.getElementById("leaderScreen").classList.add("hidden");document.getElementById("leaderDetailScreen").classList.remove("hidden");renderLeaderDetail()}  
@@ -791,7 +944,7 @@ function backToLeaderManager(){document.getElementById("leaderDetailScreen").cla
 function renderLeaderDetail(){  
  let l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;document.getElementById("leaderDetailTitle").innerText="👑 "+l.name;let s=document.getElementById("filterStartDate").value,e=document.getElementById("filterEndDate").value,arr=leaderUsers(l.id).slice().sort((a,b)=>{if(appConfig.showRedHighlight){let x=isRed(a),y=isRed(b);if(x!==y)return y-x}if(appConfig.showBlueHighlight&&appConfig.showDateFilter){let x=getDebitInDateRange(a,s,e),y=getDebitInDateRange(b,s,e),xb=x>0,yb=y>0;if(xb!==yb)return yb-xb;if(xb)return x-y}return Math.abs(getBalance(a))-Math.abs(getBalance(b))});let box=document.getElementById("leaderList");box.innerHTML="";  
  let add=document.createElement("div");add.className="leader-add-users";add.innerHTML='<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="gold" onclick="openLeaderUserPicker()">☑ Select Users & Add</button><input id="leaderFolderSearch" type="text" placeholder="🔍 Search User" oninput="filterLeaderUsersInFolder(this.value)" style="flex:1;min-width:150px;margin:0"></div><span style="display:block;color:#aaa;font-size:12px;margin-top:8px">Users already in this Leader are shown below</span>';box.appendChild(add);  
- arr.forEach((u,idx)=>{let red=appConfig.showRedHighlight&&isRed(u),db=getDebitInDateRange(u,s,e),blue=appConfig.showBlueHighlight&&appConfig.showDateFilter&&db>0,card=document.createElement("div");card.className="leader-card"+(red?" redbg":blue?" bluebg":"");card.dataset.search=((u.name||"")+" "+(u.mobile||"")).toLowerCase();let cb=document.createElement("input");cb.type="checkbox";cb.checked=selectedLeaderUserIds.has(u.id);cb.onchange=()=>{cb.checked?selectedLeaderUserIds.add(u.id):selectedLeaderUserIds.delete(u.id);updateLeaderSummary()};let main=document.createElement("div");main.className="lc-main";main.innerHTML=`<b>${idx+1}. ${esc(u.name)}</b><br><small>${esc(u.mobile||"")}</small>`;let right=document.createElement("div");right.className="lc-right";right.innerHTML=`<div class="lc-balance">₹ ${getBalance(u).toLocaleString()}</div><div class="lc-ten">10% ₹ ${getLeaderTenPercent(u).toLocaleString()}</div>`;card.append(cb,main,right);  
+ arr.forEach((u,idx)=>{let red=appConfig.showRedHighlight&&isRed(u),db=getDebitInDateRange(u,s,e),blue=appConfig.showBlueHighlight&&appConfig.showDateFilter&&db>0,card=document.createElement("div");card.className="leader-card"+(red?" redbg":blue?" bluebg":"");card.dataset.search=((u.name||"")+" "+(u.mobile||"")).toLowerCase();let cb=document.createElement("input");cb.type="checkbox";cb.checked=selectedLeaderUserIds.has(u.id);cb.onchange=()=>{cb.checked?selectedLeaderUserIds.add(u.id):selectedLeaderUserIds.delete(u.id);updateLeaderSummary()};let main=document.createElement("div");main.className="lc-main";main.innerHTML=`<b>${idx+1}. ${esc(u.name)}</b><small>${esc(u.mobile||"")}</small>`;let right=document.createElement("div");right.className="lc-right";right.innerHTML=`<div class="lc-balance">₹ ${getBalance(u).toLocaleString()}</div><div class="lc-ten">10% ₹ ${getLeaderTenPercent(u).toLocaleString()}</div>`;card.append(cb,main,right);  
  // NEW: tap/click the farmer card to open the same user profile + entry screen.  
  card.addEventListener("click",e=>{if(e.target===cb)return;openUser(users.indexOf(u),true)});  
  box.appendChild(card)})  
@@ -812,7 +965,7 @@ function updateTenPercentPicker(){const mode=document.getElementById("tenPercent
 function selectAllTenPercentManual(checked){const l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;tenPercentManualIds=checked?new Set(leaderUsers(l.id).map(u=>u.id)):new Set();document.querySelectorAll("#tenPercentManualList .ten-percent-manual-check").forEach(cb=>cb.checked=checked);updateTenPercentPreview();}
 function getTenPercentTargetUsers(){const l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return[];const mode=document.getElementById("tenPercentMode").value,arr=leaderUsers(l.id);if(mode==="red")return arr.filter(isRed);if(mode==="manual")return arr.filter(u=>tenPercentManualIds.has(u.id));return arr;}
 function updateTenPercentPreview(){const arr=getTenPercentTargetUsers(),total=arr.reduce((sum,u)=>sum+(u.transactions||[]).reduce((a,t)=>a+Math.max(0,Number(t.debit||0)),0)*.1,0);const el=document.getElementById("tenPercentPreview");if(el)el.textContent=`Selected: ${arr.length} • Total: ₹${total.toLocaleString()}`;}
-async function applyTenPercentCollection(){const l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;const date=document.getElementById("tenPercentDate").value,redDate=document.getElementById("tenPercentRedDate").value,desc=document.getElementById("tenPercentDesc").value.trim()||"10% Collection";if(!date&&!redDate)return alert("10% Collection அல்லது RED DATE-க்கு தேதியைத் தேர்வு செய்யவும்.");if(date&&!date.trim())return alert("Date தேர்வு செய்யவும்.");const arr=getTenPercentTargetUsers();if(!arr.length)return alert("இந்த selection-ல் Users இல்லை.");const batchKey=`leader10:${l.id}:${date}:${desc.toLowerCase()}`;let added=0,skipped=0,redAdded=0,redSkipped=0;arr.forEach(u=>{u.transactions=Array.isArray(u.transactions)?u.transactions:[];if(redDate){const ix=u.transactions.findIndex(t=>String(t.date||"").split("T")[0]===redDate&&!String(t.credit??"").trim()&&!String(t.debit??"").trim()&&(t.redDateOnly===true||["RED DATE","NO ENTRY","NO-ENTRY","NO ENTRY TRANSACTION"].includes(String(t.desc||"").trim().toUpperCase())));if(ix>=0){u.transactions[ix]={...u.transactions[ix],date:redDate,desc:"RED DATE",credit:"",debit:"",redDateOnly:true,redDateBatchKey:`redDate:${l.id}:${redDate}`};redSkipped++;}else{u.transactions.push({date:redDate,desc:"RED DATE",credit:"",debit:"",redDateOnly:true,redDateBatchKey:`redDate:${l.id}:${redDate}`});redAdded++;}}if(date){if(u.transactions.some(t=>t.collectionBatchKey===batchKey)){skipped++;return;}const debitTotal=u.transactions.reduce((sum,t)=>sum+Math.max(0,Number(t.debit||0)),0);const amount=Math.round((debitTotal*.10+Number.EPSILON)*100)/100;if(amount<=0){skipped++;return;}const isZero=t=>Number(t.credit||0)===0&&Number(t.debit||0)===0;const isReusableZeroRow=t=>{const label=String(t.desc||"").trim().toUpperCase().replace(/[\s_-]+/g," ");/* Reuse blank/zero rows for the same date in Leader All Select/Manual/Reduce-user workflows, but never replace a dedicated RED DATE row. */return t.redDateOnly!==true&&label!=="RED DATE"&&isZero(t);};const zeroIndex=u.transactions.findIndex(t=>entryDateKey(t.date)===entryDateKey(date)&&isReusableZeroRow(t));const creditTx={date,desc,credit:String(amount),debit:"",collectionBatchKey:batchKey,collectionType:"leader10",leaderId:l.id};if(zeroIndex>=0){u.transactions[zeroIndex]=creditTx;for(let i=u.transactions.length-1;i>=0;i--){if(i!==zeroIndex&&entryDateKey(u.transactions[i].date)===entryDateKey(date)&&isReusableZeroRow(u.transactions[i]))u.transactions.splice(i,1);}}else{u.transactions.push(creditTx);}added++;}});if(!added&&!redAdded&&!redSkipped){return alert(`புதிய Credit சேர்க்கப்படவில்லை. Duplicate/₹0 காரணமாக ${skipped} User தவிர்க்கப்பட்டனர்.`);}saveDataLocally();closeTenPercentCollection();renderLeaderDetail();refreshLeaderDashboard();renderUsers();await saveToCloudOnly();alert(`${added?`10% Collection: ${added} User-களுக்கு Credit சேர்க்கப்பட்டது. `:""}${redDate?`RED DATE: ${redAdded} புதிய பதிவு; ${redSkipped} ஏற்கெனவே இருந்த NO ENTRY/RED DATE பதிவுகள் RED DATE ஆக மாற்றப்பட்டன. `:""}${skipped?`${skipped} User-களுக்கு 10% Credit duplicate அல்லது ₹0 என்பதால் தவிர்க்கப்பட்டது.`:""}`);}
+async function applyTenPercentCollection(){const l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;const date=document.getElementById("tenPercentDate").value,redDate=document.getElementById("tenPercentRedDate").value,desc=document.getElementById("tenPercentDesc").value.trim()||"10% Collection";if(!date&&!redDate)return alert("10% Collection அல்லது RED DATE-க்கு தேதியைத் தேர்வு செய்யவும்.");if(date&&!date.trim())return alert("Date தேர்வு செய்யவும்.");const arr=getTenPercentTargetUsers();if(!arr.length)return alert("இந்த selection-ல் Users இல்லை.");const batchKey=`leader10:${l.id}:${date}:${desc.toLowerCase()}`;let added=0,skipped=0,redAdded=0,redSkipped=0;arr.forEach(u=>{u.transactions=Array.isArray(u.transactions)?u.transactions:[];if(redDate){const ix=u.transactions.findIndex(t=>String(t.date||"").split("T")[0]===redDate&&!String(t.credit??"").trim()&&!String(t.debit??"").trim()&&(t.redDateOnly===true||["RED DATE","NO ENTRY","NO-ENTRY","NO ENTRY TRANSACTION"].includes(String(t.desc||"").trim().toUpperCase())));if(ix>=0){u.transactions[ix]={...u.transactions[ix],date:redDate,desc:"RED DATE",credit:"",debit:"",redDateOnly:true,redDateBatchKey:`redDate:${l.id}:${redDate}`};redSkipped++;}else{u.transactions.push({date:redDate,desc:"RED DATE",credit:"",debit:"",redDateOnly:true,redDateBatchKey:`redDate:${l.id}:${redDate}`});redAdded++;}}if(date){if(u.transactions.some(t=>t.collectionBatchKey===batchKey)){skipped++;return;}const debitTotal=u.transactions.reduce((sum,t)=>sum+Math.max(0,Number(t.debit||0)),0);const amount=Math.round((debitTotal*.10+Number.EPSILON)*100)/100;if(amount<=0){skipped++;return;}const isZero=t=>Number(t.credit||0)===0&&Number(t.debit||0)===0;const isReusableZeroRow=t=>{const label=String(t.desc||"").trim().toUpperCase().replace(/[\s_-]+/g," ");/* The red zero transaction is the weekly reminder placeholder. For this collection date, convert that existing reminder into the credit instead of adding a new row. */return isZero(t)&&(t.redDateOnly===true||label==="RED DATE"||label==="NO ENTRY"||label==="NO ENTRY TRANSACTION"||label==="NO ENTRY TXN"||label==="NO ENTRY RECORD"||label==="");};const zeroIndex=u.transactions.findIndex(t=>entryDateKey(t.date)===entryDateKey(date)&&isReusableZeroRow(t));const creditTx={date,desc,credit:String(amount),debit:"",collectionBatchKey:batchKey,collectionType:"leader10",leaderId:l.id};if(zeroIndex>=0){u.transactions[zeroIndex]=creditTx;const savedCreditTx=u.transactions[zeroIndex];for(let i=u.transactions.length-1;i>=0;i--){const row=u.transactions[i];if(row!==savedCreditTx&&entryDateKey(row.date)===entryDateKey(date)&&isZero(row)&&(row.redDateOnly===true||String(row.desc||"").trim().toUpperCase().replace(/[\s_-]+/g," ")==="RED DATE"||isReusableZeroRow(row)))u.transactions.splice(i,1);}}else{u.transactions.push(creditTx);}added++;}});if(!added&&!redAdded&&!redSkipped){return alert(`புதிய Credit சேர்க்கப்படவில்லை. Duplicate/₹0 காரணமாக ${skipped} User தவிர்க்கப்பட்டனர்.`);}saveDataLocally();closeTenPercentCollection();renderLeaderDetail();refreshLeaderDashboard();renderUsers();await saveToCloudOnly();alert(`${added?`10% Collection: ${added} User-களுக்கு Credit சேர்க்கப்பட்டது. `:""}${redDate?`RED DATE: ${redAdded} புதிய பதிவு; ${redSkipped} ஏற்கெனவே இருந்த NO ENTRY/RED DATE பதிவுகள் RED DATE ஆக மாற்றப்பட்டன. `:""}${skipped?`${skipped} User-களுக்கு 10% Credit duplicate அல்லது ₹0 என்பதால் தவிர்க்கப்பட்டது.`:""}`);}
 function selectAllLeaderUsers(){  
  let l=leaders.find(x=>x.id===currentLeaderIndex);  
  if(!l)return;  
@@ -852,52 +1005,34 @@ function generateLeaderPDF(){
  let l=leaders.find(x=>x.id===currentLeaderIndex),arr=selectedLeaderUsers();
  if(!l)return;if(!arr.length)return alert("PDF-க்கு குறைந்தது ஒரு User-ஐ Select செய்யவும்.");
  let {jsPDF}=window.jspdf,doc=new jsPDF({orientation:"portrait",unit:"mm",format:"a4"}),w=doc.internal.pageSize.getWidth(),bal=arr.reduce((s,u)=>s+getBalance(u),0),ten=arr.reduce((s,u)=>s+getLeaderTenPercent(u),0),loanTotal=arr.reduce((s,u)=>s+(u.transactions||[]).reduce((a,t)=>a+Math.max(0,Number(t.debit||0)),0),0),now=new Date(),dateTime=now.toLocaleString(),fs=Math.max(8,Math.min(30,Number(appConfig.pdfFontSize||14)));
- let titleSize=fs+10,smallSize=fs,tableSize=fs;
+ let titleSize=fs+10,smallSize=fs,tableSize=Math.min(fs,10);
  doc.setFont("helvetica","bold");doc.setFontSize(titleSize);doc.text(String(appConfig.title||"FINANCE MANAGER"),w/2,14,{align:"center"});
  doc.setFontSize(smallSize);doc.text(dateTime,w-10,23,{align:"right"});
  doc.text("LEADER",10,32);doc.setFontSize(fs+2);doc.text(String(l.name||""),10,40);
  doc.setFontSize(smallSize);doc.text("DUE AMOUNT Rs. "+ten.toLocaleString(),10,48);
  doc.setFontSize(smallSize);doc.text("TOTAL USERS "+arr.length,w-10,32,{align:"right"});doc.text("TOTAL LOAN Rs. "+loanTotal.toLocaleString(),w-10,40,{align:"right"});doc.text("TOTAL BALANCE Rs. "+bal.toLocaleString(),w-10,48,{align:"right"});
- let rows=arr.map(u=>{let d=(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.debit||0)),0),cr=(u.transactions||[]).filter(t=>Math.max(0,Number(t.credit||0))>0).length,c=(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.credit||0)),0);return{user:u,loan:d,entry:cr,credit:c,balance:getBalance(u),due:d*.1}}).sort((a,b)=>Math.abs(a.balance)-Math.abs(b.balance)||b.entry-a.entry).map(r=>[r.user.name||"",r.loan.toLocaleString(),r.entry.toString(),r.credit.toLocaleString(),r.balance.toLocaleString(),r.due.toLocaleString()]);
- doc.autoTable({startY:66,margin:{left:10,right:10},tableWidth:w-20,head:[["USER","LOAN","ENTRY","CREDIT","BALANCE","10%"]],body:rows,theme:"grid",styles:{fontSize:tableSize,cellPadding:{top:Math.max(2,fs/3),bottom:Math.max(2,fs/3),left:2,right:2},fontStyle:appConfig.pdfTransactionBold===false?"normal":"bold",textColor:[20,20,20],lineColor:[90,90,90],lineWidth:0.3,overflow:"linebreak"},headStyles:{fontSize:tableSize,fontStyle:"bold",fillColor:[235,235,235],textColor:[20,20,20],halign:"center",valign:"middle"},columnStyles:{0:{cellWidth:70,halign:"left"},1:{cellWidth:25,halign:"right"},2:{cellWidth:18,halign:"center"},3:{cellWidth:20,halign:"right"},4:{cellWidth:29,halign:"right"},5:{cellWidth:20,halign:"right"}}});
+ let rows=arr.map(u=>{let d=(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.debit||0)),0),cr=(u.transactions||[]).filter(t=>Math.max(0,Number(t.credit||0))>0).length;return{user:u,loan:d,entry:cr,balance:getBalance(u),due:d*.1}}).sort((a,b)=>Math.abs(a.balance)-Math.abs(b.balance)||b.entry-a.entry).map((r,i)=>[i+1,r.user.name||"",r.loan.toLocaleString(),r.entry.toString(),r.balance.toLocaleString(),r.due.toLocaleString()]);
+ doc.autoTable({startY:57,margin:{left:10,right:10},tableWidth:w-20,head:[["S.NO","USER","LOAN","ENTRY","BALANCE","10%"]],body:rows,theme:"grid",styles:{fontSize:tableSize,cellPadding:{top:3.5,bottom:3.5,left:1.5,right:1.5},fontStyle:appConfig.pdfTransactionBold===false?"normal":"bold",textColor:[20,20,20],lineColor:[90,90,90],lineWidth:0.3,overflow:"linebreak"},headStyles:{fontSize:tableSize,fontStyle:"bold",fillColor:[235,235,235],textColor:[20,20,20],halign:"center",valign:"middle"},columnStyles:{0:{cellWidth:12,halign:"center"},1:{cellWidth:58,halign:"left"},2:{cellWidth:25,halign:"right"},3:{cellWidth:18,halign:"center"},4:{cellWidth:29,halign:"right"},5:{cellWidth:20,halign:"right"}}});
  doc.save("Finance_Manager_"+String(l.name||"Leader").replace(/[^a-z0-9_-]/gi,"_")+".pdf");
 }
 async function shareLeaderSummary(){let l=leaders.find(x=>x.id===currentLeaderIndex),arr=selectedLeaderUsers();if(!l||!arr.length)return alert("முதலில் User-களை Select செய்யவும்.");let bal=arr.reduce((s,u)=>s+getBalance(u),0),ten=arr.reduce((s,u)=>s+getLeaderTenPercent(u),0),msg=`Leader: ${l.name}\nSelected Users: ${arr.length}\nTotal Balance: ₹ ${bal.toLocaleString()}\n10% Total: ₹ ${ten.toLocaleString()}\nGrand Total: ₹ ${(bal+ten).toLocaleString()}\n\n`+arr.map((u,i)=>`${i+1}. ${u.name} - ₹ ${getBalance(u).toLocaleString()}`).join("\n");if(navigator.share){try{await navigator.share({title:l.name+" Report",text:msg})}catch(e){}}else{await navigator.clipboard.writeText(msg);alert("Summary copied.")}}  
   
 
 const ADMIN_PASSWORD="1982";
-let adminLoginInProgress=false;
 function submitAdminLogin(){
- if(adminLoginInProgress)return;
- const input=document.getElementById("adminPassword");
- const err=document.getElementById("loginError");
- const card=document.getElementById("loginCard");
- const gate=document.getElementById("loginGate");
- const transition=document.getElementById("loginTransition");
- const app=document.getElementById("appWrapper");
- if(!input||!err||!gate||!transition||!app){alert("Login screen error. Please reopen the HTML file.");return;}
- if(String(input.value||"").trim()!==ADMIN_PASSWORD){
-  err.textContent="Password தவறு. 1982 என்று உள்ளிடவும்.";
-  input.value="";input.focus();
-  if(card&&card.animate)card.animate([{transform:"translateX(0)"},{transform:"translateX(-7px)"},{transform:"translateX(7px)"},{transform:"translateX(0)"}],{duration:260});
-  return;
- }
- adminLoginInProgress=true;
+ const input=document.getElementById("adminPassword"),err=document.getElementById("loginError");
+ if(input.value!==ADMIN_PASSWORD){err.textContent="Password தவறு. மீண்டும் முயற்சிக்கவும்.";input.value="";input.focus();const card=document.getElementById("loginCard");card.animate([{transform:"translateX(0)"},{transform:"translateX(-7px)"},{transform:"translateX(7px)"},{transform:"translateX(0)"}],{duration:260});return;}
  err.textContent="";
- if(card)card.classList.add("hidden");
- transition.classList.remove("hidden");
- setTimeout(()=>{
-  gate.classList.add("hidden");
-  app.style.visibility="visible";
-  adminLoginInProgress=false;
- },900);
+ document.getElementById("loginCard").classList.add("hidden");
+ document.getElementById("loginTransition").classList.remove("hidden");
+ setTimeout(()=>{document.getElementById("loginGate").classList.add("hidden");document.getElementById("appWrapper").style.visibility="visible";},1550);
 }
-// Keep one login handler only; Enter and button both use the same function.
+// Reliable login button binding for desktop browsers and embedded WebViews.
 (function bindAdminLoginButton(){
  const bind=()=>{
-  const btn=document.getElementById("adminLoginBtn"),input=document.getElementById("adminPassword");
-  if(btn&&!btn.dataset.loginBound){btn.dataset.loginBound="1";btn.addEventListener("click",function(ev){ev.preventDefault();submitAdminLogin();});btn.removeAttribute("onclick");}
-  if(input&&!input.dataset.loginEnterBound){input.dataset.loginEnterBound="1";input.addEventListener("keydown",function(ev){if(ev.key==="Enter"){ev.preventDefault();submitAdminLogin();}});}
+  const btn=document.getElementById("adminLoginBtn"), input=document.getElementById("adminPassword");
+  if(btn && !btn.dataset.loginBound){btn.dataset.loginBound="1";btn.addEventListener("click",function(ev){ev.preventDefault();try{submitAdminLogin();}catch(e){const err=document.getElementById("loginError");if(err)err.textContent="Login error. Please reload the app.";console.error(e);}});}
+  if(input && !input.dataset.loginEnterBound){input.dataset.loginEnterBound="1";input.addEventListener("keydown",function(ev){if(ev.key==="Enter"){ev.preventDefault();submitAdminLogin();}});}
  };
  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",bind,{once:true});else bind();
 })();
@@ -1127,74 +1262,197 @@ button:not(#signOutBtn):not(#bannerTransactionDeleteBtn):not(.menu-dot-btn){min-
   }
   #leaderDetailScreen #leaderList > .leader-card > .lc-right{grid-template-columns:minmax(0,1fr) !important;}
 }
+
+/* FIX v2: apply Leader Name controls to the assigned Leader label shown on the individual User Screen. */
+#userScreen #profLeader {
+  font-size: var(--leader-name-size, 18px) !important;
+  color: var(--leader-name-color, #ffe7a0) !important;
+  line-height: 1.2 !important;
+  font-weight: 900 !important;
+}
+
+/* Settings-controlled Leader name size and color */
+#leaderScreen .leader-card .lc-main b,
+#leaderDetailScreen .leader-card .lc-main b{
+  font-size:var(--leader-name-size,18px) !important;
+  color:var(--leader-name-color,#ffe7a0) !important;
+}
+#leaderDetailTitle{font-size:var(--leader-name-size,18px) !important;color:var(--leader-name-color,#ffe7a0) !important;}
+</style>
+<style id="user-banner-back-entry-gap">
+/* User screen: comfortable gap between the main banner and Back / Entry controls */
+#userScreen .profile-header{
+  margin-top:14px !important;
+}
+@media(max-width:480px){
+  #userScreen .profile-header{
+    margin-top:12px !important;
+  }
+}
 </style>
 
-<style id="leader-folder-two-row-alignment-final">
-/* Leader icon > user folder: keep both information rows level across the card. */
-#leaderDetailScreen #leaderList > .leader-card{
-  display:grid !important;
-  grid-template-columns:26px minmax(0,1fr) minmax(118px,0.9fr) !important;
-  grid-template-rows:minmax(30px,auto) minmax(30px,auto) !important;
-  align-items:center !important;
-  column-gap:8px !important;
-  row-gap:2px !important;
-  padding:9px 9px !important;
+
+
+<style id="leader-folder-compact-columns-final">
+/* Leader folder: keep name and mobile in aligned rows; bring balance/10% toward the card's right edge */
+#leaderDetailScreen .leader-card{
+  grid-template-columns:26px minmax(0,1fr) minmax(132px,.82fr) !important;
+  column-gap:5px !important;
+  padding-left:8px !important;
+  padding-right:6px !important;
+  box-sizing:border-box !important;
+}
+#leaderDetailScreen .leader-card > .lc-main{
+  grid-template-rows:repeat(2,minmax(30px,1fr)) !important;
   min-width:0 !important;
 }
-#leaderDetailScreen #leaderList > .leader-card > input[type="checkbox"]{
-  grid-column:1 !important; grid-row:1 / span 2 !important;
-  justify-self:center !important; align-self:center !important;
-  margin:0 !important;
+#leaderDetailScreen .leader-card .lc-main b,
+#leaderDetailScreen .leader-card .lc-main small{
+  align-self:center !important;
+  margin-top:0 !important;
+  line-height:1.15 !important;
+}
+#leaderDetailScreen .leader-card > .lc-right{
+  justify-self:stretch !important;
+  justify-items:stretch !important;
+  width:100% !important;
+  min-width:0 !important;
+}
+#leaderDetailScreen .leader-card .lc-balance,
+#leaderDetailScreen .leader-card .lc-ten{
+  width:100% !important;
+  text-align:right !important;
+  justify-self:stretch !important;
+  white-space:nowrap !important;
+  overflow:visible !important;
+}
+@media(max-width:480px){
+  #leaderDetailScreen .leader-card{
+    grid-template-columns:23px minmax(0,1fr) minmax(120px,.9fr) !important;
+    column-gap:4px !important;
+    padding-right:5px !important;
+  }
+}
+</style>
+
+<style id="leader-folder-final-user-card-alignment">
+/* Final targeted adjustment only: align assigned-user name rows and place amounts at the card's far right edge. */
+#leaderDetailScreen #leaderList > .leader-card{
+  grid-template-columns:26px minmax(0,1fr) minmax(112px,auto) !important;
+  column-gap:5px !important;
+  padding-left:8px !important;
+  padding-right:8px !important;
+  box-sizing:border-box !important;
 }
 #leaderDetailScreen #leaderList > .leader-card > .lc-main{
-  grid-column:2 !important; grid-row:1 / span 2 !important;
-  display:grid !important; grid-template-rows:minmax(30px,auto) minmax(30px,auto) !important;
-  align-content:stretch !important; align-self:stretch !important;
-  justify-content:stretch !important; width:100% !important; min-width:0 !important;
+  display:grid !important;
+  grid-template-rows:minmax(30px,1fr) minmax(30px,1fr) !important;
+  align-content:stretch !important;
+  min-width:0 !important;
 }
-#leaderDetailScreen #leaderList > .leader-card > .lc-main b{
-  grid-row:1 !important; align-self:center !important;
-  display:block !important; width:100% !important; min-width:0 !important;
-  margin:0 !important; line-height:1.15 !important;
-  white-space:normal !important; overflow-wrap:anywhere !important;
-}
+#leaderDetailScreen #leaderList > .leader-card > .lc-main b,
 #leaderDetailScreen #leaderList > .leader-card > .lc-main small{
-  grid-row:2 !important; align-self:center !important;
-  display:block !important; margin:0 !important; line-height:1.15 !important;
-  white-space:nowrap !important;
+  align-self:center !important;
+  margin-top:0 !important;
+  line-height:1.15 !important;
 }
 #leaderDetailScreen #leaderList > .leader-card > .lc-right{
-  grid-column:3 !important; grid-row:1 / span 2 !important;
-  display:grid !important; grid-template-columns:minmax(0,1fr) !important;
-  grid-template-rows:minmax(30px,auto) minmax(30px,auto) !important;
-  align-items:stretch !important; align-self:stretch !important;
-  justify-self:stretch !important; width:100% !important; min-width:0 !important;
-  gap:0 !important; margin:0 !important; padding:0 !important;
+  justify-self:stretch !important;
+  justify-items:stretch !important;
+  width:100% !important;
+  min-width:0 !important;
 }
 #leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-balance,
 #leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-ten{
-  grid-column:1 !important; justify-self:stretch !important; align-self:center !important;
-  display:flex !important; align-items:center !important;
-  width:100% !important; min-width:0 !important; height:100% !important;
-  margin:0 !important; padding:0 !important; text-align:left !important;
-  white-space:nowrap !important; line-height:1.15 !important; box-sizing:border-box !important;
+  width:100% !important;
+  text-align:right !important;
+  justify-self:stretch !important;
+  margin:0 !important;
+  padding:0 !important;
+  white-space:nowrap !important;
+  box-sizing:border-box !important;
 }
-#leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-balance{grid-row:1 !important;}
-#leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-ten{grid-row:2 !important;}
 @media(max-width:480px){
   #leaderDetailScreen #leaderList > .leader-card{
-    grid-template-columns:22px minmax(0,1fr) minmax(105px,.85fr) !important;
-    column-gap:6px !important; padding:8px 6px !important;
-    grid-template-rows:minmax(29px,auto) minmax(29px,auto) !important;
+    grid-template-columns:23px minmax(0,1fr) minmax(108px,auto) !important;
+    column-gap:4px !important;
+    padding-left:6px !important;
+    padding-right:6px !important;
   }
-  #leaderDetailScreen #leaderList > .leader-card > .lc-main,
-  #leaderDetailScreen #leaderList > .leader-card > .lc-right{
-    grid-template-rows:minmax(29px,auto) minmax(29px,auto) !important;
+}
+</style>
+
+
+<style id="leader-folder-name-size-and-spacing-final">
+/* Only the cards inside an opened Leader folder: larger text, compact balance column, exactly two aligned rows. */
+#leaderDetailScreen #leaderList > .leader-card{
+  grid-template-columns:24px minmax(0,1fr) minmax(126px,.82fr) !important;
+  column-gap:6px !important;
+  row-gap:0 !important;
+  padding:6px 8px !important;
+  min-height:74px !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-main{
+  grid-row:1 / 3 !important;
+  display:grid !important;
+  grid-template-rows:1fr 1fr !important;
+  align-content:stretch !important;
+  gap:0 !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-main b{
+  font-size:clamp(16px,4.2vw,21px) !important;
+  line-height:1.15 !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:clip !important;
+  overflow-wrap:normal !important;
+  align-self:center !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-main small{
+  font-size:clamp(13px,3.3vw,16px) !important;
+  line-height:1.15 !important;
+  margin:0 !important;
+  align-self:center !important;
+  white-space:nowrap !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-right{
+  grid-row:1 / 3 !important;
+  display:grid !important;
+  grid-template-rows:1fr 1fr !important;
+  align-content:stretch !important;
+  min-width:0 !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-balance{
+  font-size:clamp(15px,3.8vw,20px) !important;
+  line-height:1.15 !important;
+  text-align:right !important;
+  align-self:center !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-ten{
+  font-size:clamp(12px,3.1vw,15px) !important;
+  line-height:1.15 !important;
+  text-align:right !important;
+  align-self:center !important;
+}
+@media(max-width:480px){
+  #leaderDetailScreen #leaderList > .leader-card{
+    grid-template-columns:23px minmax(0,1fr) minmax(116px,.85fr) !important;
+    column-gap:5px !important;
+    padding:5px 6px !important;
+    min-height:70px !important;
   }
-  #leaderDetailScreen #leaderList > .leader-card > .lc-main b{font-size:clamp(12px,3.4vw,16px) !important;}
-  #leaderDetailScreen #leaderList > .leader-card > .lc-main small{font-size:clamp(10px,2.7vw,12px) !important;}
-  #leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-balance{font-size:clamp(11px,3vw,15px) !important;}
-  #leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-ten{font-size:clamp(10px,2.6vw,12px) !important;}
+  #leaderDetailScreen #leaderList > .leader-card > .lc-main b{
+    font-size:clamp(15px,4.1vw,19px) !important;
+  }
+  #leaderDetailScreen #leaderList > .leader-card > .lc-main small{
+    font-size:clamp(12px,3.3vw,15px) !important;
+  }
+  #leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-balance{
+    font-size:clamp(14px,3.7vw,18px) !important;
+  }
+  #leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-ten{
+    font-size:clamp(11px,3vw,14px) !important;
+  }
 }
 </style>
 
