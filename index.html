@@ -7,8 +7,16 @@
 :root{--theme-color:#ffd700;--theme-gradient:linear-gradient(145deg,#ffd700,#333);--app-width:500px;--app-height:100vh;--app-font-size:16px;--app-font-weight:normal}  
 *{box-sizing:border-box}body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#111;color:#fff;user-select:none;-webkit-user-select:none;font-size:var(--app-font-size);font-weight:var(--app-font-weight)}  
 .wrapper{max-width:var(--app-width);margin:auto;padding-bottom:50px;background:#111;min-height:var(--app-height);height:var(--app-height);overflow-y:auto;border:1px solid #222}  
-header{background:var(--theme-gradient);color:#111;text-align:center;padding:18px;font-size:calc(var(--app-font-size) + 4px);font-weight:bold;box-shadow:0 4px 10px #0008;position:relative;display:flex;align-items:center;justify-content:center;gap:10px}.app-logo{width:42px;height:42px;border-radius:10px;object-fit:cover;border:2px solid #1118;box-shadow:0 3px 8px #0008;display:none;background:#fff;flex:0 0 auto}.app-logo.visible{display:block}.logo-picker{width:100%;padding:11px 12px;border:1px solid #555;border-radius:9px;background:#333;color:#fff;font-size:14px;cursor:pointer}.logo-preview-wrap{display:flex;align-items:center;gap:12px;margin:8px 0 14px;padding:10px;background:#1a1a1a;border:1px solid #333;border-radius:10px}.logo-preview{width:58px;height:58px;border-radius:12px;object-fit:cover;border:2px solid var(--theme-color);background:#fff;display:none}.logo-preview.visible{display:block}.logo-remove{background:#e53935;color:#fff;border:0;border-radius:7px;padding:8px 10px;cursor:pointer;font-weight:bold}  
-.indicator-container{position:absolute;right:15px;top:50%;transform:translateY(-50%)}.g-led{width:28px;height:28px;border-radius:50%;background:#222;color:#ff4444;border:2px solid #ff4444;box-shadow:0 0 10px #ff4444,inset 0 0 5px #ff4444;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900}.g-led.connected{color:#0f0;border-color:#0f0;box-shadow:0 0 15px #0f0,inset 0 0 5px #0f0,0 0 5px #fff}  
+header{background:var(--theme-gradient);color:#111;text-align:center;padding:18px 92px;font-size:calc(var(--app-font-size) + 4px);font-weight:bold;box-shadow:0 4px 10px #0008;position:relative;display:flex;align-items:center;justify-content:center;gap:10px}
+#signOutBtn{position:absolute;left:9px;top:9px;z-index:5;width:34px;height:34px;min-width:34px;padding:0;border:0;border-radius:50%;background:transparent;color:transparent;font-size:0;opacity:0;cursor:pointer;box-shadow:none;outline:none}
+#signOutBtn:hover,#signOutBtn:focus{opacity:0;background:transparent;outline:none;box-shadow:none}
+#bannerTransactionDeleteBtn{position:absolute;left:9px;top:39px;z-index:6;width:34px;height:19px;min-width:34px;padding:0;border:0;border-radius:5px;background:transparent;color:transparent;font-size:0;opacity:0;cursor:pointer;box-shadow:none;outline:none}
+#bannerTransactionDeleteBtn:hover,#bannerTransactionDeleteBtn:focus{opacity:0;background:transparent;outline:none;box-shadow:none}
+#appWrapper{filter:saturate(var(--app-saturation,1));}
+.indicator-container{position:absolute;right:10px;top:9px;z-index:4}
+.header-company-3d{font-size:var(--banner-name-size,24px);color:var(--banner-name-color,#ffe7a0);-webkit-text-stroke:var(--banner-outline-width,1px) var(--banner-outline-color,#80570d);text-shadow:1px 1px 0 #9a6b12,2px 2px 0 #80570d,3px 3px 0 #4a3006,0 4px 8px #000;}
+@media(max-width:480px){header{padding:18px 48px;font-size:calc(var(--app-font-size) + 2px)}.header-company-3d{font-size:min(var(--banner-name-size,24px),22px)}}.app-logo{width:42px;height:42px;border-radius:10px;object-fit:cover;border:2px solid #1118;box-shadow:0 3px 8px #0008;display:none;background:#fff;flex:0 0 auto}.app-logo.visible{display:block}.logo-picker{width:100%;padding:11px 12px;border:1px solid #555;border-radius:9px;background:#333;color:#fff;font-size:14px;cursor:pointer}.logo-preview-wrap{display:flex;align-items:center;gap:12px;margin:8px 0 14px;padding:10px;background:#1a1a1a;border:1px solid #333;border-radius:10px}.logo-preview{width:58px;height:58px;border-radius:12px;object-fit:cover;border:2px solid var(--theme-color);background:#fff;display:none}.logo-preview.visible{display:block}.logo-remove{background:#e53935;color:#fff;border:0;border-radius:7px;padding:8px 10px;cursor:pointer;font-weight:bold}  
+.indicator-container{position:absolute;right:15px;top:50%;transform:translateY(-50%)}.g-led{cursor:pointer;touch-action:manipulation;width:28px;height:28px;border-radius:50%;background:#222;color:#ff4444;border:2px solid #ff4444;box-shadow:0 0 10px #ff4444,inset 0 0 5px #ff4444;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900}.g-led.connected{color:#0f0;border-color:#0f0;box-shadow:0 0 15px #0f0,inset 0 0 5px #0f0,0 0 5px #fff}  
 .dashboard{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:10px}.stat-box{background:#222;padding:15px 10px;border-radius:10px;text-align:center;border:1px solid #333}.stat-box.red-border{border:2px solid #e53935}.stat-box.blue-border{border:2px solid #1e88e5}.stat-box.green-border{border:2px solid #2eaa55}.stat-box small{color:#aaa;font-size:calc(var(--app-font-size) - 3px);text-transform:uppercase;font-weight:bold;display:block;margin-bottom:5px}.stat-box h2{margin:0;font-size:calc(var(--app-font-size) + 4px);color:var(--theme-color);font-weight:900}  
 .date-filter-box{background:#1a1a1a;border:1px solid #333;padding:10px;margin:0 10px 10px;border-radius:10px;display:flex;gap:8px;align-items:center;justify-content:space-between}.date-filter-box input{margin:0;padding:8px;font-size:calc(var(--app-font-size) - 2px);background:#222;color:#fff;border:1px solid #444;border-radius:6px}  
 .search-container{padding:10px}.search-input{width:100%;padding:12px;border-radius:10px;border:1px solid var(--theme-color);background:#222;color:#fff;box-sizing:border-box;font-size:var(--app-font-size);font-weight:var(--app-font-weight)}  
@@ -23,8 +31,14 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 .setting-row{display:flex;justify-content:space-between;align-items:center;margin:15px 0;text-align:left;font-size:calc(var(--app-font-size) - 1px)}.switch{position:relative;display:inline-block;width:46px;height:24px}.switch input{opacity:0;width:0;height:0}.slider{position:absolute;inset:0;background:#444;border-radius:24px}.slider:before{position:absolute;content:"";height:18px;width:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s}input:checked+.slider{background:#1f7a1f}input:checked+.slider:before{transform:translateX(22px)}  
 .color-presets{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:8px;background:#1a1a1a;padding:10px;border-radius:12px;border:1px solid #333}.color-dot{width:100%;aspect-ratio:1;border-radius:50%;border:1px solid #ffffff66;cursor:pointer}  
 #loading{display:none;position:fixed;top:10px;right:10px;background:var(--theme-color);color:#111;padding:8px 15px;border-radius:20px;font-weight:bold;z-index:10000;font-size:13px}  
-.leader-toolbar{display:flex;gap:6px;padding:10px;flex-wrap:wrap}.leader-toolbar button{border:0;border-radius:9px;padding:10px 8px;font-weight:bold;cursor:pointer;flex:1;min-width:0}  
-.leader-card{width:calc(100% - 20px);margin:8px auto;padding:13px;border-radius:13px;background:#222;border:1px solid #444;display:flex;align-items:center;gap:10px;cursor:pointer}.leader-card.redbg{background:linear-gradient(145deg,#8b0000,#5a0000)!important;border-color:#ff4444!important}.leader-card.bluebg{background:linear-gradient(145deg,#0d3b66,#0b2545)!important;border-color:#1e88e5!important}.leader-card input{width:22px;height:22px;margin:0;accent-color:#ffd700}.leader-card .lc-main{flex:1;min-width:0}.leader-card .lc-main b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.leader-card .lc-bal{min-width:90px;text-align:right;font-weight:900}.leader-card .lc-right{margin-left:auto;min-width:125px;text-align:right;align-self:flex-start;line-height:1.35}.leader-card .lc-right .lc-balance{font-weight:900;font-size:16px}.leader-card .lc-right .lc-ten{font-weight:900;font-size:13px;color:#ffd700;margin-top:3px}.leader-card .lc-main .lc-commission{font-size:13px;font-weight:900;color:#ffd700;margin:3px 0 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}  
+.leader-toolbar{display:flex;gap:6px;padding:10px;flex-wrap:wrap}.leader-toolbar button{border:0;border-radius:9px;padding:10px 8px;font-weight:bold;cursor:pointer;flex:1;min-width:0}
+/* Wider leader dashboard action buttons; keep all labels inside their buttons */
+.leader-toolbar{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:10px 12px;align-items:stretch}
+.leader-toolbar button{width:100%;min-width:0;min-height:88px;padding:10px 5px!important;white-space:normal;overflow-wrap:anywhere;word-break:normal;line-height:1.15;font-size:clamp(12px,1.45vw,18px);display:flex;align-items:center;justify-content:center;text-align:center}
+.leader-toolbar .selected-count{grid-column:1/-1;justify-self:end;margin:0;min-height:20px}
+@media(max-width:600px){.leader-toolbar{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.leader-toolbar button{min-height:76px;font-size:13px;padding:8px 4px!important}}
+  
+.leader-card{width:calc(100% - 20px);margin:6px auto;padding:8px 9px;border-radius:12px;background:#222;border:1px solid #444;display:grid;grid-template-columns:34px minmax(0,1.45fr) minmax(112px,1fr) 34px;grid-template-rows:minmax(34px,auto) minmax(34px,auto);align-items:center;column-gap:7px;row-gap:4px;cursor:pointer;box-sizing:border-box}.leader-card.redbg{background:linear-gradient(145deg,#8b0000,#5a0000)!important;border-color:#ff4444!important}.leader-card.bluebg{background:linear-gradient(145deg,#0d3b66,#0b2545)!important;border-color:#1e88e5!important}.leader-card .lc-crown{grid-column:1;grid-row:1;justify-self:center;font-size:22px;line-height:1}.leader-card .lc-check{grid-column:1;grid-row:2;justify-self:center;width:20px;height:20px;margin:0;accent-color:#ffd700}.leader-card .lc-main{grid-column:2;grid-row:1/3;min-width:0;display:grid;grid-template-rows:auto auto;align-self:stretch;align-content:center}.leader-card .lc-main b{grid-row:1;display:block;white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere;word-break:normal;font-size:clamp(14px,3.8vw,20px);line-height:1.15;font-weight:900}.leader-card .lc-main small{grid-row:2;display:block;margin-top:4px;font-size:clamp(11px,3vw,14px)}.leader-card .lc-balance{grid-column:3;grid-row:1;min-width:0;text-align:right;font-weight:900;font-size:clamp(13px,3.5vw,19px);white-space:nowrap}.leader-card .lc-commission{grid-column:3;grid-row:2;text-align:right;font-weight:900;font-size:clamp(11px,2.9vw,14px);color:#ffd700;white-space:nowrap}.leader-card .lc-edit{grid-column:4;grid-row:1;width:36px;min-height:36px;padding:2px!important;font-size:18px;cursor:pointer;background:#ffd700;color:#111;border:0;border-radius:8px}.leader-card .lc-delete{grid-column:4;grid-row:2;width:36px;min-height:36px;padding:2px!important;font-size:18px;cursor:pointer;background:#e53935;color:#fff;border:0;border-radius:8px}@media(max-width:480px){.leader-card{padding:7px 6px;grid-template-columns:30px minmax(0,1.35fr) minmax(104px,1fr) 30px;grid-template-rows:minmax(31px,auto) minmax(31px,auto);column-gap:5px;row-gap:3px}.leader-card .lc-crown{font-size:20px}.leader-card .lc-check{width:19px;height:19px}.leader-card .lc-edit,.leader-card .lc-delete{width:29px;min-height:29px;font-size:15px;display:flex;align-items:center;justify-content:center;justify-self:center}.leader-card .lc-balance{font-size:clamp(12px,3.2vw,16px);text-align:center}.leader-card .lc-commission{font-size:clamp(10px,2.8vw,12px);text-align:center}.leader-card .lc-main b{font-size:clamp(13px,3.7vw,17px)}}  
 .leader-summary{margin:10px;padding:14px;border-radius:14px;background:linear-gradient(145deg,#123d22,#0d2817);border:2px solid #2eaa55}.leader-summary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.leader-summary .box{padding:10px;border-radius:9px;background:#222;text-align:center}.leader-summary small{display:block;color:#aaa;font-weight:bold}.leader-summary strong{display:block;margin-top:4px;font-size:18px}.leader-add-users{margin:10px 0;padding:12px;border:1px dashed #666;border-radius:10px;background:#151515}.leader-add-users button{padding:10px 14px}  
 
 /* Transaction colors: Credit = green, Debit = red, Pending/Note = dark */
@@ -87,7 +101,38 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 
 
 .sync-led.connected{background:#16a34a!important;box-shadow:0 0 8px #16a34a!important;}
-.sync-led{background:#dc2626!important;box-shadow:0 0 7px #dc2626!important;}.compact-balance{padding:10px!important}.compact-balance h2{font-size:17px!important;margin:5px 0!important}.compact-balance small{font-size:11px!important}</style>  
+.sync-led{background:#dc2626!important;box-shadow:0 0 7px #dc2626!important;}.compact-balance{padding:10px!important}.compact-balance h2{font-size:17px!important;margin:5px 0!important}.compact-balance small{font-size:11px!important}
+/* Secure login screen */
+#loginGate{position:fixed;inset:0;z-index:20000;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(circle at top,#334155 0,#111827 45%,#050505 100%);}
+.login-card{width:min(420px,100%);padding:28px 22px;border:1px solid #d4af37;border-radius:24px;background:linear-gradient(145deg,#222,#101010);box-shadow:0 20px 60px #000b, inset 0 1px 0 #ffffff22;text-align:center;}
+.login-mark{width:76px;height:76px;margin:0 auto 14px;border-radius:22px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#ffe066,#b8860b);color:#111;font-size:38px;box-shadow:0 8px 22px #0008;}
+.login-card h2{margin:8px 0;color:#ffd700}.login-card p{color:#bbb;font-size:13px;line-height:1.5}.login-card input,.login-card select{width:100%;padding:13px;margin:8px 0;border:1px solid #555;border-radius:10px;background:#292929;color:#fff;font-size:16px}
+.login-btn{width:100%;border:0;border-radius:11px;padding:13px;margin-top:9px;font-weight:900;font-size:15px;cursor:pointer}.login-primary{background:linear-gradient(145deg,#ffe066,#d4a017);color:#111}.login-biometric{background:linear-gradient(145deg,#0e7490,#164e63);color:#fff;border:1px solid #22d3ee}.login-error{min-height:20px;color:#ff6b6b;font-size:13px;margin-top:8px}
+
+/* Single whole-app light-to-dark controller */
+#globalColorControl{
+  display:flex;align-items:center;justify-content:center;
+  padding:5px 10px;background:transparent;border:0;
+  position:relative;z-index:4;min-height:24px;
+}
+#globalColorSlider{display:block;width:100%;max-width:420px;min-width:60px;margin:0;accent-color:#2368d8;cursor:ew-resize}
+@media(max-width:480px){#globalColorControl{padding:4px 8px}}
+
+
+/* FIX: Leader name settings must control both Leader dashboard names and names inside a Leader folder. */
+#leaderScreen .leader-card .lc-main b,
+#leaderDetailScreen .leader-card .lc-main b,
+#leaderScreen .leader-card .lc-main > b,
+#leaderDetailScreen .leader-card .lc-main > b {
+  font-size: var(--leader-name-size, 18px) !important;
+  color: var(--leader-name-color, #ffe7a0) !important;
+  line-height: 1.18 !important;
+}
+#leaderDetailScreen .leader-card .lc-main small {
+  font-size: clamp(11px, 2.9vw, 14px) !important;
+}
+
+</style>  
 
 <style>
 .settings-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.settings-nav button{position:relative;min-height:78px;padding:14px 16px;border:1px solid rgba(255,255,255,.28);border-radius:15px;background:linear-gradient(145deg,#4b5563,#111827);color:#fff;font-weight:900;text-align:left;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 -3px 0 rgba(0,0,0,.28),0 5px 10px rgba(0,0,0,.32);transition:transform .12s ease,box-shadow .12s ease,filter .12s ease}.settings-nav button:nth-child(1){background:linear-gradient(145deg,#f59e0b,#b45309)}.settings-nav button:nth-child(2){background:linear-gradient(145deg,#06b6d4,#155e75)}.settings-nav button:nth-child(3){background:linear-gradient(145deg,#8b5cf6,#4c1d95)}.settings-nav button:nth-child(4){background:linear-gradient(145deg,#3b82f6,#1e3a8a)}.settings-nav button:nth-child(5){background:linear-gradient(145deg,#22c55e,#166534)}.settings-nav button:nth-child(6){background:linear-gradient(145deg,#ec4899,#9d174d)}.settings-nav button:nth-child(7){background:linear-gradient(145deg,#ef4444,#991b1b)}.settings-nav button:hover{transform:translateY(-2px);filter:brightness(1.08);box-shadow:inset 0 1px 0 rgba(255,255,255,.34),inset 0 -3px 0 rgba(0,0,0,.3),0 8px 14px rgba(0,0,0,.38)}.settings-nav button:active{transform:translateY(2px);box-shadow:inset 0 2px 4px rgba(0,0,0,.35),0 2px 4px rgba(0,0,0,.25)}.settings-nav button b{display:block;color:#fff;font-size:16px;margin-bottom:5px;text-shadow:0 1px 2px rgba(0,0,0,.45)}.settings-nav button small{color:rgba(255,255,255,.88);font-weight:600;text-shadow:0 1px 2px rgba(0,0,0,.35)}.settings-sub{display:none}.settings-sub.active{display:block}.settings-back{background:#555!important;color:#fff!important;margin-bottom:10px}.settings-card{background:#181818;border:1px solid #444;border-radius:12px;padding:13px;margin:9px 0}.settings-card h4{margin:0 0 8px;color:var(--theme-color)}.settings-card label{display:block;margin:9px 0 5px;color:#bbb;font-weight:700}.settings-history{max-height:70vh;overflow:auto}.commission-history-wide{width:100%;box-sizing:border-box}.commission-history-scroll{max-height:58vh;overflow:auto}.commission-select-cell{width:28px!important}.commission-row{border:1px solid #444;border-radius:11px;padding:11px;margin:8px 0;background:#181818;cursor:pointer}.commission-row:hover{border-color:var(--theme-color)}.commission-names-only{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:100%;box-sizing:border-box}.commission-name-only{width:100%;min-height:54px;padding:14px 12px;border:1px solid #555;border-radius:12px;background:linear-gradient(145deg,#292929,#151515);color:#fff;font-size:15px;font-weight:900;text-align:left;cursor:pointer;box-sizing:border-box}.commission-name-only:hover{border-color:var(--theme-color);box-shadow:0 0 8px rgba(255,215,0,.18)}@media(max-width:700px){.settings-nav{grid-template-columns:1fr}.settings-nav button{min-height:70px}}@media(max-width:520px){.commission-names-only{grid-template-columns:1fr}.commission-name-only{min-height:50px;font-size:14px}}.commission-row b{color:#fff}.commission-row small{color:#aaa}.history-table{width:100%;border-collapse:collapse;font-size:12px}.history-table th,.history-table td{border:1px solid #444;padding:6px;text-align:center}.history-table th{color:var(--theme-color)}.universal-toolbar{display:flex;gap:6px;flex-wrap:wrap;padding:8px 10px;background:#171717;border-bottom:1px solid #333;position:sticky;top:0;z-index:3}.universal-toolbar button{border:0;border-radius:8px;padding:10px 8px;font-weight:800;cursor:pointer;flex:1;min-width:0}.universal-toolbar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.universal-toolbar .selected-count{grid-column:1/-1;justify-content:center;margin:0}.select-user-check{width:21px!important;height:21px!important;accent-color:#ffd700;margin:0 7px 0 0!important}.selected-count{margin-left:auto;color:#aaa;font-size:12px;display:flex;align-items:center}.selection-mode-card{display:flex!important;align-items:center;gap:5px}.selection-mode-card .user-card-main{flex:1}
@@ -131,10 +176,385 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 #settingsPopup .settings-card [style*="color:#888"],#settingsPopup .settings-card [style*="color:#aaa"]{color:#ddd!important;}
 @media(max-width:700px){#settingsPopup.commission-window-wide .popup-content{width:94vw;max-width:94vw;padding:14px;}#settingsPopup.commission-window-wide .commission-history-scroll{max-height:58vh;}#settingsPopup:not(.commission-window-wide) .popup-content{width:96vw;max-width:96vw;padding:14px;}.settings-nav{grid-template-columns:1fr!important;}.history-table{font-size:11px;}.history-table th,.history-table td{padding:5px 4px;}}
 </style>
+<style>
+/* Premium admin login and 3D company wordmark */
+.company-3d{margin:0;font-size:clamp(22px,4vw,31px);font-weight:1000;letter-spacing:1.2px;line-height:1.2;color:#ffe7a0;text-transform:uppercase;text-shadow:1px 1px 0 #9a6b12,2px 2px 0 #80570d,3px 3px 0 #684408,4px 4px 0 #4a3006,0 7px 15px #000,0 0 22px #facc1540;filter:drop-shadow(0 2px 1px #000)}
+.header-company-3d{font-weight:1000;letter-spacing:.5px;color:var(--banner-name-color,#ffe7a0);font-size:var(--banner-name-size,24px);-webkit-text-stroke:1px var(--banner-outline-color,#80570d);text-shadow:1px 1px 0 #9a6b12,2px 2px 0 #80570d,3px 3px 0 #4a3006,0 4px 8px #000;}
+#loginGate{background:radial-gradient(ellipse at 50% 5%,#1e3a5f 0%,#111827 38%,#030712 100%);overflow:auto}
+.login-card{position:relative;overflow:hidden;border:1px solid #d4af3777;background:linear-gradient(145deg,rgba(31,41,55,.97),rgba(3,7,18,.98));box-shadow:0 25px 90px #000c,0 0 35px #d4af3718,inset 0 1px 0 #ffffff18;animation:loginRise .65s cubic-bezier(.2,.8,.2,1) both}
+.login-card:before{content:"";position:absolute;top:0;left:12%;right:12%;height:1px;background:linear-gradient(90deg,transparent,#ffe08a,transparent)}
+.login-mark{border:1px solid #fff6;outline:5px solid #d4af3710;animation:markGlow 3s ease-in-out infinite}
+.login-card input{transition:border-color .2s,box-shadow .2s;outline:none}
+.login-card input:focus{border-color:#facc15;box-shadow:0 0 0 3px #facc1525}
+.login-btn{transition:transform .18s,filter .18s,box-shadow .18s;letter-spacing:.35px}
+.login-btn:hover{transform:translateY(-2px);filter:brightness(1.08);box-shadow:0 8px 20px #0006}
+.login-btn:active{transform:scale(.985)}
+.login-shield{width:42px;height:42px;margin:15px auto 5px;border-radius:50%;display:grid;place-items:center;color:#facc15;border:1px solid #d4af3766;background:#d4af3712;font-size:20px;box-shadow:0 0 22px #d4af3717}
+.login-foot{margin-top:20px;color:#94a3b8;font-size:9px;letter-spacing:1.4px;font-weight:800}.login-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#22c55e;margin-right:5px;box-shadow:0 0 8px #22c55e}
+.login-transition{width:min(420px,100%);text-align:center;padding:38px 20px;animation:loginRise .4s ease both}
+.orbit{width:116px;height:116px;margin:0 auto 28px;border-radius:50%;border:2px solid #d4af3730;border-top-color:#facc15;border-right-color:#22d3ee;display:grid;place-items:center;animation:orbitSpin 1.15s linear infinite;box-shadow:0 0 35px #22d3ee13}
+.orbit-core{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#fef3c7,#d4a017);color:#111;font-size:35px;font-weight:900;animation:corePulse 1.2s ease-in-out infinite}
+.transition-title{color:#fde68a;font-size:21px;font-weight:900;letter-spacing:3px}.transition-sub{color:#cbd5e1;font-size:13px;margin-top:9px}
+.loading-track{height:4px;max-width:240px;margin:25px auto 0;background:#ffffff18;border-radius:9px;overflow:hidden}.loading-fill{height:100%;width:35%;background:linear-gradient(90deg,#22d3ee,#facc15);border-radius:9px;animation:loadSweep 1.2s ease-in-out infinite}
+@keyframes loginRise{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes markGlow{0%,100%{box-shadow:0 8px 22px #0008,0 0 0 #facc1500}50%{box-shadow:0 8px 22px #0008,0 0 24px #facc1530}}
+@keyframes orbitSpin{to{transform:rotate(360deg)}}@keyframes corePulse{0%,100%{transform:scale(.96)}50%{transform:scale(1.04)}}
+@keyframes loadSweep{0%{transform:translateX(-120%)}100%{transform:translateX(400%)}}
+@media(prefers-reduced-motion:reduce){.login-card,.login-mark,.orbit,.orbit-core,.loading-fill{animation:none!important;transition:none!important}}
+</style>\n
+<style id="user-screen-spacing-polish">
+/* User screen: compact, balanced header row */
+#userScreen .profile-header{
+  position:relative;
+  padding:10px 14px 12px !important;
+  margin-bottom:0 !important;
+  min-height:78px;
+  box-sizing:border-box;
+}
+#userScreen .prof-header-buttons{
+  display:grid !important;
+  grid-template-columns:auto minmax(0,1fr) auto;
+  align-items:center !important;
+  column-gap:8px;
+  width:100%;
+  margin:0 !important;
+  padding-top:0 !important;
+  min-height:48px;
+}
+#userScreen .prof-header-buttons > div{display:contents !important}
+#userScreen .prof-header-buttons button{
+  padding:7px 11px !important;
+  margin:0 !important;
+  white-space:nowrap;
+  position:relative !important;
+  z-index:2;
+  font-size:14px;
+}
+#userScreen .prof-header-buttons button:first-child{grid-column:1;grid-row:1}
+#userScreen .prof-header-buttons button:last-child{grid-column:3;grid-row:1}
+#userScreen #profName{
+  grid-column:2;
+  grid-row:1;
+  min-width:0;
+  margin:0 !important;
+  padding:0 2px;
+  font-size:var(--profile-name-size,22px) !important;
+  color:var(--profile-name-color,#2196f3) !important;
+  line-height:1.15;
+  text-align:center;
+  overflow-wrap:anywhere;
+}
+#userScreen .prof-details-row{margin-top:8px !important;align-items:center}
+#userScreen .table-container{margin-top:0 !important;padding-top:0 !important}
+@media(max-width:480px){
+  #userScreen .profile-header{padding:8px 9px 10px !important;min-height:70px}
+  #userScreen .prof-header-buttons{column-gap:5px;min-height:44px}
+  #userScreen .prof-header-buttons button{font-size:12px;padding:6px 8px !important}
+  #userScreen #profName{font-size:clamp(13px,3.8vw,18px) !important}
+}
+</style>
+
+<style id="user-back-button-visible-final-fix">
+/* Final user header alignment: Back, user name and Entry on one line */
+#userScreen .profile-header{
+  position:relative !important;
+  padding:4px 10px 8px !important;
+  margin-top:0 !important;
+  margin-bottom:0 !important;
+  min-height:0 !important;
+}
+#userScreen .prof-header-buttons{
+  display:flex !important;
+  flex-direction:row !important;
+  justify-content:space-between !important;
+  align-items:center !important;
+  gap:6px !important;
+  width:100% !important;
+  min-height:36px !important;
+  height:36px !important;
+  margin:0 !important;
+  padding:0 !important;
+  position:relative !important;
+}
+#userScreen .prof-header-buttons > div{display:contents !important}
+#userScreen .prof-header-buttons button,
+#userScreen .prof-header-buttons button:first-child,
+#userScreen .prof-header-buttons button:last-child{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  flex:0 0 auto !important;
+  position:relative !important;
+  z-index:5 !important;
+  min-height:30px !important;
+  height:30px !important;
+  padding:4px 9px !important;
+  margin:0 !important;
+  font-size:13px !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+}
+#userScreen #profName{
+  position:absolute !important;
+  left:74px !important;
+  right:78px !important;
+  top:7px !important;
+  width:auto !important;
+  min-width:0 !important;
+  margin:0 !important;
+  padding:0 3px !important;
+  text-align:center !important;
+  font-size:clamp(13px,3.8vw,19px) !important;
+  line-height:1.15 !important;
+  font-weight:900 !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  white-space:nowrap !important;
+  pointer-events:none !important;
+  z-index:2 !important;
+}
+#userScreen .prof-details-row{margin-top:5px !important;align-items:center !important}
+#userScreen .table-container{margin-top:0 !important;padding-top:0 !important}
+@media(max-width:480px){
+  #userScreen .profile-header{padding:3px 7px 7px !important}
+  #userScreen .prof-header-buttons{min-height:32px !important;height:32px !important;gap:4px !important}
+  #userScreen .prof-header-buttons button,
+  #userScreen .prof-header-buttons button:first-child,
+  #userScreen .prof-header-buttons button:last-child{font-size:12px !important;padding:4px 7px !important;min-height:28px !important;height:28px !important}
+  #userScreen #profName{left:67px !important;right:70px !important;top:6px !important;font-size:clamp(12px,3.6vw,16px) !important}
+}
+</style>
+
+
+<style id="user-mobile-under-name-fix">
+#userScreen #profMobile.user-mobile-under-name{display:block!important;text-align:center!important;margin:2px 0 5px!important;font-size:11px!important;line-height:1.15!important;color:#c8c8c8!important;font-weight:600!important;position:relative!important;z-index:1!important}
+#userScreen .prof-details-row{margin-top:2px!important}
+@media(max-width:480px){#userScreen #profMobile.user-mobile-under-name{font-size:10px!important;margin:1px 0 4px!important}}
+</style>
+<style id="user-mobile-number-large-final-fix">
+/* User mobile number: clearly visible directly under the user name */
+#userScreen #profMobile.user-mobile-under-name{
+  display:block !important;
+  width:100% !important;
+  text-align:center !important;
+  margin:3px 0 7px !important;
+  font-size:20px !important;
+  line-height:1.25 !important;
+  color:#ffffff !important;
+  font-weight:900 !important;
+  letter-spacing:.4px !important;
+  overflow-wrap:anywhere !important;
+  position:relative !important;
+  z-index:3 !important;
+}
+#userScreen .prof-details-row{margin-top:3px !important}
+@media(max-width:480px){
+  #userScreen #profMobile.user-mobile-under-name{
+    font-size:18px !important;
+    line-height:1.25 !important;
+    margin:3px 0 6px !important;
+  }
+}
+</style>
+
+<style id="user-name-premium-color-design">
+/* User name in blue text only; remove the surrounding blue box/frame */
+#userScreen #profName{
+  color:#2196f3 !important;
+  background:transparent !important;
+  border:none !important;
+  border-radius:0 !important;
+  padding:0 3px !important;
+  box-shadow:none !important;
+  text-shadow:none !important;
+  font-weight:900 !important;
+}
+</style>
+<style id="mobile-user-name-larger-final-fix">
+/* Increase user name size on mobile only; keep all other behavior unchanged */
+@media(max-width:480px){
+  #userScreen #profName{
+    font-size:clamp(17px,5.2vw,23px) !important;
+    left:64px !important;
+    right:67px !important;
+    letter-spacing:0 !important;
+  }
+}
+</style>
+
+<style id="leader-folder-two-line-alignment-fix">
+/* Leader folder: make the name/mobile and balance/collection lines evenly aligned */
+#leaderDetailScreen .leader-card{
+  display:grid !important;
+  grid-template-columns:26px minmax(0,1.45fr) minmax(104px,1fr) !important;
+  grid-template-rows:repeat(2,minmax(30px,1fr)) !important;
+  align-items:stretch !important;
+  column-gap:8px !important;
+  row-gap:0 !important;
+  min-height:68px !important;
+  padding:5px 9px !important;
+}
+#leaderDetailScreen .leader-card > .lc-check{
+  grid-column:1 !important;
+  grid-row:1 / 3 !important;
+  align-self:center !important;
+  justify-self:center !important;
+}
+#leaderDetailScreen .leader-card > .lc-main{
+  grid-column:2 !important;
+  grid-row:1 / 3 !important;
+  display:grid !important;
+  grid-template-rows:repeat(2,minmax(30px,1fr)) !important;
+  align-content:stretch !important;
+  align-self:stretch !important;
+  min-width:0 !important;
+  overflow:hidden !important;
+}
+#leaderDetailScreen .leader-card .lc-main b{
+  grid-row:1 !important;
+  align-self:center !important;
+  min-width:0 !important;
+  margin:0 !important;
+  line-height:1.15 !important;
+  overflow-wrap:anywhere !important;
+}
+#leaderDetailScreen .leader-card .lc-main small{
+  grid-row:2 !important;
+  align-self:center !important;
+  margin:0 !important;
+  min-width:0 !important;
+  overflow-wrap:anywhere !important;
+  line-height:1.15 !important;
+}
+#leaderDetailScreen .leader-card > .lc-right{
+  grid-column:3 !important;
+  grid-row:1 / 3 !important;
+  display:grid !important;
+  grid-template-rows:repeat(2,minmax(30px,1fr)) !important;
+  align-self:stretch !important;
+  align-items:center !important;
+  min-width:0 !important;
+}
+#leaderDetailScreen .leader-card .lc-balance,
+#leaderDetailScreen .leader-card .lc-ten{
+  align-self:center !important;
+  min-width:0 !important;
+  text-align:right !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:clip !important;
+  margin:0 !important;
+}
+#leaderDetailScreen .leader-card .lc-balance{grid-row:1 !important}
+#leaderDetailScreen .leader-card .lc-ten{grid-row:2 !important;color:#ffd700;font-weight:900;font-size:clamp(10px,2.8vw,13px)}
+@media(max-width:480px){
+  #leaderDetailScreen .leader-card{
+    grid-template-columns:23px minmax(0,1.35fr) minmax(94px,1fr) !important;
+    min-height:64px !important;
+    padding:4px 6px !important;
+    column-gap:5px !important;
+  }
+  #leaderDetailScreen .leader-card > .lc-main,
+  #leaderDetailScreen .leader-card > .lc-right{
+    grid-template-rows:repeat(2,minmax(28px,1fr)) !important;
+  }
+}
+</style>
+
+<style id="global-name-mobile-balance-collection-controls">
+/* Banner settings: synchronized typography controls across matching screens */
+#userScreen #profMobile,
+#leaderDetailScreen #leaderList > .leader-card > .lc-main small {font-size:var(--mobile-text-size,18px)!important;color:var(--mobile-text-color,#fff)!important;}
+#userScreen #profBalance,
+#leaderScreen #leaderManagerList .leader-card > .lc-balance,
+#leaderDetailScreen #leaderList .lc-right .lc-balance,
+#leaderDetailScreen #leaderList > .leader-card > .lc-balance {font-size:var(--balance-text-size,18px)!important;color:var(--balance-text-color,#fff)!important;}
+#leaderScreen #leaderManagerList .leader-card > .lc-commission,
+#leaderDetailScreen #leaderList .lc-right .lc-ten,
+#leaderDetailScreen #leaderList > .leader-card > .lc-ten {font-size:var(--collection-text-size,13px)!important;color:var(--collection-text-color,#ffd700)!important;}
+/* User Name controller applies to user names wherever user cards appear, including Leader folders. */
+#leaderDetailScreen #leaderList > .leader-card > .lc-main b {font-size:var(--user-name-font-size,16px)!important;color:var(--profile-name-color,#2196f3)!important;}
+</style>
+
+<style id="name-board-height-controls">
+#userList .user-card .user-name-main, #userScreen #profName { min-height:var(--profile-name-height,36px)!important; box-sizing:border-box!important; display:flex; align-items:center; }
+#leaderScreen #leaderManagerList .leader-card > .lc-main b, #leaderDetailScreen #leaderDetailTitle, #userScreen #profLeader { min-height:var(--leader-name-height,36px)!important; box-sizing:border-box!important; display:inline-flex; align-items:center; }
+</style>
+
+<style id="exact-two-requested-layout-fixes">
+/* 1) Main Dashboard user folders: exactly two text rows (name + mobile), balance aligned beside them. */
+#userList .user-card .row{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  grid-template-rows:auto auto!important;
+  align-items:center!important;
+  column-gap:8px!important;
+  row-gap:0!important;
+  padding-right:28px!important;
+}
+#userList .user-card .row > div:first-child{
+  display:contents!important;
+}
+#userList .user-card .row > div:first-child > div{
+  display:contents!important;
+}
+#userList .user-card .row .user-name-main{
+  grid-column:1!important;grid-row:1!important;
+  display:block!important;width:100%!important;max-width:100%!important;
+  white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;
+  line-height:1.15!important;margin:0!important;
+}
+#userList .user-card .row > div:first-child small{
+  grid-column:1!important;grid-row:2!important;
+  display:block!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;
+  line-height:1.15!important;margin:0!important;
+}
+#userList .user-card .row > div:last-child{
+  grid-column:2!important;grid-row:1!important;
+  align-self:center!important;min-width:0!important;margin:0!important;
+  white-space:nowrap!important;text-align:right!important;
+}
+#userList .user-card{padding-top:4px!important;padding-bottom:4px!important}
+/* 2) User Screen name is centered on the screen and aligned with the centered mobile number below. */
+#userScreen #profName{
+  left:50%!important;right:auto!important;
+  width:calc(100% - 150px)!important;max-width:calc(100% - 150px)!important;
+  transform:translateX(-50%)!important;
+  text-align:center!important;
+}
+@media(max-width:480px){
+  #userScreen #profName{width:calc(100% - 137px)!important;max-width:calc(100% - 137px)!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important}
+}
+</style>
+
 </head>  
-<body>  
-<div id="loading">SAVE...</div><div class="wrapper">  
-<header><img id="appLogo" class="app-logo" alt="Logo"><span id="headerTitleText">Finance Manager Pro</span><div class="indicator-container"><div id="ledLight" class="g-led">G</div></div></header>  <div id="mainScreen">  
+<body>
+
+<div id="loginGate" role="dialog" aria-modal="true" aria-label="Admin Login">
+  <div class="login-card" id="loginCard">
+    <div class="login-mark">◆</div>
+    <h2 class="company-3d">S PLUS LOAN APP</h2>
+    <p style="margin-top:8px">ADMIN LOGIN<br><span style="color:#d4af37">Authorized administrator only</span></p>
+    <div class="login-shield">✦</div>
+    <label for="adminPassword" style="display:block;text-align:left;color:#ddd;font-size:13px;font-weight:800;margin-top:18px">ADMIN PASSWORD</label>
+    <input id="adminPassword" type="password" placeholder="Enter administrator password" autocomplete="current-password" inputmode="numeric">
+    <button class="login-btn login-primary" id="adminLoginBtn" onclick="submitAdminLogin()">🔐 &nbsp; SECURE LOGIN</button>
+    <button class="login-btn login-biometric" onclick="tryAdminBiometric()">◎ &nbsp; FINGERPRINT / BIOMETRIC</button>
+    <div id="loginError" class="login-error" aria-live="polite"></div>
+    <div class="login-foot"><span class="login-dot"></span> ADMIN LOGIN <span style="opacity:.5">•</span> S PLUS LOAN APP</div>
+  </div>
+  <div id="loginTransition" class="login-transition hidden">
+    <div class="orbit"><div class="orbit-core">✓</div></div>
+    <div class="transition-title">ACCESS GRANTED</div>
+    <div class="transition-sub">Preparing your dashboard…</div>
+    <div class="loading-track"><div class="loading-fill"></div></div>
+  </div>
+</div>
+<div id="loading">SAVE...</div><div class="wrapper" id="appWrapper" style="visibility:hidden">  
+<header><button id="signOutBtn" type="button" onclick="signOutAdmin()">SIGN OUT</button><button id="bannerTransactionDeleteBtn" type="button" aria-label="Transaction Delete" title="Transaction Delete" onclick="if(!document.getElementById('userScreen').classList.contains('hidden')){event.preventDefault();event.stopPropagation();openTransactionDeleteManager()}else{event.preventDefault();event.stopPropagation()}return false">Transaction Delete</button><img id="appLogo" class="app-logo" alt="Logo"><span id="headerTitleText" class="header-company-3d">S PLUS LOAN APP</span><div class="indicator-container"><div id="ledLight" class="g-led">G</div></div></header>
+<div id="mainScreen">  
 <div class="search-container" id="searchBoxWrapper"><input type="text" id="userSearch" class="search-input" placeholder="தேடவும்..." oninput="renderUsers()"></div>  
 <div class="dashboard" id="dashboardWrapper">  
 <div class="stat-box"><small>Total Users</small><h2 id="totalUsers">0</h2></div><div class="stat-box"><small>Total Balance</small><h2 id="totalBalance">0</h2></div>  
@@ -145,7 +565,7 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 <div class="top-buttons"><button class="gold" onclick="addUser()">+ User</button><button class="gold" onclick="fetchFromCloud()">🔄 Reset</button><button class="gold" onclick="exportData()">Export</button><button class="gold" onclick="document.getElementById('importFile').click()">Import</button><button style="background:#444;color:#fff" onclick="openSettingsPopup()">⚙️ Set</button><input type="file" id="importFile" hidden onchange="importData(event)"></div>  
 <div style="padding:0 10px"><button onclick="openLeaderManager()" style="width:100%;padding:13px;border:2px solid #2eaa55;border-radius:12px;background:linear-gradient(145deg,#16753a,#0d4523);color:#fff;font-size:16px;font-weight:900;cursor:pointer">👑 LEADER</button></div>  
 <div class="universal-toolbar"><button style="background:#e53935;color:#fff" onclick="openMainPDFSelector()">📄 PDF</button><button style="background:#25D366;color:#fff" onclick="shareAllUsersWhatsApp()">📱 WhatsApp</button></div><div id="userList"></div>  
-</div>  <div id="userScreen" class="hidden"><div class="profile-header"><div class="prof-header-buttons"><button class="gold" onclick="goBack()" style="padding:6px 12px">← Back</button><button class="gold" onclick="openEntryForm()" style="padding:6px 12px">+ Entry</button></div><h2 id="profName"></h2><div class="prof-details-row"><div><p id="profMobile"></p><p id="profLeader" style="margin:5px 0 0;color:#2eaa55;font-weight:bold"></p></div><h3 id="profBalance"></h3></div></div><div class="table-container"><table><thead><tr><th>Date</th><th>Desc</th><th>Cr</th><th>Db</th><th>Bal</th></tr></thead><tbody id="transactionTable"></tbody></table></div></div>  <div id="leaderScreen" class="hidden">  
+</div>  <div id="userScreen" class="hidden"><div class="profile-header"><div class="prof-header-buttons" style="padding-top:28px;position:relative"><div style="display:flex;flex-direction:column;align-items:flex-start;gap:6px"><button class="gold" onclick="goBack()" style="padding:6px 12px;position:relative;z-index:1">← Back</button></div><button class="gold" onclick="openEntryForm()" style="padding:6px 12px;position:relative;z-index:1">+ Entry</button></div><h2 id="profName"></h2><p id="profMobile" class="user-mobile-under-name"></p><div class="prof-details-row"><p id="profLeader" style="margin:0;color:#2eaa55;font-weight:bold"></p><h3 id="profBalance"></h3></div></div><div class="table-container"><table><thead><tr><th>Date</th><th>Desc</th><th>Cr</th><th>Db</th><th>Bal</th></tr></thead><tbody id="transactionTable"></tbody></table></div></div>  <div id="leaderScreen" class="hidden">  
 <div class="profile-header"><div class="prof-header-buttons"><button class="gold" onclick="closeLeaderScreen()" style="padding:6px 12px">← Back</button><button class="gold" onclick="openLeaderCreate()" style="padding:6px 12px">+ Leader</button></div><h2>👑 LEADERS</h2><div style="text-align:center;color:#aaa;font-size:13px">Leader Dashboard • Create → Select Users → Add</div></div>  
 <!-- NEW: Leader dashboard -->  
 <div class="dashboard" id="leaderDashboard">  
@@ -157,13 +577,19 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 <div class="universal-toolbar"><button style="background:#e53935;color:#fff" onclick="openLeaderPDFSelector()">📄 PDF</button><button style="background:#25D366;color:#fff" onclick="shareSelectedLeadersWhatsApp()">📱 WhatsApp</button><span id="leaderManagerSelectedCount" class="selected-count">0 selected</span></div><div id="leaderManagerList"></div>  
 </div>  <div id="leaderDetailScreen" class="hidden">  
 <div class="profile-header"><div class="prof-header-buttons"><button class="gold" onclick="backToLeaderManager()" style="padding:6px 12px">← Back</button><button class="gold" onclick="openLeaderEdit(currentLeaderIndex)" style="padding:6px 12px">✏️ Edit</button></div><h2 id="leaderDetailTitle"></h2></div>  
-<div class="leader-toolbar"><button class="gold" onclick="selectAllLeaderUsers()">☑ Select</button><button style="background:#555;color:#fff" onclick="clearLeaderSelection()">☐ Clear</button><button style="background:#e53935;color:#fff" onclick="openLeaderDetailPDFSelector()">📄 PDF</button><button style="background:#25D366;color:#fff" onclick="shareLeaderSummary()">📱 WhatsApp</button><span id="leaderToolbarCount" class="selected-count">0 selected</span></div>  
+<div class="leader-toolbar"><button class="gold" onclick="selectAllLeaderUsers()">☑ Select</button><button style="background:#555;color:#fff" onclick="clearLeaderSelection()">☐ Clear</button><button style="background:#16803c;color:#fff" onclick="openTenPercentCollection()">💰 10% Collection</button><button style="background:#e53935;color:#fff" onclick="openLeaderDetailPDFSelector()">📄 PDF</button><button style="background:#25D366;color:#fff" onclick="shareLeaderSummary()">📱 WhatsApp</button><span id="leaderToolbarCount" class="selected-count">0 selected</span></div>  
 <div class="leader-summary"><div class="leader-summary-grid"><div class="box"><small>Selected Users</small><strong id="leaderSelectedCount">0</strong></div><div class="box"><small>Total Balance</small><strong id="leaderTotalBalance">₹ 0</strong></div><div class="box"><small>10% Collection</small><strong id="leaderTenTotal">₹ 0</strong></div><div class="box"><small>1% Commission</small><strong id="leaderCommissionDetail">₹ 0</strong></div></div></div>  
 <div id="leaderList"></div>  
-</div>  <div id="leaderUserPickerPopup" class="popup-overlay" onclick="closeLeaderUserPicker()"><div class="popup-content" style="max-height:85vh;overflow:auto" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color);margin-top:0">Select Users</h3><div style="display:flex;gap:8px;margin-bottom:10px"><button class="gold" onclick="togglePicker(true)">☑ All</button><button style="background:#555;color:#fff" onclick="togglePicker(false)">☐ Clear</button></div><div id="leaderUserPickerList"></div><button class="gold" style="width:100%;padding:12px;margin-top:12px" onclick="addPickedUsersToLeader()">Add Selected Users</button><button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeLeaderUserPicker()">Cancel</button></div></div>  
+</div>  <div id="tenPercentCollectionPopup" class="popup-overlay" onclick="closeTenPercentCollection()"><div class="popup-content" style="max-height:88vh;overflow:auto" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color);margin-top:0">💰 10% Collection Entry</h3><label style="display:block;text-align:left;color:#aaa;font-size:13px">Select Users</label><select id="tenPercentMode" onchange="updateTenPercentPicker()" style="width:100%;margin:6px 0 10px"><option value="all">ALL USERS</option><option value="red">RED USERS</option><option value="manual">MANUAL</option></select><div id="tenPercentManualList" style="display:none;max-height:30vh;overflow:auto;border:1px solid #444;border-radius:8px;padding:5px;margin-bottom:10px"></div><label style="display:block;text-align:left;color:#aaa;font-size:13px">10% Collection Date</label><input type="date" id="tenPercentDate"><label style="display:block;text-align:left;color:#ff5252;font-size:13px;font-weight:bold">RED DATE (Optional)</label><input type="date" id="tenPercentRedDate"><small style="display:block;color:#aaa;text-align:left;margin-top:-4px;margin-bottom:9px">NEXT DUE தேர்வு செய்தால், அதே selected users-க்கு தொகை சேர்க்காமல் தேதி மட்டும் பதிவாகும்.</small><label style="display:block;text-align:left;color:#aaa;font-size:13px">Description</label><input type="text" id="tenPercentDesc" placeholder="10% Collection"><div id="tenPercentPreview" style="color:#2eaa55;font-weight:bold;margin:8px 0">Selected: 0 • Total: ₹0</div><button class="gold" style="width:100%;padding:12px" onclick="applyTenPercentCollection()">OK — Add Credit</button><button style="background:#555;color:#fff;width:100%;padding:11px;margin-top:9px" onclick="closeTenPercentCollection()">Cancel</button></div></div>
+<div id="redDateOnlyPopup" class="popup-overlay" onclick="closeRedDateOnly()"><div class="popup-content" style="max-height:88vh;overflow:auto" onclick="event.stopPropagation()"><h3 style="color:#ff5252;margin-top:0">📅 RED DATE ONLY</h3><p style="color:#aaa;font-size:13px;text-align:left;margin-top:0">தேதி மட்டும் சேமிக்கப்படும். Credit / Debit தொகை சேராது.</p><label style="display:block;text-align:left;color:#aaa;font-size:13px">Select Users</label><select id="redDateMode" onchange="updateRedDatePicker()" style="width:100%;margin:6px 0 10px"><option value="all">ALL USERS</option><option value="red">RED USERS</option><option value="manual">MANUAL USER</option></select><div id="redDateManualList" style="display:none;max-height:30vh;overflow:auto;border:1px solid #444;border-radius:8px;padding:5px;margin-bottom:10px"></div><label style="display:block;text-align:left;color:#aaa;font-size:13px">RED Date</label><input type="date" id="redDateValue"><label style="display:block;text-align:left;color:#aaa;font-size:13px">Description (optional)</label><input type="text" id="redDateDesc" placeholder="RED DATE"><div id="redDatePreview" style="color:#ff5252;font-weight:bold;margin:8px 0">Selected: 0 users</div><button style="background:#b71c1c;color:#fff;width:100%;padding:12px;border:0;border-radius:8px;font-weight:bold" onclick="saveRedDateOnly()">SAVE RED DATE ONLY</button><button style="background:#555;color:#fff;width:100%;padding:11px;margin-top:9px;border:0;border-radius:8px" onclick="closeRedDateOnly()">Cancel</button></div></div>
+<div id="leaderUserPickerPopup" class="popup-overlay" onclick="closeLeaderUserPicker()"><div class="popup-content" style="max-height:85vh;overflow:auto" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color);margin-top:0">Select Users</h3><div style="display:flex;gap:8px;margin-bottom:10px"><button class="gold" onclick="togglePicker(true)">☑ All</button><button style="background:#555;color:#fff" onclick="togglePicker(false)">☐ Clear</button></div><div id="leaderUserPickerList"></div><button class="gold" style="width:100%;padding:12px;margin-top:12px" onclick="addPickedUsersToLeader()">Add Selected Users</button><button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeLeaderUserPicker()">Cancel</button></div></div>  
 <div id="leaderCreatePopup" class="popup-overlay" onclick="closeLeaderCreate()"><div class="popup-content" onclick="event.stopPropagation()"><h3 id="leaderFormTitle" style="color:var(--theme-color);margin-top:0">Create Leader</h3><input type="text" id="leaderNameInput" placeholder="Leader Name"><button class="gold" style="width:100%;padding:12px;margin-top:8px" onclick="saveLeader()">Save Leader</button><button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeLeaderCreate()">Cancel</button></div></div>  <div id="userFormPopup" class="popup-overlay" onclick="closeUserForm()"><div class="popup-content" onclick="event.stopPropagation()"><h3 id="userFormTitle" style="color:var(--theme-color);margin-top:0">Add User</h3><input type="text" id="uName" placeholder="User Name"><input type="text" id="uMobile" placeholder="Mobile"><input type="text" id="uPassword" placeholder="User Password" autocomplete="off"><label style="display:block;text-align:left;color:#aaa;font-size:13px;margin-top:5px">Leader</label><select id="uLeader"></select><button class="gold" style="width:100%;padding:12px;margin-top:10px" onclick="saveUserForm()">Save User</button><button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeUserForm()">Cancel</button></div></div>  <div id="settingsPopup" class="popup-overlay" onclick="closeSettingsPopup()"><div class="popup-content" onclick="event.stopPropagation()">
-<h3 style="color:var(--theme-color);margin-top:0">⚙️ Settings</h3>
+<button type="button" class="settings-close-inside" onclick="closeSettingsPopup()">Close ✕</button><h3 style="color:var(--theme-color);margin-top:0;padding-right:82px">⚙️ Settings</h3>
 <div id="settingsHome" class="settings-sub active">
+<div id="globalColorControl" aria-label="Color controller">
+  <input id="globalColorSlider" type="range" min="0" max="100" value="0" aria-label="Color intensity">
+</div>
+
 <div style="color:#aaa;font-size:12px;margin-bottom:10px">ஒரு option-ஐ தேர்வு செய்தால் அதற்கான தனி Settings screen திறக்கும்.</div>
 <div class="settings-nav">
 <button onclick="openSettingPage('banner')"><b>Banner</b><small>Banner name & logo</small></button>
@@ -178,8 +604,7 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 </div></div>
 <div id="settingsBanner" class="settings-sub">
 <button class="settings-back" onclick="openSettingPage('home')">← Settings</button>
-<div class="settings-card"><h4>🏷️ Banner</h4><label>Banner Name</label><input type="text" id="setAppTitle" oninput="applySettings()"><div style="color:#888;font-size:12px">இந்த பெயர் App banner மற்றும் PDF header இரண்டிலும் பயன்படுத்தப்படும்.</div></div>
-<div class="settings-card"><h4>🖼️ App Logo</h4><div class="logo-preview-wrap"><img id="logoPreview" class="logo-preview" alt="Logo Preview"><div style="flex:1;color:#aaa;font-size:12px">Gallery / Photos-ல் இருந்து logo தேர்வு செய்யலாம்.</div><button class="logo-remove" type="button" onclick="removeAppLogo()">Remove</button></div><input id="logoFileInput" class="logo-picker" type="file" accept="image/*" onchange="handleLogoSelect(event)"></div>
+<div class="settings-card"><h4>🏷️ Banner</h4><label>Banner Name</label><input type="text" id="setAppTitle" oninput="applySettings()"><div style="color:#888;font-size:12px">இந்த பெயர் App banner மற்றும் PDF header இரண்டிலும் பயன்படுத்தப்படும்.</div><label>Banner Name Font Size: <span id="bannerNameSizeVal">24</span>px</label><input type="range" id="setBannerNameSize" min="14" max="42" step="1" oninput="applySettings()"><label>Banner Text Color</label><input type="color" id="setBannerNameColor" value="#ffe7a0" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><label>Banner Letter Outline Color</label><input type="color" id="setBannerOutlineColor" value="#80570d" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><hr style="border-color:#444;margin:16px 0"><h4>👤 User Screen Name</h4><label>User Name Font Size: <span id="profileNameSizeVal">22</span>px</label><input type="range" id="setProfileNameSize" min="12" max="40" step="1" oninput="applySettings()"><label>User Name Color</label><input type="color" id="setProfileNameColor" value="#2196f3" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><label>User Name Board Height: <span id="profileNameHeightVal">36</span>px</label><input type="range" id="setProfileNameHeight" min="24" max="90" step="2" oninput="applySettings()"><div style="color:#aaa;font-size:12px">User Screen-ல் பெயரின் நிறம் மற்றும் அளவை இங்கே மாற்றலாம்.</div><hr style="border-color:#444;margin:16px 0"><h4>👑 Leader User Name</h4><label>Leader Name Font Size: <span id="leaderNameSizeVal">18</span>px</label><input type="range" id="setLeaderNameSize" min="10" max="32" step="1" oninput="applySettings()"><label>Leader Name Color</label><input type="color" id="setLeaderNameColor" value="#ffe7a0" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><label>Leader Name Board Height: <span id="leaderNameHeightVal">36</span>px</label><input type="range" id="setLeaderNameHeight" min="24" max="90" step="2" oninput="applySettings()"><div style="color:#aaa;font-size:12px">Leader பட்டியல் மற்றும் Leader folder-க்குள் உள்ள User பெயர்களின் அளவு, நிறத்தை இங்கே மாற்றலாம்.</div><hr style="border-color:#444;margin:16px 0"><h4>📱 Mobile Number</h4><label>Mobile Number Font Size: <span id="mobileTextSizeVal">18</span>px</label><input type="range" id="setMobileTextSize" min="10" max="30" step="1" oninput="applySettings()"><label>Mobile Number Color</label><input type="color" id="setMobileTextColor" value="#ffffff" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><hr style="border-color:#444;margin:16px 0"><h4>💰 Balance Amount</h4><label>Balance Font Size: <span id="balanceTextSizeVal">18</span>px</label><input type="range" id="setBalanceTextSize" min="10" max="32" step="1" oninput="applySettings()"><label>Balance Color</label><input type="color" id="setBalanceTextColor" value="#ffffff" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><hr style="border-color:#444;margin:16px 0"><h4>💵 10% Collection Amount</h4><label>10% Collection Font Size: <span id="collectionTextSizeVal">13</span>px</label><input type="range" id="setCollectionTextSize" min="9" max="28" step="1" oninput="applySettings()"><label>10% Collection Color</label><input type="color" id="setCollectionTextColor" value="#ffd700" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><div style="color:#aaa;font-size:12px">இந்த அளவு மற்றும் நிறக் கட்டுப்பாடுகள் தொடர்புடைய எல்லா திரைகளிலும் ஒரே மாதிரியாகப் பயன்படுத்தப்படும்.</div></div>
 </div>
 <div id="settingsAppearance" class="settings-sub">
 <button class="settings-back" onclick="openSettingPage('home')">← Settings</button>
@@ -204,7 +629,7 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 <div class="pdf-preview-head"><span id="pvTitle">Finance Manager Pro</span><span id="pvDate">25/09/2026, 09:00</span></div>
 <div class="pdf-preview-leader"><div class="label">LEADER</div><div class="name" id="pvLeaderName">Leader Name</div><div class="due" id="pvDue">DUE AMOUNT Rs. 3,000</div></div>
 <div class="pdf-preview-summary"><div id="pvUsers">TOTAL USERS 5</div><div id="pvBalance">TOTAL BALANCE Rs. 25,000</div></div>
-<table class="pdf-preview-table"><thead><tr><th id="pvTh1">USER</th><th id="pvTh2">LOAN</th><th id="pvTh3">CR</th><th id="pvTh4">CREDIT</th><th id="pvTh5">BALANCE</th><th id="pvTh6">10%</th></tr></thead><tbody><tr><td class="pv-tx">Name</td><td class="pv-tx">10,000</td><td class="pv-tx">2</td><td class="pv-tx">5,000</td><td class="pv-tx">15,000</td><td class="pv-tx">1,000</td></tr><tr><td class="pv-tx">Name 2</td><td class="pv-tx">20,000</td><td class="pv-tx">3</td><td class="pv-tx">8,000</td><td class="pv-tx">28,000</td><td class="pv-tx">2,000</td></tr></tbody></table>
+<table class="pdf-preview-table"><thead><tr><th id="pvTh1">S.NO</th><th id="pvTh2">USER</th><th id="pvTh3">LOAN</th><th id="pvTh4">ENTRY</th><th id="pvTh5">BALANCE</th><th id="pvTh6">10%</th></tr></thead><tbody><tr><td class="pv-tx">1</td><td class="pv-tx">Name</td><td class="pv-tx">10,000</td><td class="pv-tx">2</td><td class="pv-tx">15,000</td><td class="pv-tx">1,000</td></tr><tr><td class="pv-tx">2</td><td class="pv-tx">Name 2</td><td class="pv-tx">20,000</td><td class="pv-tx">3</td><td class="pv-tx">28,000</td><td class="pv-tx">2,000</td></tr></tbody></table>
 <div class="pdf-preview-note">இது மாதிரி Preview மட்டும் — PDF export அதே control-களை பயன்படுத்தும்.</div>
 </div></div></div></div></div>
 <div id="settingsDashboard" class="settings-sub">
@@ -228,7 +653,6 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 </div></div>
 <div id="settingsDanger" class="settings-sub">
 <button class="settings-back" onclick="openSettingPage('home')">← Settings</button><div class="settings-card"><h4>⚠️ Data</h4><div style="font-size:12px;color:#aaa;margin-bottom:10px">All Delete செய்வதற்கு முன் automatic backup download செய்யப்படும்.</div><button style="background:#e53935;color:#fff;width:100%;padding:12px;font-weight:bold;border:0;border-radius:10px" onclick="allDeleteWithExport()">⚠️ All Delete</button></div></div>
-<div style="display:flex;gap:8px;margin-top:12px"><button style="background:#555;color:#fff;flex:1;padding:11px;border:0;border-radius:9px" onclick="closeSettingsPopup()">Close</button></div>
 </div></div><div id="leaderPasswordEditPopup" class="popup-overlay" onclick="closeLeaderPasswordEdit()"><div class="popup-content" onclick="event.stopPropagation()">
 <h3 style="color:var(--theme-color);margin-top:0">🔐 Edit Leader Password</h3>
 <div id="leaderPasswordEditLeaderName" style="font-weight:900;color:var(--theme-color);margin-bottom:10px"></div>
@@ -243,17 +667,41 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 <button class="gold" style="width:100%;padding:12px;margin-top:8px" onclick="saveUserPasswordEdit()">Save Password</button>
 <button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeUserPasswordEdit()">Cancel</button>
 </div></div>
-<div id="entryPopup" class="popup-overlay"><div class="popup-content"><h3 style="color:var(--theme-color)">New Entry</h3><input type="date" id="tDate"><input type="text" id="tDesc" placeholder="Description"><input type="number" id="tCredit" placeholder="Credit"><input type="number" id="tDebit" placeholder="Debit"><div style="display:flex;gap:10px;margin-top:10px"><button class="gold" onclick="saveTransaction()" style="flex:1">Save</button><button style="background:#555;color:#fff;flex:1" onclick="closeEntryForm()">Close</button></div></div></div>  
+<div id="entryPopup" class="popup-overlay"><div class="popup-content"><h3 style="color:var(--theme-color)">New Entry</h3><input type="date" id="tDate"><input type="text" id="tDesc" placeholder="Description"><input type="number" id="tCredit" placeholder="Credit"><input type="number" id="tDebit" placeholder="Debit"><div style="margin-top:12px;padding:10px;border:1px solid #b71c1c;border-radius:9px;text-align:left"><button type="button" id="entryRedDateToggle" onclick="toggleEntryRedDate()" style="background:#b71c1c;color:#fff;border:0;border-radius:7px;padding:9px 13px;font-weight:bold;width:100%">📅 RED DATE</button><div id="entryRedDateArea" style="display:none;margin-top:10px"><label for="tRedDate" style="display:block;color:#ff5252;font-weight:bold;margin-bottom:5px">RED DATE ONLY</label><input type="date" id="tRedDate"><small style="display:block;color:#aaa;margin-top:4px">இந்த தேதி மட்டும் சேமிக்கப்படும். Credit / Debit தொகை மாறாது.</small></div></div><div style="display:flex;gap:10px;margin-top:10px"><button class="gold" onclick="saveTransaction()" style="flex:1">Save</button><button style="background:#555;color:#fff;flex:1" onclick="closeEntryForm()">Close</button></div></div></div>  
 <div id="actionPopup" class="popup-overlay" onclick="closeActionPopup()"><div class="popup-content" onclick="event.stopPropagation()"><h3 id="popupTitle" style="color:var(--theme-color)">Manage User</h3><button class="gold" id="editBtn" style="width:100%;padding:12px">✏️ Edit User</button><button style="background:#e53935;color:#fff;width:100%;margin-top:10px;padding:12px" id="deleteBtn">🗑️ Delete User</button><button style="background:#555;color:#fff;width:100%;margin-top:10px;padding:12px" onclick="closeActionPopup()">Cancel</button></div></div>  
+<div id="transactionDeleteManager" class="popup-overlay" onclick="closeTransactionDeleteManager()"><div class="popup-content" style="max-width:520px;max-height:88vh" onclick="event.stopPropagation()"><h3 style="color:#ff5252;margin-top:0">🗑️ Transaction Delete</h3><p style="font-size:13px;color:#bbb;text-align:left">நீக்க வேண்டிய transaction-களைத் தேர்வு செய்யவும். Delete செய்ததை மீட்டெடுக்க முடியாது.</p><div style="display:flex;gap:7px;margin-bottom:10px"><button class="gold" style="flex:1;padding:10px" onclick="selectAllTransactionsForDelete(true)">☑ All Select</button><button style="flex:1;padding:10px;background:#555;color:#fff;border:0;border-radius:8px" onclick="selectAllTransactionsForDelete(false)">☐ Manual Clear</button></div><div id="transactionDeleteList" style="text-align:left;max-height:45vh;overflow:auto;border:1px solid #444;border-radius:8px;padding:7px"></div><div id="transactionDeleteCount" style="font-weight:bold;color:#ffb74d;margin:10px 0">0 selected</div><button style="background:#e53935;color:#fff;width:100%;padding:12px;border:0;border-radius:8px;font-weight:bold" onclick="deleteSelectedTransactions()">🗑️ Delete Selected</button><button style="background:#555;color:#fff;width:100%;padding:10px;margin-top:8px;border:0;border-radius:8px" onclick="closeTransactionDeleteManager()">Cancel</button></div></div>
 <div id="txActionPopup" class="popup-overlay" onclick="closeTxActionPopup()"><div class="popup-content" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color)">Transaction Management</h3><button class="gold" id="txEditBtn" style="width:100%">✏️ Edit Entry</button><button style="background:#e53935;color:#fff;width:100%;margin-top:10px" id="txDeleteBtn">🗑️ Delete Entry</button><button style="background:#555;color:#fff;width:100%;margin-top:10px" onclick="closeTxActionPopup()">Cancel</button></div></div>  
 </div>  <script>  
 const CLOUD_URL="https://script.google.com/macros/s/AKfycbx8BkMWLe65CNNm2_Aezqg1OEgdC0SS3kz3L_g71rum__YHvF8GZS9HIYtizRRqldgZGw/exec";  
+
+function applyGlobalAppShade(value){
+  const amount=Math.max(0,Math.min(100,Number(value)||0))/100;
+  // Reduce saturation only: brightness and text contrast are not dimmed.
+  const saturation=1-(amount*0.90);
+  document.documentElement.style.setProperty('--app-saturation',saturation.toFixed(3));
+  try{localStorage.setItem("financeGlobalShade",String(Math.round(amount*100)))}catch(e){}
+}
+function initGlobalColorSlider(){
+  const slider=document.getElementById("globalColorSlider");
+  if(!slider || slider.dataset.colorWired==="1")return;
+  slider.dataset.colorWired="1";
+  let saved=0;try{saved=Number(localStorage.getItem("financeGlobalShade")||0)}catch(e){}
+  slider.value=String(Math.max(0,Math.min(100,saved)));
+  applyGlobalAppShade(slider.value);
+  slider.addEventListener("input",()=>applyGlobalAppShade(slider.value));
+}
+document.addEventListener("DOMContentLoaded",initGlobalColorSlider);
+
 function safeJSON(key,fallback){try{const raw=localStorage.getItem(key);if(!raw)return fallback;const v=JSON.parse(raw);return v??fallback}catch(e){console.warn("Invalid local data:",key,e);return fallback}}
 let users=safeJSON("financeUsersData",[]);
 if(!Array.isArray(users))users=[];
-let appConfig=safeJSON("financeConfig",{title:"Finance Manager Pro",width:500,height:100,fontSize:16,fontWeight:"normal",userNameFontSize:16,pdfFontSize:14,pdfBannerLeft:14,pdfBannerRight:10,pdfTransaction:11,pdfTransactionBold:true,pdfTransactionBox:8,pdfTableHeader:12,pdfTotals:12,color:"#ffd700",showDash:true,showSearch:true,showDateFilter:true,showRedHighlight:false,showBlueHighlight:false,showCloud:true,logo:""});
-if(!appConfig||typeof appConfig!=="object"||Array.isArray(appConfig))appConfig={title:"Finance Manager Pro",width:500,height:100,fontSize:16,fontWeight:"normal",userNameFontSize:16,pdfFontSize:14,pdfBannerLeft:14,pdfBannerRight:10,pdfTransaction:11,pdfTransactionBold:true,pdfTransactionBox:8,pdfTableHeader:12,pdfTotals:12,color:"#ffd700",showDash:true,showSearch:true,showDateFilter:true,showRedHighlight:false,showBlueHighlight:false,showCloud:true,logo:""};
+let appConfig=safeJSON("financeConfig",{title:"S PLUS LOAN APP",bannerNameSize:24,bannerNameColor:"#ffe7a0",bannerOutlineColor:"#80570d",width:500,height:100,fontSize:16,fontWeight:"normal",userNameFontSize:16,profileNameSize:22,profileNameColor:"#2196f3",profileNameHeight:36,leaderNameHeight:36,mobileTextSize:18,mobileTextColor:"#ffffff",balanceTextSize:18,balanceTextColor:"#ffffff",collectionTextSize:13,collectionTextColor:"#ffd700",pdfFontSize:14,pdfBannerLeft:14,pdfBannerRight:10,pdfTransaction:11,pdfTransactionBold:true,pdfTransactionBox:8,pdfTableHeader:12,pdfTotals:12,color:"#ffd700",showDash:true,showSearch:true,showDateFilter:true,showRedHighlight:false,showBlueHighlight:false,showCloud:true,logo:""});
+if(!appConfig||typeof appConfig!=="object"||Array.isArray(appConfig))appConfig={title:"S PLUS LOAN APP",bannerNameSize:24,bannerNameColor:"#ffe7a0",bannerOutlineColor:"#80570d",width:500,height:100,fontSize:16,fontWeight:"normal",userNameFontSize:16,profileNameSize:22,profileNameColor:"#2196f3",profileNameHeight:36,leaderNameHeight:36,mobileTextSize:18,mobileTextColor:"#ffffff",balanceTextSize:18,balanceTextColor:"#ffffff",collectionTextSize:13,collectionTextColor:"#ffd700",pdfFontSize:14,pdfBannerLeft:14,pdfBannerRight:10,pdfTransaction:11,pdfTransactionBold:true,pdfTransactionBox:8,pdfTableHeader:12,pdfTotals:12,color:"#ffd700",showDash:true,showSearch:true,showDateFilter:true,showRedHighlight:false,showBlueHighlight:false,showCloud:true,logo:""};
 if(appConfig.userNameFontSize===undefined)appConfig.userNameFontSize=16;if(appConfig.pdfTransactionBold===undefined)appConfig.pdfTransactionBold=true;if(appConfig.pdfFontSize===undefined)appConfig.pdfFontSize=14;if(appConfig.pdfBannerLeft===undefined)appConfig.pdfBannerLeft=14;if(appConfig.pdfBannerRight===undefined)appConfig.pdfBannerRight=10;if(appConfig.pdfTransaction===undefined)appConfig.pdfTransaction=11;if(appConfig.pdfTransactionBox===undefined)appConfig.pdfTransactionBox=8;if(appConfig.pdfTableHeader===undefined)appConfig.pdfTableHeader=12;if(appConfig.pdfTotals===undefined)appConfig.pdfTotals=12;
+if(!appConfig.title||appConfig.title==="Finance Manager Pro"||appConfig.title==="S Plus Loan App")appConfig.title="S PLUS LOAN APP";
+if(appConfig.bannerNameSize===undefined)appConfig.bannerNameSize=24;
+if(appConfig.bannerNameColor===undefined)appConfig.bannerNameColor="#ffe7a0";
+if(appConfig.bannerOutlineColor===undefined)appConfig.bannerOutlineColor="#80570d";
 if(appConfig.logo===undefined)appConfig.logo="";  
 let currentUser=null,editIndex=null,currentLeaderIndex=null,returnToLeaderDetail=false;  
 let leaders=JSON.parse(localStorage.getItem("financeLeadersData"))||[];  
@@ -280,7 +728,9 @@ function leaderAllCredit(lid){return leaderUsers(lid).reduce((sum,u)=>sum+(u.tra
 function showLoading(s){document.getElementById("loading").style.display=s?"block":"none"}  
 function localDate(){let d=new Date(),o=d.getTimezoneOffset();return new Date(d.getTime()-o*60000).toISOString().split("T")[0]}  
 function initConfig(){  
- document.getElementById("setAppTitle").value=appConfig.title;document.getElementById("setAppWidth").value=appConfig.width;document.getElementById("setAppHeight").value=appConfig.height||100;document.getElementById("setAppFontSize").value=appConfig.fontSize||16;document.getElementById("setUserNameFontSize").value=appConfig.userNameFontSize||16;document.getElementById("userNameFontSizeVal").innerText=appConfig.userNameFontSize||16;document.getElementById("setAppFontWeight").value=appConfig.fontWeight||"normal";document.getElementById("setPdfFontSize").value=appConfig.pdfFontSize||14;document.getElementById("setPdfBannerLeft").value=appConfig.pdfBannerLeft||14;document.getElementById("setPdfBannerRight").value=appConfig.pdfBannerRight||10;document.getElementById("setPdfTransaction").value=appConfig.pdfTransaction||11;document.getElementById("setPdfTransactionBold").checked=appConfig.pdfTransactionBold!==false;document.getElementById("setPdfTransactionBox").value=appConfig.pdfTransactionBox||8;document.getElementById("setPdfTableHeader").value=appConfig.pdfTableHeader||12;document.getElementById("setPdfTotals").value=appConfig.pdfTotals||12;document.getElementById("setThemeColor").value=appConfig.color;document.getElementById("pdfFontSizeVal").innerText=appConfig.pdfFontSize||14;document.getElementById("pdfBannerLeftVal").innerText=appConfig.pdfBannerLeft||14;document.getElementById("pdfBannerRightVal").innerText=appConfig.pdfBannerRight||10;document.getElementById("pdfTransactionVal").innerText=appConfig.pdfTransaction||11;document.getElementById("pdfTransactionBoxVal").innerText=appConfig.pdfTransactionBox||8;document.getElementById("pdfTableHeaderVal").innerText=appConfig.pdfTableHeader||12;document.getElementById("pdfTotalsVal").innerText=appConfig.pdfTotals||12;  
+ document.getElementById("setAppTitle").value=appConfig.title;
+ document.getElementById("setBannerNameSize").value=appConfig.bannerNameSize||24;document.getElementById("bannerNameSizeVal").innerText=appConfig.bannerNameSize||24;
+ document.getElementById("setBannerNameColor").value=appConfig.bannerNameColor||"#ffe7a0";document.getElementById("setBannerOutlineColor").value=appConfig.bannerOutlineColor||"#80570d";document.getElementById("setLeaderNameSize").value=appConfig.leaderNameSize||18;document.getElementById("leaderNameSizeVal").innerText=appConfig.leaderNameSize||18;document.getElementById("setLeaderNameColor").value=appConfig.leaderNameColor||"#ffe7a0";document.getElementById("setProfileNameSize").value=appConfig.profileNameSize||22;document.getElementById("profileNameSizeVal").innerText=appConfig.profileNameSize||22;document.getElementById("setProfileNameColor").value=appConfig.profileNameColor||"#2196f3";document.getElementById("setProfileNameHeight").value=appConfig.profileNameHeight||36;document.getElementById("profileNameHeightVal").innerText=appConfig.profileNameHeight||36;document.getElementById("setLeaderNameHeight").value=appConfig.leaderNameHeight||36;document.getElementById("leaderNameHeightVal").innerText=appConfig.leaderNameHeight||36;document.getElementById("setMobileTextSize").value=appConfig.mobileTextSize||18;document.getElementById("mobileTextSizeVal").innerText=appConfig.mobileTextSize||18;document.getElementById("setMobileTextColor").value=appConfig.mobileTextColor||"#ffffff";document.getElementById("setBalanceTextSize").value=appConfig.balanceTextSize||18;document.getElementById("balanceTextSizeVal").innerText=appConfig.balanceTextSize||18;document.getElementById("setBalanceTextColor").value=appConfig.balanceTextColor||"#ffffff";document.getElementById("setCollectionTextSize").value=appConfig.collectionTextSize||13;document.getElementById("collectionTextSizeVal").innerText=appConfig.collectionTextSize||13;document.getElementById("setCollectionTextColor").value=appConfig.collectionTextColor||"#ffd700";document.getElementById("setAppWidth").value=appConfig.width;document.getElementById("setAppHeight").value=appConfig.height||100;document.getElementById("setAppFontSize").value=appConfig.fontSize||16;document.getElementById("setUserNameFontSize").value=appConfig.userNameFontSize||16;document.getElementById("userNameFontSizeVal").innerText=appConfig.userNameFontSize||16;document.getElementById("setAppFontWeight").value=appConfig.fontWeight||"normal";document.getElementById("setPdfFontSize").value=appConfig.pdfFontSize||14;document.getElementById("setPdfBannerLeft").value=appConfig.pdfBannerLeft||14;document.getElementById("setPdfBannerRight").value=appConfig.pdfBannerRight||10;document.getElementById("setPdfTransaction").value=appConfig.pdfTransaction||11;document.getElementById("setPdfTransactionBold").checked=appConfig.pdfTransactionBold!==false;document.getElementById("setPdfTransactionBox").value=appConfig.pdfTransactionBox||8;document.getElementById("setPdfTableHeader").value=appConfig.pdfTableHeader||12;document.getElementById("setPdfTotals").value=appConfig.pdfTotals||12;document.getElementById("setThemeColor").value=appConfig.color;document.getElementById("pdfFontSizeVal").innerText=appConfig.pdfFontSize||14;document.getElementById("pdfBannerLeftVal").innerText=appConfig.pdfBannerLeft||14;document.getElementById("pdfBannerRightVal").innerText=appConfig.pdfBannerRight||10;document.getElementById("pdfTransactionVal").innerText=appConfig.pdfTransaction||11;document.getElementById("pdfTransactionBoxVal").innerText=appConfig.pdfTransactionBox||8;document.getElementById("pdfTableHeaderVal").innerText=appConfig.pdfTableHeader||12;document.getElementById("pdfTotalsVal").innerText=appConfig.pdfTotals||12;  
  ["Dash","Search","DateFilter","RedHighlight","BlueHighlight","Cloud"].forEach(x=>{let id="switch"+x,key=x[0].toLowerCase()+x.slice(1);document.getElementById(id).checked=appConfig[key]!==undefined?appConfig[key]:((x==="Cloud")?true:(x==="RedHighlight"||x==="BlueHighlight")?false:true)});  
  if(!document.getElementById("filterStartDate").value)document.getElementById("filterStartDate").value=localDate();if(!document.getElementById("filterEndDate").value)document.getElementById("filterEndDate").value=localDate();applyConfigUI();applyLogoUI();renderCommissionSettings();  
 }  
@@ -310,13 +760,13 @@ function renderUserPasswordSettings(){
  const box=document.getElementById("userPasswordSettingsList"); if(!box)return;
  const q=String(document.getElementById("userPasswordSearch")?.value||"").trim().toLowerCase();
  box.innerHTML="";
- const list=users.filter(u=>!q||String(u.name||"").toLowerCase().includes(q)||String(u.mobile||"").toLowerCase().includes(q));
+ const list=users.filter(u=>!q||String(u.name||"").toLowerCase().includes(q)||String(u.mobile||"").toLowerCase().includes(q)).sort((a,b)=>{const ap=String(a.password||"").trim().length>0?1:0,bp=String(b.password||"").trim().length>0?1:0;return bp-ap||String(a.name||"").localeCompare(String(b.name||""),"ta")});
  if(!list.length){box.innerHTML='<div style="color:#aaa;padding:12px 0;text-align:center">User கிடைக்கவில்லை.</div>';return;}
  list.forEach(u=>{
    const row=document.createElement("div");
    row.style.cssText="display:grid;grid-template-columns:minmax(110px,1.1fr) minmax(90px,1fr) auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid #444";
    const name=document.createElement("div");name.style.fontWeight="900";name.textContent=u.name||"";
-   const pass=document.createElement("div");pass.style.cssText="font-weight:700;word-break:break-all;color:#ffd700";pass.textContent=u.password||"";
+   const pass=document.createElement("div");pass.style.cssText="font-weight:700;word-break:break-all;color:#ffd700";pass.textContent=String(u.password||"").trim()?String(u.password):"🔓 Password இல்லை";
    const btn=document.createElement("button");btn.className="gold";btn.style.cssText="border:0;border-radius:7px;padding:8px 10px;font-weight:bold";btn.textContent="✏️ Edit";btn.onclick=()=>openUserPasswordEdit(u.id);
    row.append(name,pass,btn);box.appendChild(row);
  });
@@ -342,9 +792,9 @@ function updatePdfPreview(){
  }catch(e){console.warn("PDF preview",e)}
 }
 function applySettings(){
- appConfig.title=document.getElementById("setAppTitle").value||"Finance Manager Pro";appConfig.width=+document.getElementById("setAppWidth").value;appConfig.height=+document.getElementById("setAppHeight").value||100;appConfig.fontSize=+document.getElementById("setAppFontSize").value||16;appConfig.userNameFontSize=+document.getElementById("setUserNameFontSize").value||16;document.getElementById("userNameFontSizeVal").innerText=appConfig.userNameFontSize;appConfig.fontWeight=document.getElementById("setAppFontWeight").value;appConfig.pdfFontSize=+document.getElementById("setPdfFontSize").value||14;appConfig.pdfBannerLeft=+document.getElementById("setPdfBannerLeft").value||14;appConfig.pdfBannerRight=+document.getElementById("setPdfBannerRight").value||10;appConfig.pdfTransaction=+document.getElementById("setPdfTransaction").value||11;appConfig.pdfTransactionBold=document.getElementById("setPdfTransactionBold").checked;appConfig.pdfTransactionBox=+document.getElementById("setPdfTransactionBox").value||8;appConfig.pdfTableHeader=+document.getElementById("setPdfTableHeader").value||12;appConfig.pdfTotals=+document.getElementById("setPdfTotals").value||12;document.getElementById("pdfFontSizeVal").innerText=appConfig.pdfFontSize;document.getElementById("pdfBannerLeftVal").innerText=appConfig.pdfBannerLeft;document.getElementById("pdfBannerRightVal").innerText=appConfig.pdfBannerRight;document.getElementById("pdfTransactionVal").innerText=appConfig.pdfTransaction;document.getElementById("pdfTransactionBoxVal").innerText=appConfig.pdfTransactionBox;document.getElementById("pdfTableHeaderVal").innerText=appConfig.pdfTableHeader;document.getElementById("pdfTotalsVal").innerText=appConfig.pdfTotals;appConfig.color=document.getElementById("setThemeColor").value;appConfig.showDash=document.getElementById("switchDash").checked;appConfig.showSearch=document.getElementById("switchSearch").checked;appConfig.showDateFilter=document.getElementById("switchDateFilter").checked;appConfig.showRedHighlight=document.getElementById("switchRedHighlight").checked;appConfig.showBlueHighlight=document.getElementById("switchBlueHighlight").checked;appConfig.showCloud=document.getElementById("switchCloud").checked;localStorage.setItem("financeConfig",JSON.stringify(appConfig));applyConfigUI();renderUsers();refreshLeaderDashboard();updatePdfPreview();}
+ appConfig.title=document.getElementById("setAppTitle").value||"S PLUS LOAN APP";appConfig.bannerNameSize=+document.getElementById("setBannerNameSize").value||24;document.getElementById("bannerNameSizeVal").innerText=appConfig.bannerNameSize;appConfig.bannerNameColor=document.getElementById("setBannerNameColor").value||"#ffe7a0";appConfig.bannerOutlineColor=document.getElementById("setBannerOutlineColor").value||"#80570d";appConfig.leaderNameSize=+document.getElementById("setLeaderNameSize").value||18;document.getElementById("leaderNameSizeVal").innerText=appConfig.leaderNameSize;appConfig.leaderNameColor=document.getElementById("setLeaderNameColor").value||"#ffe7a0";appConfig.profileNameSize=+document.getElementById("setProfileNameSize").value||22;document.getElementById("profileNameSizeVal").innerText=appConfig.profileNameSize;appConfig.profileNameColor=document.getElementById("setProfileNameColor").value||"#2196f3";appConfig.profileNameHeight=+document.getElementById("setProfileNameHeight").value||36;document.getElementById("profileNameHeightVal").innerText=appConfig.profileNameHeight;appConfig.leaderNameHeight=+document.getElementById("setLeaderNameHeight").value||36;document.getElementById("leaderNameHeightVal").innerText=appConfig.leaderNameHeight;appConfig.mobileTextSize=+document.getElementById("setMobileTextSize").value||18;document.getElementById("mobileTextSizeVal").innerText=appConfig.mobileTextSize;appConfig.mobileTextColor=document.getElementById("setMobileTextColor").value||"#ffffff";appConfig.balanceTextSize=+document.getElementById("setBalanceTextSize").value||18;document.getElementById("balanceTextSizeVal").innerText=appConfig.balanceTextSize;appConfig.balanceTextColor=document.getElementById("setBalanceTextColor").value||"#ffffff";appConfig.collectionTextSize=+document.getElementById("setCollectionTextSize").value||13;document.getElementById("collectionTextSizeVal").innerText=appConfig.collectionTextSize;appConfig.collectionTextColor=document.getElementById("setCollectionTextColor").value||"#ffd700";appConfig.width=+document.getElementById("setAppWidth").value;appConfig.height=+document.getElementById("setAppHeight").value||100;appConfig.fontSize=+document.getElementById("setAppFontSize").value||16;appConfig.userNameFontSize=+document.getElementById("setUserNameFontSize").value||16;document.getElementById("userNameFontSizeVal").innerText=appConfig.userNameFontSize;appConfig.fontWeight=document.getElementById("setAppFontWeight").value;appConfig.pdfFontSize=+document.getElementById("setPdfFontSize").value||14;appConfig.pdfBannerLeft=+document.getElementById("setPdfBannerLeft").value||14;appConfig.pdfBannerRight=+document.getElementById("setPdfBannerRight").value||10;appConfig.pdfTransaction=+document.getElementById("setPdfTransaction").value||11;appConfig.pdfTransactionBold=document.getElementById("setPdfTransactionBold").checked;appConfig.pdfTransactionBox=+document.getElementById("setPdfTransactionBox").value||8;appConfig.pdfTableHeader=+document.getElementById("setPdfTableHeader").value||12;appConfig.pdfTotals=+document.getElementById("setPdfTotals").value||12;document.getElementById("pdfFontSizeVal").innerText=appConfig.pdfFontSize;document.getElementById("pdfBannerLeftVal").innerText=appConfig.pdfBannerLeft;document.getElementById("pdfBannerRightVal").innerText=appConfig.pdfBannerRight;document.getElementById("pdfTransactionVal").innerText=appConfig.pdfTransaction;document.getElementById("pdfTransactionBoxVal").innerText=appConfig.pdfTransactionBox;document.getElementById("pdfTableHeaderVal").innerText=appConfig.pdfTableHeader;document.getElementById("pdfTotalsVal").innerText=appConfig.pdfTotals;appConfig.color=document.getElementById("setThemeColor").value;appConfig.showDash=document.getElementById("switchDash").checked;appConfig.showSearch=document.getElementById("switchSearch").checked;appConfig.showDateFilter=document.getElementById("switchDateFilter").checked;appConfig.showRedHighlight=document.getElementById("switchRedHighlight").checked;appConfig.showBlueHighlight=document.getElementById("switchBlueHighlight").checked;appConfig.showCloud=document.getElementById("switchCloud").checked;localStorage.setItem("financeConfig",JSON.stringify(appConfig));applyConfigUI();renderUsers();refreshLeaderDashboard();updatePdfPreview();}
 function applyConfigUI(){  
- document.getElementById("headerTitleText").innerText=appConfig.title;document.getElementById("widthVal").innerText=appConfig.width;document.getElementById("heightVal").innerText=appConfig.height;document.getElementById("fontSizeVal").innerText=appConfig.fontSize;document.documentElement.style.setProperty("--app-width",appConfig.width+"px");document.documentElement.style.setProperty("--app-height",appConfig.height+"vh");document.documentElement.style.setProperty("--app-font-size",appConfig.fontSize+"px");document.documentElement.style.setProperty("--app-font-weight",appConfig.fontWeight);document.documentElement.style.setProperty("--user-name-font-size",appConfig.userNameFontSize+"px");document.documentElement.style.setProperty("--theme-color",appConfig.color);document.documentElement.style.setProperty("--theme-gradient",`linear-gradient(145deg,${appConfig.color},#333)`);  
+ document.getElementById("headerTitleText").innerText=appConfig.title;document.documentElement.style.setProperty("--banner-name-size",(appConfig.bannerNameSize||24)+"px");document.documentElement.style.setProperty("--banner-name-color",appConfig.bannerNameColor||"#ffe7a0");document.documentElement.style.setProperty("--banner-outline-color",appConfig.bannerOutlineColor||"#80570d");document.documentElement.style.setProperty("--leader-name-size",(appConfig.leaderNameSize||18)+"px");document.documentElement.style.setProperty("--leader-name-color",appConfig.leaderNameColor||"#ffe7a0");document.documentElement.style.setProperty("--profile-name-size",(appConfig.profileNameSize||22)+"px");document.documentElement.style.setProperty("--profile-name-color",appConfig.profileNameColor||"#2196f3");document.documentElement.style.setProperty("--profile-name-height",(appConfig.profileNameHeight||36)+"px");document.documentElement.style.setProperty("--leader-name-height",(appConfig.leaderNameHeight||36)+"px");document.documentElement.style.setProperty("--mobile-text-size",(appConfig.mobileTextSize||18)+"px");document.documentElement.style.setProperty("--mobile-text-color",appConfig.mobileTextColor||"#ffffff");document.documentElement.style.setProperty("--balance-text-size",(appConfig.balanceTextSize||18)+"px");document.documentElement.style.setProperty("--balance-text-color",appConfig.balanceTextColor||"#ffffff");document.documentElement.style.setProperty("--collection-text-size",(appConfig.collectionTextSize||13)+"px");document.documentElement.style.setProperty("--collection-text-color",appConfig.collectionTextColor||"#ffd700");const profileNameEl=document.getElementById("profName");if(profileNameEl){profileNameEl.style.setProperty("font-size",(appConfig.profileNameSize||22)+"px","important");profileNameEl.style.setProperty("color",appConfig.profileNameColor||"#2196f3","important");}document.getElementById("widthVal").innerText=appConfig.width;document.getElementById("heightVal").innerText=appConfig.height;document.getElementById("fontSizeVal").innerText=appConfig.fontSize;document.documentElement.style.setProperty("--app-width",appConfig.width+"px");document.documentElement.style.setProperty("--app-height",appConfig.height+"vh");document.documentElement.style.setProperty("--app-font-size",appConfig.fontSize+"px");document.documentElement.style.setProperty("--app-font-weight",appConfig.fontWeight);document.documentElement.style.setProperty("--user-name-font-size",appConfig.userNameFontSize+"px");document.documentElement.style.setProperty("--theme-color",appConfig.color);document.documentElement.style.setProperty("--theme-gradient",`linear-gradient(145deg,${appConfig.color},#333)`);  
  document.getElementById("dashboardWrapper").style.display=appConfig.showDash?"grid":"none";document.getElementById("searchBoxWrapper").style.display=appConfig.showSearch?"block":"none";document.getElementById("redDashboardBox").style.display=appConfig.showRedHighlight?"block":"none";document.getElementById("tenPercentDashboardBox").style.display=appConfig.showRedHighlight?"block":"none";let v=appConfig.showDateFilter&&appConfig.showBlueHighlight;document.getElementById("dateFilterWrapper").style.display=v?"flex":"none";document.getElementById("dateDashboardWrapper").style.display=v?"grid":"none";document.getElementById("ledLight").style.display=appConfig.showCloud?"flex":"none"  
 }  
 function openSettingsPopup(){initConfig();renderCommissionSettings();document.getElementById("settingsPopup").style.display="flex";setTimeout(updatePdfPreview,0)}function closeSettingsPopup(){const sp=document.getElementById("settingsPopup");sp.classList.remove("commission-window-wide");sp.style.display="none"}  
@@ -363,7 +813,13 @@ function sendCloudSync(){
  if(cloudSyncBusy){cloudSyncQueued=true;return;}
  if(!appConfig.showCloud||!CLOUD_URL||CLOUD_URL==="xxx")return;
  cloudSyncBusy=true;cloudSyncQueued=false;
- const body="data="+encodeURIComponent(JSON.stringify({users,leaders,leaderCommissions,leaderCommissionHistory}));
+ /* Google Sheet only: show RED DATE placeholder rows as "Next Due".
+    Keep the original local/app transaction descriptions unchanged. */
+ const cloudUsers=users.map(u=>({...u,transactions:(Array.isArray(u.transactions)?u.transactions:[]).map(t=>{
+   const isRedDate=t.redDateOnly===true||String(t.desc||"").trim().toUpperCase()==="RED DATE";
+   return isRedDate?{...t,desc:"Next Due"}:{...t};
+ })}));
+ const body="data="+encodeURIComponent(JSON.stringify({users:cloudUsers,leaders,leaderCommissions,leaderCommissionHistory}));
  fetch(CLOUD_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded"},body,keepalive:true})
  .catch(()=>{})
  .finally(()=>{
@@ -388,7 +844,9 @@ async function fetchFromCloud(silent=false){
    led.classList.remove("connected");ensureLeaderMembership();renderUsers();
  }finally{if(!silent)showLoading(false);}
 }  
-function formatDate(d){if(!d)return"";let x=new Date(d);if(isNaN(x))return String(d);return `${x.getDate()}-${x.getMonth()+1}-${String(x.getFullYear()).slice(2)}`}  
+function formatDate(d){if(!d)return"";let x=new Date(d);if(isNaN(x))return String(d);return `${x.getDate()}-${x.getMonth()+1}-${String(x.getFullYear()).slice(2)}`}
+/* Normalize stored dates (ISO yyyy-mm-dd, dd-mm-yy, dd-mm-yyyy) before same-date entry matching. */
+function entryDateKey(value){if(!value)return"";let s=String(value).trim().split("T")[0];let m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);if(m)return `${m[1]}-${m[2].padStart(2,"0")}-${m[3].padStart(2,"0")}`;m=s.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{2}|\d{4})$/);if(m){let y=Number(m[3]);if(y<100)y+=2000;return `${y}-${m[2].padStart(2,"0")}-${m[1].padStart(2,"0")}`;}let d=new Date(s);return isNaN(d)?s:`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;}  
 function getBalance(u){return(u.transactions||[]).reduce((a,t)=>a+Number(t.credit||0)-Number(t.debit||0),0)}  
 function isRed(u){if(!u.transactions?.length)return false;let td=localDate();return u.transactions.some(t=>{let d=String(t.date||"").split("T")[0],c=String(t.credit??"").trim(),db=String(t.debit??"").trim();return d&&d<=td&&!c&&!db})}  
 function getTenPercent(u){if(!isRed(u))return 0;return(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.debit||0))*0.10,0)}  
@@ -414,29 +872,219 @@ function deleteSelectedCommissionHistory(lid){let ids=[...selectedCommissionHist
 function renderCommissionHistoryTable(lid){const box=document.getElementById('commissionHistoryTableWrap');if(!box)return;let rows=filteredCommissionHistory(lid),total=rows.reduce((s,x)=>s+Number(x.commission||0),0);box.innerHTML=rows.length?`<div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#aaa;margin:7px 0"><span>Records: ${rows.length} | Total Commission: ₹ ${total.toLocaleString()}</span><span id="commissionHistorySelectedCount">${selectedCommissionHistoryIds.size} selected</span></div><div class="commission-history-scroll"><table class="history-table"><thead><tr><th class="commission-select-cell">✓</th><th>Date</th><th>User</th><th>Debit</th><th>1%</th><th>Description</th></tr></thead><tbody>${rows.map(x=>`<tr><td class="commission-select-cell"><input type="checkbox" class="commission-history-pick" ${selectedCommissionHistoryIds.has(String(x.id))?'checked':''} onchange="toggleCommissionHistory('${jsq(x.id)}',this.checked)"></td><td>${esc(x.date)}</td><td>${esc(x.userName)}</td><td>₹ ${Number(x.debit||0).toLocaleString()}</td><td>₹ ${Number(x.commission||0).toLocaleString()}</td><td>${esc(x.desc||'')}</td></tr>`).join('')}</tbody></table></div>`:'<div style="padding:20px;text-align:center;color:#aaa">இந்த date range-ல் Commission history இல்லை.</div>';}
 function commissionHistoryText(lid){let l=leaders.find(x=>x.id===lid),rows=filteredCommissionHistory(lid);let total=rows.reduce((s,x)=>s+Number(x.commission||0),0);return `Leader: ${l?.name||''}\nCommission History\nFrom: ${document.getElementById('commFrom')?.value||''} To: ${document.getElementById('commTo')?.value||''}\nTotal Commission: ₹ ${total.toLocaleString()}\n\n`+rows.map((x,i)=>`${i+1}. ${x.date} | ${x.userName} | Debit ₹ ${Number(x.debit||0).toLocaleString()} | 1% ₹ ${Number(x.commission||0).toLocaleString()} | ${x.desc||''}`).join('\n');}
 async function shareCommissionHistory(lid){let txt=commissionHistoryText(lid);if(navigator.share){try{await navigator.share({title:'Leader Commission History',text:txt})}catch(e){}}else{await navigator.clipboard.writeText(txt);alert('History copied.')}}
-function printCommissionHistory(lid){let l=leaders.find(x=>x.id===lid),rows=filteredCommissionHistory(lid),total=rows.reduce((s,x)=>s+Number(x.commission||0),0),w=window.open('','_blank');if(!w)return;w.document.write('<html><head><title>Commission History</title><style>body{font-family:Arial;padding:25px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #555;padding:7px;text-align:center}th{background:#eee}h2{margin-bottom:5px}</style></head><body><h2>'+esc(appConfig.title)+'</h2><h3>Leader: '+esc(l?.name||'')+'</h3><p>From: '+esc(document.getElementById('commFrom')?.value||'')+' &nbsp; To: '+esc(document.getElementById('commTo')?.value||'')+' &nbsp; <b>Total Commission: ₹ '+total.toLocaleString()+'</b></p><table><tr><th>Date</th><th>User</th><th>Debit</th><th>1% Commission</th><th>Description</th></tr>'+rows.map(x=>'<tr><td>'+esc(x.date)+'</td><td>'+esc(x.userName)+'</td><td>₹ '+Number(x.debit||0).toLocaleString()+'</td><td>₹ '+Number(x.commission||0).toLocaleString()+'</td><td>'+esc(x.desc||'')+'</td></tr>').join('')+'</table></body></html>');w.document.close();w.print();}
+function printCommissionHistory(lid){
+ const l=leaders.find(x=>x.id===lid), rows=filteredCommissionHistory(lid);
+ const total=rows.reduce((sum,x)=>sum+Number(x.commission||0),0);
+ const w=window.open('','_blank'); if(!w)return;
+ const from=document.getElementById('commFrom')?.value||'';
+ const to=document.getElementById('commTo')?.value||'';
+ const body=rows.map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.userName)}</td><td>₹ ${Number(x.debit||0).toLocaleString()}</td><td>₹ ${Number(x.commission||0).toLocaleString()}</td><td>${esc(x.desc||'')}</td></tr>`).join('');
+ w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Commission History</title><style>body{font-family:Arial;padding:25px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #555;padding:7px;text-align:center}th{background:#eee}h2{margin-bottom:5px}</style></head><body><h2>${esc(appConfig.title)}</h2><h3>Leader: ${esc(l?.name||'')}</h3><p>From: ${esc(from)} &nbsp; To: ${esc(to)} &nbsp; <b>Total Commission: ₹ ${total.toLocaleString()}</b></p><table><tr><th>Date</th><th>User</th><th>Debit</th><th>1% Commission</th><th>Description</th></tr>${body}</table>
+<style id="leader-folder-final-user-card-alignment">
+/* Final targeted adjustment only: align assigned-user name rows and place amounts at the card's far right edge. */
+#leaderDetailScreen #leaderList > .leader-card{
+  grid-template-columns:26px minmax(0,1fr) minmax(112px,auto) !important;
+  column-gap:5px !important;
+  padding-left:8px !important;
+  padding-right:8px !important;
+  box-sizing:border-box !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-main{
+  display:grid !important;
+  grid-template-rows:minmax(30px,1fr) minmax(30px,1fr) !important;
+  align-content:stretch !important;
+  min-width:0 !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-main b,
+#leaderDetailScreen #leaderList > .leader-card > .lc-main small{
+  align-self:center !important;
+  margin-top:0 !important;
+  line-height:1.15 !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-right{
+  justify-self:stretch !important;
+  justify-items:stretch !important;
+  width:100% !important;
+  min-width:0 !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-balance,
+#leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-ten{
+  width:100% !important;
+  text-align:right !important;
+  justify-self:stretch !important;
+  margin:0 !important;
+  padding:0 !important;
+  white-space:nowrap !important;
+  box-sizing:border-box !important;
+}
+@media(max-width:480px){
+  #leaderDetailScreen #leaderList > .leader-card{
+    grid-template-columns:23px minmax(0,1fr) minmax(108px,auto) !important;
+    column-gap:4px !important;
+    padding-left:6px !important;
+    padding-right:6px !important;
+  }
+}
+</style>
+
+
+<style id="leader-manager-name-controller-final-fix">
+/* Apply the existing Leader Name size/color controller to names in the Leader list only. */
+#leaderScreen #leaderManagerList .leader-card > .lc-main b {
+  font-size: var(--leader-name-size, 18px) !important;
+  color: var(--leader-name-color, #ffe7a0) !important;
+}
+</style>
+
+<style id="user-name-controller-leader-folder-fix">
+/* Only the assigned-user name inside a Leader folder follows the existing User Name Size controller. */
+#leaderDetailScreen #leaderList > .leader-card > .lc-main > b {
+  font-size: var(--user-name-font-size, 16px) !important;
+}
+</style>
+
+
+<style id="banner-controls-all-screens-final-sync">
+/* Final shared Banner controls: one setting applies consistently in every related screen. */
+/* USER NAME */
+#userList .user-card .user-name-main,
+#userScreen #profName,
+#leaderDetailScreen #leaderList > .leader-card > .lc-main b {
+  font-size:var(--profile-name-size,22px)!important;
+  color:var(--profile-name-color,#2196f3)!important;
+}
+/* LEADER NAME */
+#leaderScreen #leaderManagerList .leader-card > .lc-main b,
+#leaderDetailScreen #leaderDetailTitle,
+#userScreen #profLeader,
+#leaderScreen #leaderDetailTitle {
+  font-size:var(--leader-name-size,18px)!important;
+  color:var(--leader-name-color,#ffe7a0)!important;
+}
+/* MOBILE NUMBER */
+#userScreen #profMobile,
+#userList .user-card .row > div:first-child small,
+#leaderDetailScreen #leaderList > .leader-card > .lc-main small {
+  font-size:var(--mobile-text-size,18px)!important;
+  color:var(--mobile-text-color,#fff)!important;
+}
+/* BALANCE amounts in user cards, user screen, leader lists and dashboard */
+#userList .user-card .row > div:last-child,
+#userScreen #profBalance,
+#leaderScreen #leaderManagerList .leader-card > .lc-balance,
+#leaderDetailScreen #leaderList .lc-balance,
+#totalBalance,
+#leaderGrandBalance,
+#leaderTotalBalance {
+  font-size:var(--balance-text-size,18px)!important;
+  color:var(--balance-text-color,#fff)!important;
+}
+/* 10% collection and commission amounts, including Leader dashboard totals */
+#leaderScreen #leaderManagerList .leader-card > .lc-commission,
+#leaderDetailScreen #leaderList .lc-ten,
+#leaderTenTotal,
+#leaderGrandCommission,
+#leaderCommissionDetail,
+#leaderCommissionLeaderCountValue,
+#tenPercentTotal {
+  font-size:var(--collection-text-size,13px)!important;
+  color:var(--collection-text-color,#ffd700)!important;
+}
+/* Keep long names readable without changing the two-row card layout. */
+#userList .user-card .user-name-main,
+#leaderScreen #leaderManagerList .leader-card > .lc-main b,
+#leaderDetailScreen #leaderList > .leader-card > .lc-main b {
+  line-height:1.15!important;
+}
+</style>
+
+
+<style id="all-screen-shared-typography-final">
+/* Shared typography: same field type uses the same Banner setting on Main Dashboard, Leader Dashboard/List, and User Screen. */
+#userList .user-card .user-name-main,
+#userScreen #profName,
+#leaderDetailScreen #leaderList > .leader-card > .lc-main > b {
+  font-size:var(--profile-name-size,22px)!important;
+  color:var(--profile-name-color,#2196f3)!important;
+}
+#leaderScreen #leaderManagerList .leader-card > .lc-main > b,
+#leaderScreen #leaderDetailTitle,
+#leaderDetailScreen #leaderDetailTitle {
+  font-size:var(--leader-name-size,18px)!important;
+  color:var(--leader-name-color,#ffe7a0)!important;
+}
+#userScreen #profMobile,
+#userList .user-card .row > div:first-child small,
+#leaderDetailScreen #leaderList > .leader-card > .lc-main > small {
+  font-size:var(--mobile-text-size,18px)!important;
+  color:var(--mobile-text-color,#fff)!important;
+}
+#userList .user-card .row > div:last-child,
+#userScreen #profBalance,
+#leaderScreen #leaderManagerList .leader-card > .lc-balance,
+#leaderDetailScreen #leaderList .lc-balance,
+#totalBalance,#leaderGrandBalance,#leaderTotalBalance {
+  font-size:var(--balance-text-size,18px)!important;
+  color:var(--balance-text-color,#fff)!important;
+}
+#leaderScreen #leaderManagerList .leader-card > .lc-commission,
+#leaderDetailScreen #leaderList .lc-ten,
+#tenPercentTotal,#leaderTenTotal,#leaderGrandCommission,#leaderCommissionDetail,#leaderCommissionLeaderCountValue {
+  font-size:var(--collection-text-size,13px)!important;
+  color:var(--collection-text-color,#ffd700)!important;
+}
+</style>
+
+
+<style id="mobile-settings-fullscreen-only">
+/* Mobile-only layout correction for Settings; keeps all settings and handlers unchanged. */
+@media (max-width: 700px) {
+  #settingsPopup { align-items: stretch !important; justify-content: stretch !important; padding: 0 !important; overflow: hidden !important; }
+  #settingsPopup > .popup-content {
+    width: 100% !important; max-width: none !important; height: 100vh !important; height: 100dvh !important;
+    max-height: 100vh !important; max-height: 100dvh !important; box-sizing: border-box !important;
+    margin: 0 !important; padding: 12px 12px 16px !important; border-radius: 0 !important;
+    overflow-x: hidden !important; overflow-y: auto !important; overscroll-behavior: contain;
+  }
+  #settingsPopup .settings-sub.active { min-width: 0; }
+  #settingsPopup .settings-card { box-sizing: border-box; max-width: 100%; }
+  #settingsPopup .setting-row { gap: 10px; align-items: center; }
+  #settingsPopup .setting-row > span { min-width: 0; flex: 1 1 auto; overflow-wrap: anywhere; }
+  #settingsPopup .setting-row .switch { flex: 0 0 auto; }
+  #settingsPopup > .popup-content > div:last-child {
+    position: sticky; bottom: -16px; z-index: 5; background: #303030;
+    padding: 10px 0 max(10px, env(safe-area-inset-bottom)); margin-top: 10px !important;
+  }
+  #settingsPopup > .popup-content > div:last-child button { width: 100%; min-height: 44px; }
+}
+</style>
+
+</body></html>`);
+ w.document.close(); w.print();
+}
 function getLeaderTenPercent(u){return(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.debit||0))*0.10,0)}  
 function getDebitInDateRange(u,s,e){return(u.transactions||[]).reduce((sum,t)=>{let d=String(t.date||"").split("T")[0],v=Number(t.debit||0);return d>=s&&d<=e&&v>0?sum+v:sum},0)}  
 function getCreditInDateRange(u,s,e){return(u.transactions||[]).reduce((sum,t)=>{let d=String(t.date||"").split("T")[0],v=Number(t.credit||0);return d>=s&&d<=e&&v>0?sum+v:sum},0)}  
   
 let selectedUserIds=new Set();
 function openMainPDFSelector(){selectedUserIds=new Set(users.map(u=>u.id));renderPDFSelectorModal('users');}
+function pdfSelectorRed(type){let set=type==='users'?selectedUserIds:selectedLeaderIds,items=type==='users'?users:leaders.filter(l=>leaderHasRed(l.id));set.clear();items.forEach(x=>set.add(x.id));document.querySelectorAll('#pdfSelectorPopup .pdf-pick').forEach(c=>{c.checked=set.has(c.dataset.id)});}
 function openLeaderPDFSelector(){selectedLeaderIds=new Set(leaders.map(l=>l.id));renderPDFSelectorModal('leaders');}
-function renderPDFSelectorModal(type){let isUsers=type==='users',items=isUsers?users:leaders;let title=isUsers?'Select Users for PDF':'Select Leaders for PDF';let set=isUsers?selectedUserIds:selectedLeaderIds;let rows=items.map((x,i)=>`<label style="display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid #333"><input type="checkbox" class="pdf-pick" data-id="${jsq(x.id)}" ${set.has(x.id)?'checked':''}><span>${i+1}. ${esc(x.name)}</span></label>`).join('');let pop=document.getElementById('pdfSelectorPopup');if(!pop){pop=document.createElement('div');pop.id='pdfSelectorPopup';pop.className='popup-overlay';document.body.appendChild(pop);}pop.innerHTML=`<div class="popup-content" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color);margin-top:0">📄 ${title}</h3><div style="display:flex;gap:6px;margin-bottom:10px"><button class="gold" onclick="pdfSelectorAll(true,'${type}')">☑ All Select</button><button style="background:#555;color:#fff" onclick="pdfSelectorAll(false,'${type}')">☐ Clear</button></div><div style="max-height:55vh;overflow:auto;text-align:left">${rows}</div><div style="display:flex;gap:7px;margin-top:12px"><button style="background:#e53935;color:#fff;flex:1;padding:11px;border:0;border-radius:9px;font-weight:bold" onclick="printSelectedPDF('${type}')">🖨 Print</button><button style="background:#555;color:#fff;flex:1;padding:11px;border:0;border-radius:9px" onclick="closePDFSelector()">Close</button></div></div>`;pop.style.display='flex';}
+function renderPDFSelectorModal(type){let isUsers=type==='users',items=isUsers?users:leaders;let title=isUsers?'Select Users for PDF':'Select Leaders for PDF';let set=isUsers?selectedUserIds:selectedLeaderIds;let rows=items.map((x,i)=>`<label style="display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid #333"><input type="checkbox" class="pdf-pick" data-id="${jsq(x.id)}" ${set.has(x.id)?'checked':''}><span>${i+1}. ${esc(x.name)}</span></label>`).join('');let pop=document.getElementById('pdfSelectorPopup');if(!pop){pop=document.createElement('div');pop.id='pdfSelectorPopup';pop.className='popup-overlay';document.body.appendChild(pop);}pop.innerHTML=`<div class="popup-content" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color);margin-top:0">📄 ${title}</h3><div style="display:flex;gap:6px;margin-bottom:10px"><button class="gold" onclick="pdfSelectorAll(true,'${type}')">☑ All Select</button><button style="background:#e53935;color:#fff" onclick="pdfSelectorRed('${type}')">🔴 Red Select</button><button style="background:#555;color:#fff" onclick="pdfSelectorAll(false,'${type}')">☐ Clear</button></div><div style="max-height:55vh;overflow:auto;text-align:left">${rows}</div><div style="display:flex;gap:7px;margin-top:12px"><button style="background:#e53935;color:#fff;flex:1;padding:11px;border:0;border-radius:9px;font-weight:bold" onclick="printSelectedPDF('${type}')">🖨 Print</button><button style="background:#555;color:#fff;flex:1;padding:11px;border:0;border-radius:9px" onclick="closePDFSelector()">Close</button></div></div>`;pop.style.display='flex';}
 function pdfSelectorAll(flag,type){let set=type==='users'?selectedUserIds:selectedLeaderIds;document.querySelectorAll('#pdfSelectorPopup .pdf-pick').forEach(c=>{c.checked=flag;if(flag)set.add(c.dataset.id);else set.delete(c.dataset.id)});}
 function syncPDFSelectorSet(type){let set=type==='users'?selectedUserIds:selectedLeaderIds;set.clear();document.querySelectorAll('#pdfSelectorPopup .pdf-pick:checked').forEach(c=>set.add(c.dataset.id));}
 function closePDFSelector(){let p=document.getElementById('pdfSelectorPopup');if(p)p.style.display='none';}
 function printSelectedPDF(type){syncPDFSelectorSet(type);if(type==='users')generateSelectedUsersPDF();else generateSelectedLeadersPDF();closePDFSelector();}
 function selectedUsers(){return users.filter(u=>selectedUserIds.has(u.id));}
 function shareAllUsersWhatsApp(){let arr=users;if(!arr.length)return alert('Users இல்லை.');let txt=`${appConfig.title||'Finance Manager'}\nTotal Users: ${arr.length}\nTotal Balance: ₹ ${arr.reduce((s,u)=>s+getBalance(u),0).toLocaleString()}\n\n`+arr.map((u,i)=>`${i+1}. ${u.name} - ₹ ${getBalance(u).toLocaleString()}`).join('\n');if(navigator.share){navigator.share({title:appConfig.title||'Finance Manager',text:txt}).catch(()=>{})}else{window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank')}}
-function generateSelectedUsersPDF(){let arr=selectedUsers();if(!arr.length)return alert('முதலில் User-களை Select செய்யவும்.');if(!window.jspdf)return alert('PDF library load ஆகவில்லை.');let {jsPDF}=window.jspdf,doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'}),w=doc.internal.pageSize.getWidth(),now=new Date(),bal=arr.reduce((s,u)=>s+getBalance(u),0);doc.setFont('helvetica','bold');doc.setFontSize(+appConfig.pdfBannerLeft||14);doc.text(String(appConfig.title||'FINANCE MANAGER'),10,14);doc.setFontSize(+appConfig.pdfBannerRight||10);doc.text(now.toLocaleString(),w-10,14,{align:'right'});doc.setFontSize(+appConfig.pdfTotals||12);doc.text('TOTAL USERS: '+arr.length,w-10,21,{align:'right'});doc.text('TOTAL BALANCE: Rs. '+bal.toLocaleString(),w-10,28,{align:'right'});let rows=arr.map(u=>[u.name||'',u.mobile||'',(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.credit||0)),0).toLocaleString(),(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.debit||0)),0).toLocaleString(),getBalance(u).toLocaleString()]);doc.autoTable({startY:34,head:[['USER','MOBILE','CREDIT','DEBIT','BALANCE']],body:rows,theme:'grid',styles:{fontSize:+appConfig.pdfTransaction||11,cellPadding:Math.max(.5,(+appConfig.pdfTransactionBox||8)/4),fontStyle:appConfig.pdfTransactionBold===false?'normal':'bold'},headStyles:{fontSize:+appConfig.pdfTableHeader||12}});doc.save('Finance_Manager_Selected.pdf');}
+function generateSelectedUsersPDF(){let arr=selectedUsers();if(!arr.length)return alert('முதலில் User-களை Select செய்யவும்.');if(!window.jspdf)return alert('PDF library load ஆகவில்லை.');let {jsPDF}=window.jspdf,doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'}),w=doc.internal.pageSize.getWidth(),now=new Date(),bal=arr.reduce((s,u)=>s+getBalance(u),0);doc.setFont('helvetica','bold');doc.setFontSize(+appConfig.pdfBannerLeft||14);doc.text(String(appConfig.title||'FINANCE MANAGER'),10,14);doc.setFontSize(+appConfig.pdfBannerRight||10);doc.text(now.toLocaleString(),w-10,14,{align:'right'});doc.setFontSize(+appConfig.pdfTotals||12);doc.text('TOTAL USERS: '+arr.length,w-10,21,{align:'right'});doc.text('TOTAL BALANCE: Rs. '+bal.toLocaleString(),w-10,28,{align:'right'});let rows=arr.map((u,i)=>[i+1,u.name||'',u.mobile||'',(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.debit||0)),0).toLocaleString(),getBalance(u).toLocaleString()]);doc.autoTable({startY:34,head:[['S.NO','USER','MOBILE','DEBIT','BALANCE']],body:rows,theme:'grid',styles:{fontSize:+appConfig.pdfTransaction||11,cellPadding:Math.max(.5,(+appConfig.pdfTransactionBox||8)/4),fontStyle:appConfig.pdfTransactionBold===false?'normal':'bold'},headStyles:{fontSize:+appConfig.pdfTableHeader||12}});doc.save('Finance_Manager_Selected.pdf');}
 
 function renderUsers(){  
  ensureLeaderMembership();let search=(document.getElementById("userSearch").value||"").toLowerCase().trim(),list=document.getElementById("userList");list.innerHTML="";let total=0,rc=0,ten=0,cr=0,db=0,crUsers=new Set(),dbUsers=new Set(),s=document.getElementById("filterStartDate").value,e=document.getElementById("filterEndDate").value;  
  users.forEach(u=>{total+=getBalance(u);if(isRed(u)){rc++;ten+=getTenPercent(u)};(u.transactions||[]).forEach(t=>{let d=String(t.date||"").split("T")[0],cv=Number(t.credit||0),dv=Number(t.debit||0);if(d>=s&&d<=e){if(cv>0){cr+=cv;crUsers.add(u.id)}if(dv>0){db+=dv;dbUsers.add(u.id)}}})});  
  document.getElementById("totalUsers").innerText=users.length;document.getElementById("totalBalance").innerText="₹ "+total.toLocaleString();document.getElementById("redUsersCount").innerText=rc;document.getElementById("tenPercentTotal").innerText="₹ "+ten.toLocaleString();document.getElementById("dateTotalCredit").innerText=crUsers.size+" / ₹ "+cr.toLocaleString();document.getElementById("dateTotalDebit").innerText=dbUsers.size+" / ₹ "+db.toLocaleString();  
  let f=users.filter(u=>(u.name||"").toLowerCase().includes(search)||(u.mobile||"").toLowerCase().includes(search));  
- f.sort((a,b)=>{if(appConfig.showRedHighlight){let x=isRed(a),y=isRed(b);if(x!==y)return y-x}if(appConfig.showBlueHighlight&&appConfig.showDateFilter){let x=getDebitInDateRange(a,s,e),y=getDebitInDateRange(b,s,e),xb=x>0,yb=y>0;if(xb!==yb)return yb-xb;if(xb)return x-y}return Math.abs(getBalance(a))-Math.abs(getBalance(b))});  
+ f.sort((a,b)=>{let redA=appConfig.showRedHighlight&&isRed(a),redB=appConfig.showRedHighlight&&isRed(b),blueA=!redA&&appConfig.showBlueHighlight&&appConfig.showDateFilter&&getDebitInDateRange(a,s,e)>0,blueB=!redB&&appConfig.showBlueHighlight&&appConfig.showDateFilter&&getDebitInDateRange(b,s,e)>0,groupA=redA?0:blueA?1:2,groupB=redB?0:blueB?1:2;return groupA-groupB||Math.abs(getBalance(a))-Math.abs(getBalance(b))||((b.transactions||[]).filter(t=>Number(t.credit||0)>0).length-(a.transactions||[]).filter(t=>Number(t.credit||0)>0).length)});  
  f.forEach(u=>{let i=users.indexOf(u),red=appConfig.showRedHighlight&&isRed(u),da=getDebitInDateRange(u,s,e),blue=appConfig.showBlueHighlight&&appConfig.showDateFilter&&da>0,card=document.createElement("div");card.className="user-card"+(red?" redbg":blue?" bluebg":"");card.onclick=()=>openUser(i);card.innerHTML=`<div class="row"><div style="display:flex;align-items:center"><div style="min-width:0;max-width:100%"><b class="user-name-main" style="font-size:${Math.max(8,Math.min(Number(appConfig.userNameFontSize||16),String(u.name||"").length>20?11:String(u.name||"").length>16?12:16))}px">${esc(u.name)}</b><br><small>${esc(u.mobile||"")}</small></div></div><div style="font-weight:bold">₹ ${getBalance(u).toLocaleString()}</div></div><button class="menu-dot-btn" onclick="triggerActionMenu(event,${i},'${jsq(u.name)}')">&#8942;</button>`;list.appendChild(card)})  
 }  
 function esc(x){return String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}function jsq(x){return String(x??"").replace(/\\/g,"\\\\").replace(/'/g,"\\'")}  
@@ -450,10 +1098,13 @@ function goBack(){
  if(returnToLeaderDetail){returnToLeaderDetail=false;document.getElementById("leaderDetailScreen").classList.remove("hidden");renderLeaderDetail()}  
  else{document.getElementById("mainScreen").classList.remove("hidden");renderUsers()}  
 }  
-function openEntryForm(){document.getElementById("tDate").value=localDate();document.getElementById("tDesc").value="";document.getElementById("tCredit").value="";document.getElementById("tDebit").value="";editIndex=null;document.getElementById("entryPopup").style.display="flex"}function closeEntryForm(){document.getElementById("entryPopup").style.display="none";editIndex=null}  
-async function saveTransaction(){let d=document.getElementById("tDate").value;if(!d)return alert("Date is required!");let tx={date:d,desc:document.getElementById("tDesc").value,credit:document.getElementById("tCredit").value,debit:document.getElementById("tDebit").value};if(editIndex===null){users[currentUser].transactions.push(tx);if(Number(tx.debit||0)>0){let lid=users[currentUser].leaderId,lead=leaders.find(x=>x.id===lid),amount=Math.max(0,Number(tx.debit||0))*0.01;if(lid&&lead&&amount){addLeaderCommission(lid,tx.debit);leaderCommissionHistory.push({id:"comm_"+Date.now()+"_"+Math.random().toString(36).slice(2,7),date:tx.date,userId:users[currentUser].id,userName:users[currentUser].name,leaderId:lid,leaderName:lead.name,debit:Number(tx.debit||0),commission:amount,desc:tx.desc||""});localStorage.setItem("financeLeaderCommissionHistory",JSON.stringify(leaderCommissionHistory));}}}else users[currentUser].transactions[editIndex]=tx;closeEntryForm();renderTransactions();refreshLeaderDashboard();if(returnToLeaderDetail)renderLeaderDetail();await saveToCloudOnly()}  
-function renderTransactions(){let u=users[currentUser];u.transactions=u.transactions||[];u.transactions.sort((a,b)=>new Date(a.date)-new Date(b.date));document.getElementById("profName").innerText=u.name;document.getElementById("profMobile").innerText=u.mobile||"No Mobile";document.getElementById("profLeader").innerText="👑 "+getLeaderName(u);document.getElementById("profBalance").innerText="Bal: ₹"+getBalance(u).toLocaleString();let body=document.getElementById("transactionTable");body.innerHTML="";let bal=0,arr=[];u.transactions.forEach((t,i)=>{let note=!String(t.credit??"").trim()&&!String(t.debit??"").trim();if(!note)bal+=Number(t.credit||0)-Number(t.debit||0);arr.push({...t,cumulative:note?"":bal,actualIdx:i})});arr.reverse().forEach(t=>{let r=document.createElement("tr");let hasCredit=Number(t.credit||0)>0,hasDebit=Number(t.debit||0)>0;r.className=hasCredit?"credit-row":hasDebit?"debit-row":"pending-row";r.innerHTML=`<td>${formatDate(t.date)}</td><td>${esc(t.desc||"")}</td><td>${t.credit||""}</td><td>${t.debit||""}</td><td><b>${t.cumulative!==""?"₹ "+Number(t.cumulative).toLocaleString():""}</b></td>`;setupLongPress(r,()=>openTxActionPopup(t.actualIdx));body.appendChild(r)})}  
+function toggleEntryRedDate(){const area=document.getElementById("entryRedDateArea"),opening=area.style.display==="none"||!area.style.display;area.style.display=opening?"block":"none";if(opening&&!document.getElementById("tRedDate").value)document.getElementById("tRedDate").value=localDate();if(!opening)document.getElementById("tRedDate").value=""}
+function resetEntryRedDate(){document.getElementById("entryRedDateArea").style.display="none";document.getElementById("tRedDate").value="";}
+function openEntryForm(){document.getElementById("tDate").value=localDate();document.getElementById("tDesc").value="";document.getElementById("tCredit").value="";document.getElementById("tDebit").value="";editIndex=null;resetEntryRedDate();document.getElementById("entryPopup").style.display="flex"}function closeEntryForm(){document.getElementById("entryPopup").style.display="none";editIndex=null;resetEntryRedDate()}  
+async function saveTransaction(){let d=document.getElementById("tDate").value;if(!d)return alert("Date is required!");let u=users[currentUser];u.transactions=Array.isArray(u.transactions)?u.transactions:[];let redArea=document.getElementById("entryRedDateArea"),redDate=redArea.style.display!=="none"?document.getElementById("tRedDate").value:"";if(redArea.style.display!=="none"&&!redDate)return alert("RED தேதி தேர்வு செய்யவும்!");let tx={date:d,desc:document.getElementById("tDesc").value,credit:document.getElementById("tCredit").value,debit:document.getElementById("tDebit").value};if(editIndex===null){const isZeroTransaction=t=>{const credit=Number(t.credit||0),debit=Number(t.debit||0);return credit===0&&debit===0;};const isNoEntryPlaceholder=t=>{const label=String(t.desc||"").trim().toUpperCase().replace(/[\s_-]+/g," ");return ["NO ENTRY","NO ENTRY TRANSACTION","NO ENTRY TRANSLATION","NO ENTRY TXN","NO ENTRY RECORD","RED DATE"].includes(label)||t.redDateOnly===true;};/* Same user + same date + zero credit/debit: update that existing row instead of creating another transaction. */const placeholderIndex=u.transactions.findIndex(t=>entryDateKey(t.date)===entryDateKey(d)&&isZeroTransaction(t)&&t.redDateOnly!==true&&String(t.desc||"").trim().toUpperCase()!=="RED DATE");if(placeholderIndex>=0){u.transactions[placeholderIndex]={...tx};const savedTx=u.transactions[placeholderIndex];/* Deduplicate ALL zero-value rows for this user/date, even if their description differs; never touch RED DATE or real money transactions. */for(let i=u.transactions.length-1;i>=0;i--){const row=u.transactions[i];if(row!==savedTx&&entryDateKey(row.date)===entryDateKey(d)&&isZeroTransaction(row)&&row.redDateOnly!==true&&String(row.desc||"").trim().toUpperCase()!=="RED DATE")u.transactions.splice(i,1);}}else{u.transactions.push(tx);}if(Number(tx.debit||0)>0){let lid=u.leaderId,lead=leaders.find(x=>x.id===lid),amount=Math.max(0,Number(tx.debit||0))*0.01;if(lid&&lead&&amount){addLeaderCommission(lid,tx.debit);leaderCommissionHistory.push({id:"comm_"+Date.now()+"_"+Math.random().toString(36).slice(2,7),date:tx.date,userId:u.id,userName:u.name,leaderId:lid,leaderName:lead.name,debit:Number(tx.debit||0),commission:amount,desc:tx.desc||""});localStorage.setItem("financeLeaderCommissionHistory",JSON.stringify(leaderCommissionHistory));}}}else u.transactions[editIndex]=tx;if(redDate){const alreadyExists=u.transactions.some((t,i)=>i!==editIndex&&String(t.date||"").split("T")[0]===redDate&&!String(t.credit??"").trim()&&!String(t.debit??"").trim()&&(t.redDateOnly===true||String(t.desc||"").toUpperCase()==="RED DATE"));if(!alreadyExists)u.transactions.push({date:redDate,desc:"RED DATE",credit:"",debit:"",redDateOnly:true,redDateBatchKey:`entryRedDate:${u.id}:${redDate}`});}closeEntryForm();renderTransactions();refreshLeaderDashboard();if(returnToLeaderDetail)renderLeaderDetail();await saveToCloudOnly()}  
+function renderTransactions(){let u=users[currentUser];u.transactions=u.transactions||[];u.transactions.sort((a,b)=>new Date(a.date)-new Date(b.date));document.getElementById("profName").innerText=u.name;document.getElementById("profMobile").innerText=u.mobile||"No Mobile";document.getElementById("profLeader").innerText="👑 "+getLeaderName(u);document.getElementById("profBalance").innerText="Bal: ₹"+getBalance(u).toLocaleString();let body=document.getElementById("transactionTable");body.innerHTML="";let bal=0,arr=[];u.transactions.forEach((t,i)=>{let note=!String(t.credit??"").trim()&&!String(t.debit??"").trim();if(!note)bal+=Number(t.credit||0)-Number(t.debit||0);arr.push({...t,cumulative:note?"":bal,actualIdx:i})});arr.reverse().forEach(t=>{let r=document.createElement("tr");let hasCredit=Number(t.credit||0)>0,hasDebit=Number(t.debit||0)>0;r.className=hasCredit?"credit-row":hasDebit?"debit-row":"pending-row";const displayDesc=(t.redDateOnly===true||String(t.desc||"").trim().toUpperCase()==="RED DATE")?"Next due":(t.desc||"");r.innerHTML=`<td>${formatDate(t.date)}</td><td>${esc(displayDesc)}</td><td>${t.credit||""}</td><td>${t.debit||""}</td><td><b>${t.cumulative!==""?"₹ "+Number(t.cumulative).toLocaleString():""}</b></td>`;setupLongPress(r,()=>openTxActionPopup(t.actualIdx));body.appendChild(r)})}  
 function setupLongPress(el,cb){let tm;const st=()=>tm=setTimeout(cb,800),cl=()=>clearTimeout(tm);el.addEventListener("mousedown",st);el.addEventListener("touchstart",st,{passive:true});["click","mouseout","touchend","touchcancel"].forEach(x=>el.addEventListener(x,cl))}  
+function openTransactionDeleteManager(){const u=users[currentUser];if(!u)return;u.transactions=Array.isArray(u.transactions)?u.transactions:[];const list=document.getElementById("transactionDeleteList");list.innerHTML="";if(!u.transactions.length){list.innerHTML='<div style="color:#aaa;padding:12px">Transactions இல்லை.</div>';}else{u.transactions.map((t,i)=>({t,i})).sort((a,b)=>new Date(b.t.date)-new Date(a.t.date)).forEach(({t,i})=>{const row=document.createElement("label");row.style.cssText="display:flex;gap:9px;align-items:flex-start;padding:9px 4px;border-bottom:1px solid #333;font-size:13px;cursor:pointer";const cb=document.createElement("input");cb.type="checkbox";cb.className="tx-delete-check";cb.value=String(i);cb.style.cssText="width:18px;height:18px;flex:0 0 auto;margin:2px 0";cb.onchange=updateTransactionDeleteCount;const details=document.createElement("span");details.style.cssText="flex:1;overflow-wrap:anywhere";details.textContent=`${formatDate(t.date)} • ${t.desc||"Transaction"} • Cr: ${t.credit||"-"} • Db: ${t.debit||"-"}`;row.append(cb,details);list.appendChild(row)});}document.getElementById("transactionDeleteManager").style.display="flex";updateTransactionDeleteCount()}function closeTransactionDeleteManager(){document.getElementById("transactionDeleteManager").style.display="none"}function selectAllTransactionsForDelete(checked){document.querySelectorAll("#transactionDeleteList .tx-delete-check").forEach(cb=>cb.checked=checked);updateTransactionDeleteCount()}function updateTransactionDeleteCount(){const n=document.querySelectorAll("#transactionDeleteList .tx-delete-check:checked").length;document.getElementById("transactionDeleteCount").textContent=`${n} selected`; }async function deleteSelectedTransactions(){const checks=[...document.querySelectorAll("#transactionDeleteList .tx-delete-check:checked")];if(!checks.length)return alert("முதலில் நீக்க வேண்டிய transaction-ஐ select செய்யவும்!");if(!confirm(`தேர்வு செய்த ${checks.length} transaction-களை நிரந்தரமாக delete செய்யவா?`))return;const indexes=checks.map(cb=>Number(cb.value)).sort((a,b)=>b-a);const u=users[currentUser];indexes.forEach(i=>{if(i>=0&&i<u.transactions.length)u.transactions.splice(i,1)});closeTransactionDeleteManager();renderTransactions();refreshLeaderDashboard();if(returnToLeaderDetail)renderLeaderDetail();await saveToCloudOnly();alert("தேர்வு செய்த transaction-கள் delete செய்யப்பட்டன.")}
 function openTxActionPopup(i){document.getElementById("txActionPopup").style.display="flex";document.getElementById("txEditBtn").onclick=()=>{closeTxActionPopup();editTransaction(i)};document.getElementById("txDeleteBtn").onclick=()=>{closeTxActionPopup();deleteTransaction(i)}}function closeTxActionPopup(){document.getElementById("txActionPopup").style.display="none"}  
 function editTransaction(i){let t=users[currentUser].transactions[i];document.getElementById("tDate").value=String(t.date).split("T")[0];document.getElementById("tDesc").value=t.desc||"";document.getElementById("tCredit").value=t.credit||"";document.getElementById("tDebit").value=t.debit||"";editIndex=i;document.getElementById("entryPopup").style.display="flex"}  
 async function deleteTransaction(i){if(confirm("இந்த எண்ட்ரியை நீக்கவா?")){users[currentUser].transactions.splice(i,1);renderTransactions();await saveToCloudOnly();if(returnToLeaderDetail)renderLeaderDetail()}}  
@@ -481,21 +1132,36 @@ function refreshLeaderDashboard(){
 let selectedLeaderIds=new Set();
 function toggleLeaderDashboardSelection(id,on){if(on)selectedLeaderIds.add(id);else selectedLeaderIds.delete(id);document.getElementById("leaderManagerSelectedCount").innerText=selectedLeaderIds.size+" selected";refreshLeaderDashboard();renderLeaderManager();}
 function shareSelectedLeadersWhatsApp(){let arr=leaders.filter(l=>selectedLeaderIds.has(l.id));if(!arr.length)arr=leaders;let txt=`${appConfig.title||"Finance Manager"}\nSelected Leaders: ${arr.length}\n\n`+arr.map((l,i)=>`${i+1}. ${l.name} - Balance ₹ ${leaderBalance(l.id).toLocaleString()} - Commission ₹ ${getLeaderCommission(l.id).toLocaleString()}`).join("\n");if(navigator.share){navigator.share({title:"Leader List",text:txt}).catch(()=>{})}else{window.open("https://wa.me/?text="+encodeURIComponent(txt),"_blank")}}
-function generateSelectedLeadersPDF(){let arr=leaders.filter(l=>selectedLeaderIds.has(l.id));if(!arr.length)return alert("Leader-களை Select செய்யவும்.");if(!window.jspdf)return alert("PDF library load ஆகவில்லை.");let {jsPDF}=window.jspdf,doc=new jsPDF({orientation:"portrait",unit:"mm",format:"a4"}),w=doc.internal.pageSize.getWidth(),now=new Date();doc.setFont("helvetica","bold");doc.setFontSize(+appConfig.pdfBannerLeft||14);doc.text(String(appConfig.title||"FINANCE MANAGER"),10,14);doc.setFontSize(+appConfig.pdfBannerRight||10);doc.text(now.toLocaleString(),w-10,14,{align:"right"});let rows=arr.map(l=>[l.name,leaderUsers(l.id).length,leaderAllCredit(l.id).toLocaleString(),leaderAllDebit(l.id).toLocaleString(),leaderBalance(l.id).toLocaleString(),getLeaderCommission(l.id).toLocaleString()]);doc.autoTable({startY:24,head:[["LEADER","USERS","CREDIT","DEBIT","BALANCE","1% COMMISSION"]],body:rows,theme:"grid",styles:{fontSize:+appConfig.pdfTransaction||11,cellPadding:Math.max(.5,(+appConfig.pdfTransactionBox||8)/4),fontStyle:appConfig.pdfTransactionBold===false?"normal":"bold"},headStyles:{fontSize:+appConfig.pdfTableHeader||12}});doc.setFontSize(+appConfig.pdfTotals||12);doc.text("Selected Leaders: "+arr.length,10,(doc.lastAutoTable?.finalY||100)+8);doc.save("Leader_List.pdf");}
-function renderLeaderManager(){ensureLeaderMembership();if(!selectedLeaderIds.size)selectedLeaderIds=new Set(leaders.map(x=>x.id));refreshLeaderDashboard();let list=document.getElementById("leaderManagerList");list.innerHTML="";if(!leaders.length){list.innerHTML='<div style="margin:20px;padding:25px;text-align:center;border:1px dashed #777;border-radius:12px;color:#aaa">No Leaders yet.<br><br>Create your first Leader.</div>';return}if(!selectedLeaderIds.size)selectedLeaderIds=new Set(leaders.map(x=>x.id));document.getElementById("leaderManagerSelectedCount").innerText=selectedLeaderIds.size+" selected";leaders.slice().sort(leaderSortCompare).forEach(l=>{let us=leaderUsers(l.id),red=leaderHasRed(l.id),s=document.getElementById("filterStartDate").value,e=document.getElementById("filterEndDate").value,blue=appConfig.showBlueHighlight&&appConfig.showDateFilter&&leaderDebit(l.id,s,e)>0,card=document.createElement("div");card.className="leader-card"+(appConfig.showRedHighlight&&red?" redbg":blue?" bluebg":"");card.innerHTML=`<input type="checkbox" ${selectedLeaderIds.has(l.id)?"checked":""} onclick="event.stopPropagation();toggleLeaderDashboardSelection('${jsq(l.id)}',this.checked)"><div class="lc-main"><b>👑 ${esc(l.name)}</b><div class="lc-commission">Comm ₹ ${getLeaderCommission(l.id).toLocaleString()}</div><small>${us.length} Users</small></div><div class="lc-bal">₹ ${leaderBalance(l.id).toLocaleString()}</div><button onclick="event.stopPropagation();openLeaderEdit('${jsq(l.id)}')" style="background:#ffd700;border:0;border-radius:7px;padding:7px">✏️</button><button onclick="event.stopPropagation();deleteLeaderById('${jsq(l.id)}')" style="background:#e53935;color:#fff;border:0;border-radius:7px;padding:7px">🗑️</button>`;card.onclick=()=>openLeaderDetail(l.id);list.appendChild(card)})}  
+function generateSelectedLeadersPDF(){let arr=leaders.filter(l=>selectedLeaderIds.has(l.id));if(!arr.length)return alert("Leader-களை Select செய்யவும்.");if(!window.jspdf)return alert("PDF library load ஆகவில்லை.");let {jsPDF}=window.jspdf,doc=new jsPDF({orientation:"portrait",unit:"mm",format:"a4"}),w=doc.internal.pageSize.getWidth(),now=new Date();doc.setFont("helvetica","bold");doc.setFontSize(+appConfig.pdfBannerLeft||14);doc.text(String(appConfig.title||"FINANCE MANAGER"),10,14);doc.setFontSize(+appConfig.pdfBannerRight||10);doc.text(now.toLocaleString(),w-10,14,{align:"right"});let rows=arr.map((l,i)=>[i+1,l.name,leaderUsers(l.id).length,leaderAllDebit(l.id).toLocaleString(),leaderBalance(l.id).toLocaleString(),getLeaderCommission(l.id).toLocaleString()]);doc.autoTable({startY:24,head:[["S.NO","LEADER","USERS","DEBIT","BALANCE","1% COMMISSION"]],body:rows,theme:"grid",styles:{fontSize:+appConfig.pdfTransaction||11,cellPadding:Math.max(.5,(+appConfig.pdfTransactionBox||8)/4),fontStyle:appConfig.pdfTransactionBold===false?"normal":"bold"},headStyles:{fontSize:+appConfig.pdfTableHeader||12}});doc.setFontSize(+appConfig.pdfTotals||12);doc.text("Selected Leaders: "+arr.length,10,(doc.lastAutoTable?.finalY||100)+8);doc.save("Leader_List.pdf");}
+function renderLeaderManager(){ensureLeaderMembership();if(!selectedLeaderIds.size)selectedLeaderIds=new Set(leaders.map(x=>x.id));refreshLeaderDashboard();let list=document.getElementById("leaderManagerList");list.innerHTML="";if(!leaders.length){list.innerHTML='<div style="margin:20px;padding:25px;text-align:center;border:1px dashed #777;border-radius:12px;color:#aaa">No Leaders yet.<br><br>Create your first Leader.</div>';return}if(!selectedLeaderIds.size)selectedLeaderIds=new Set(leaders.map(x=>x.id));document.getElementById("leaderManagerSelectedCount").innerText=selectedLeaderIds.size+" selected";leaders.slice().sort(leaderSortCompare).forEach(l=>{let us=leaderUsers(l.id),red=leaderHasRed(l.id),s=document.getElementById("filterStartDate").value,e=document.getElementById("filterEndDate").value,blue=appConfig.showBlueHighlight&&appConfig.showDateFilter&&leaderDebit(l.id,s,e)>0,card=document.createElement("div");card.className="leader-card"+(appConfig.showRedHighlight&&red?" redbg":blue?" bluebg":"");card.innerHTML=`<span class="lc-crown">👑</span><input class="lc-check" type="checkbox" ${selectedLeaderIds.has(l.id)?"checked":""} onclick="event.stopPropagation();toggleLeaderDashboardSelection('${jsq(l.id)}',this.checked)" aria-label="Select ${esc(l.name)}"><div class="lc-main"><b>${esc(l.name)}</b><small>${us.length} Users</small></div><div class="lc-balance">₹ ${leaderBalance(l.id).toLocaleString()}</div><div class="lc-commission">Comm ₹ ${getLeaderCommission(l.id).toLocaleString()}</div><button class="lc-edit" onclick="event.stopPropagation();openLeaderEdit('${jsq(l.id)}')" aria-label="Edit leader">✏️</button><button class="lc-delete" onclick="event.stopPropagation();deleteLeaderById('${jsq(l.id)}')" aria-label="Delete leader">🗑️</button>`;card.onclick=()=>openLeaderDetail(l.id);list.appendChild(card)})}  
 let selectedLeaderUserIds=new Set();  
 function openLeaderDetail(id){ensureLeaderMembership();currentLeaderIndex=id;selectedLeaderUserIds=new Set(leaderUsers(id).map(u=>u.id));document.getElementById("leaderScreen").classList.add("hidden");document.getElementById("leaderDetailScreen").classList.remove("hidden");renderLeaderDetail()}  
 function backToLeaderManager(){document.getElementById("leaderDetailScreen").classList.add("hidden");document.getElementById("leaderScreen").classList.remove("hidden");renderLeaderManager()}  
 function renderLeaderDetail(){  
  let l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;document.getElementById("leaderDetailTitle").innerText="👑 "+l.name;let s=document.getElementById("filterStartDate").value,e=document.getElementById("filterEndDate").value,arr=leaderUsers(l.id).slice().sort((a,b)=>{if(appConfig.showRedHighlight){let x=isRed(a),y=isRed(b);if(x!==y)return y-x}if(appConfig.showBlueHighlight&&appConfig.showDateFilter){let x=getDebitInDateRange(a,s,e),y=getDebitInDateRange(b,s,e),xb=x>0,yb=y>0;if(xb!==yb)return yb-xb;if(xb)return x-y}return Math.abs(getBalance(a))-Math.abs(getBalance(b))});let box=document.getElementById("leaderList");box.innerHTML="";  
  let add=document.createElement("div");add.className="leader-add-users";add.innerHTML='<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="gold" onclick="openLeaderUserPicker()">☑ Select Users & Add</button><input id="leaderFolderSearch" type="text" placeholder="🔍 Search User" oninput="filterLeaderUsersInFolder(this.value)" style="flex:1;min-width:150px;margin:0"></div><span style="display:block;color:#aaa;font-size:12px;margin-top:8px">Users already in this Leader are shown below</span>';box.appendChild(add);  
- arr.forEach((u,idx)=>{let red=appConfig.showRedHighlight&&isRed(u),db=getDebitInDateRange(u,s,e),blue=appConfig.showBlueHighlight&&appConfig.showDateFilter&&db>0,card=document.createElement("div");card.className="leader-card"+(red?" redbg":blue?" bluebg":"");card.dataset.search=((u.name||"")+" "+(u.mobile||"")).toLowerCase();let cb=document.createElement("input");cb.type="checkbox";cb.checked=selectedLeaderUserIds.has(u.id);cb.onchange=()=>{cb.checked?selectedLeaderUserIds.add(u.id):selectedLeaderUserIds.delete(u.id);updateLeaderSummary()};let main=document.createElement("div");main.className="lc-main";main.innerHTML=`<b>${idx+1}. ${esc(u.name)}</b><br><small>${esc(u.mobile||"")}</small>`;let right=document.createElement("div");right.className="lc-right";right.innerHTML=`<div class="lc-balance">₹ ${getBalance(u).toLocaleString()}</div><div class="lc-ten">10% ₹ ${getLeaderTenPercent(u).toLocaleString()}</div>`;card.append(cb,main,right);  
+ arr.forEach((u,idx)=>{let red=appConfig.showRedHighlight&&isRed(u),db=getDebitInDateRange(u,s,e),blue=appConfig.showBlueHighlight&&appConfig.showDateFilter&&db>0,card=document.createElement("div");card.className="leader-card"+(red?" redbg":blue?" bluebg":"");card.dataset.search=((u.name||"")+" "+(u.mobile||"")).toLowerCase();let cb=document.createElement("input");cb.type="checkbox";cb.checked=selectedLeaderUserIds.has(u.id);cb.onchange=()=>{cb.checked?selectedLeaderUserIds.add(u.id):selectedLeaderUserIds.delete(u.id);updateLeaderSummary()};let main=document.createElement("div");main.className="lc-main";main.innerHTML=`<b>${idx+1}. ${esc(u.name)}</b><small>${esc(u.mobile||"")}</small>`;let right=document.createElement("div");right.className="lc-right";right.innerHTML=`<div class="lc-balance">₹ ${getBalance(u).toLocaleString()}</div><div class="lc-ten">10% ₹ ${getLeaderTenPercent(u).toLocaleString()}</div>`;card.append(cb,main,right);  
  // NEW: tap/click the farmer card to open the same user profile + entry screen.  
  card.addEventListener("click",e=>{if(e.target===cb)return;openUser(users.indexOf(u),true)});  
  box.appendChild(card)})  
  updateLeaderSummary()  
 }  
 function filterLeaderUsersInFolder(q){const term=String(q||"").toLowerCase().trim();document.querySelectorAll("#leaderList .leader-card").forEach(c=>{c.style.display=!term||c.dataset.search.includes(term)?"flex":"none";});}
+let tenPercentManualIds=new Set();
+function openTenPercentCollection(){const l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;document.getElementById("tenPercentDate").value=localDate();document.getElementById("tenPercentRedDate").value="";document.getElementById("tenPercentDesc").value="10% Collection";document.getElementById("tenPercentMode").value="all";tenPercentManualIds=new Set();document.getElementById("tenPercentCollectionPopup").style.display="flex";updateTenPercentPicker();}
+function closeTenPercentCollection(){document.getElementById("tenPercentCollectionPopup").style.display="none"}
+let redDateManualIds=new Set();
+function openRedDateOnly(){const l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;document.getElementById("redDateValue").value=localDate();document.getElementById("redDateDesc").value="RED DATE";document.getElementById("redDateMode").value="all";redDateManualIds=new Set();document.getElementById("redDateOnlyPopup").style.display="flex";updateRedDatePicker();}
+function closeRedDateOnly(){document.getElementById("redDateOnlyPopup").style.display="none"}
+function updateRedDatePicker(){const mode=document.getElementById("redDateMode").value,box=document.getElementById("redDateManualList"),l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;box.style.display=mode==="manual"?"block":"none";box.innerHTML="";if(mode==="manual"){leaderUsers(l.id).slice().sort((a,b)=>String(a.name||"").localeCompare(String(b.name||""))).forEach(u=>{const label=document.createElement("label");label.style.cssText="display:flex;align-items:center;gap:8px;padding:7px;border-bottom:1px solid #333";const cb=document.createElement("input");cb.type="checkbox";cb.checked=redDateManualIds.has(u.id);cb.onchange=()=>{cb.checked?redDateManualIds.add(u.id):redDateManualIds.delete(u.id);updateRedDatePreview()};label.append(cb,document.createTextNode(u.name||"Unnamed user"));box.appendChild(label);});}updateRedDatePreview();}
+function getRedDateTargetUsers(){const l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return[];const mode=document.getElementById("redDateMode").value,arr=leaderUsers(l.id);if(mode==="red")return arr.filter(isRed);if(mode==="manual")return arr.filter(u=>redDateManualIds.has(u.id));return arr;}
+function updateRedDatePreview(){const arr=getRedDateTargetUsers(),el=document.getElementById("redDatePreview");if(el)el.textContent=`Selected: ${arr.length} users`;}
+async function saveRedDateOnly(){const l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;const date=document.getElementById("redDateValue").value,desc=(document.getElementById("redDateDesc").value||"").trim()||"RED DATE";if(!date)return alert("RED Date தேர்வு செய்யவும்.");const arr=getRedDateTargetUsers();if(!arr.length)return alert("இந்த selection-ல் Users இல்லை.");let added=0,skipped=0;arr.forEach(u=>{u.transactions=Array.isArray(u.transactions)?u.transactions:[];const exists=u.transactions.some(t=>String(t.date||"").split("T")[0]===date&&!String(t.credit??"").trim()&&!String(t.debit??"").trim()&&(t.redDateOnly===true||String(t.desc||"").toUpperCase()==="RED DATE"||String(t.desc||"").toUpperCase()===desc.toUpperCase()));if(exists){skipped++;return;}u.transactions.push({date,desc,credit:"",debit:"",redDateOnly:true,redDateBatchKey:`redDate:${l.id}:${date}`});added++;});if(!added)return alert(`புதிய RED DATE சேர்க்கப்படவில்லை. ${skipped} User-களுக்கு இந்த தேதி ஏற்கெனவே உள்ளது.`);saveDataLocally();closeRedDateOnly();renderLeaderDetail();refreshLeaderDashboard();renderUsers();await saveToCloudOnly();alert(`RED DATE மட்டும் சேமிக்கப்பட்டது. ${added} User-கள் பதிவு செய்யப்பட்டனர்.${skipped?` ${skipped} User duplicate என்பதால் தவிர்க்கப்பட்டனர்.`:""} Credit / Debit மாற்றப்படவில்லை.`);}
+function updateTenPercentPicker(){const mode=document.getElementById("tenPercentMode").value,box=document.getElementById("tenPercentManualList"),l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;box.style.display=mode==="manual"?"block":"none";box.innerHTML="";if(mode==="manual"){const controls=document.createElement("div");controls.style.cssText="display:flex;gap:7px;position:sticky;top:0;background:#222;padding:6px 0;z-index:2";controls.innerHTML=`<button type="button" class="gold" style="flex:1;padding:8px" onclick="selectAllTenPercentManual(true)">☑ All Select</button><button type="button" style="flex:1;padding:8px;background:#555;color:#fff;border:0;border-radius:8px" onclick="selectAllTenPercentManual(false)">☐ Clear</button>`;box.appendChild(controls);leaderUsers(l.id).slice().sort((a,b)=>String(a.name||"").localeCompare(String(b.name||""))).forEach(u=>{const label=document.createElement("label");label.style.cssText="display:flex;align-items:center;gap:8px;padding:7px;border-bottom:1px solid #333";const cb=document.createElement("input");cb.type="checkbox";cb.className="ten-percent-manual-check";cb.dataset.userId=u.id;cb.checked=tenPercentManualIds.has(u.id);cb.onchange=()=>{cb.checked?tenPercentManualIds.add(u.id):tenPercentManualIds.delete(u.id);updateTenPercentPreview()};label.append(cb,document.createTextNode(u.name||"Unnamed user"));box.appendChild(label)});}updateTenPercentPreview();}
+function selectAllTenPercentManual(checked){const l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;tenPercentManualIds=checked?new Set(leaderUsers(l.id).map(u=>u.id)):new Set();document.querySelectorAll("#tenPercentManualList .ten-percent-manual-check").forEach(cb=>cb.checked=checked);updateTenPercentPreview();}
+function getTenPercentTargetUsers(){const l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return[];const mode=document.getElementById("tenPercentMode").value,arr=leaderUsers(l.id);if(mode==="red")return arr.filter(isRed);if(mode==="manual")return arr.filter(u=>tenPercentManualIds.has(u.id));return arr;}
+function updateTenPercentPreview(){const arr=getTenPercentTargetUsers(),total=arr.reduce((sum,u)=>sum+(u.transactions||[]).reduce((a,t)=>a+Math.max(0,Number(t.debit||0)),0)*.1,0);const el=document.getElementById("tenPercentPreview");if(el)el.textContent=`Selected: ${arr.length} • Total: ₹${total.toLocaleString()}`;}
+async function applyTenPercentCollection(){const l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;const date=document.getElementById("tenPercentDate").value,redDate=document.getElementById("tenPercentRedDate").value,desc=document.getElementById("tenPercentDesc").value.trim()||"10% Collection";if(!date&&!redDate)return alert("10% Collection அல்லது RED DATE-க்கு தேதியைத் தேர்வு செய்யவும்.");if(date&&!date.trim())return alert("Date தேர்வு செய்யவும்.");const arr=getTenPercentTargetUsers();if(!arr.length)return alert("இந்த selection-ல் Users இல்லை.");const batchKey=`leader10:${l.id}:${date}:${desc.toLowerCase()}`;let added=0,skipped=0,redAdded=0,redSkipped=0;arr.forEach(u=>{u.transactions=Array.isArray(u.transactions)?u.transactions:[];if(redDate){const ix=u.transactions.findIndex(t=>String(t.date||"").split("T")[0]===redDate&&!String(t.credit??"").trim()&&!String(t.debit??"").trim()&&(t.redDateOnly===true||["RED DATE","NO ENTRY","NO-ENTRY","NO ENTRY TRANSACTION"].includes(String(t.desc||"").trim().toUpperCase())));if(ix>=0){u.transactions[ix]={...u.transactions[ix],date:redDate,desc:"RED DATE",credit:"",debit:"",redDateOnly:true,redDateBatchKey:`redDate:${l.id}:${redDate}`};redSkipped++;}else{u.transactions.push({date:redDate,desc:"RED DATE",credit:"",debit:"",redDateOnly:true,redDateBatchKey:`redDate:${l.id}:${redDate}`});redAdded++;}}if(date){if(u.transactions.some(t=>t.collectionBatchKey===batchKey)){skipped++;return;}const debitTotal=u.transactions.reduce((sum,t)=>sum+Math.max(0,Number(t.debit||0)),0);const amount=Math.round((debitTotal*.10+Number.EPSILON)*100)/100;if(amount<=0){skipped++;return;}const isZero=t=>Number(t.credit||0)===0&&Number(t.debit||0)===0;const isReusableZeroRow=t=>{const label=String(t.desc||"").trim().toUpperCase().replace(/[\s_-]+/g," ");/* The red zero transaction is the weekly reminder placeholder. For this collection date, convert that existing reminder into the credit instead of adding a new row. */return isZero(t)&&(t.redDateOnly===true||label==="RED DATE"||label==="NO ENTRY"||label==="NO ENTRY TRANSACTION"||label==="NO ENTRY TXN"||label==="NO ENTRY RECORD"||label==="");};const zeroIndex=u.transactions.findIndex(t=>entryDateKey(t.date)===entryDateKey(date)&&isReusableZeroRow(t));const creditTx={date,desc,credit:String(amount),debit:"",collectionBatchKey:batchKey,collectionType:"leader10",leaderId:l.id};if(zeroIndex>=0){u.transactions[zeroIndex]=creditTx;const savedCreditTx=u.transactions[zeroIndex];for(let i=u.transactions.length-1;i>=0;i--){const row=u.transactions[i];if(row!==savedCreditTx&&entryDateKey(row.date)===entryDateKey(date)&&isZero(row)&&(row.redDateOnly===true||String(row.desc||"").trim().toUpperCase().replace(/[\s_-]+/g," ")==="RED DATE"||isReusableZeroRow(row)))u.transactions.splice(i,1);}}else{u.transactions.push(creditTx);}added++;}});if(!added&&!redAdded&&!redSkipped){return alert(`புதிய Credit சேர்க்கப்படவில்லை. Duplicate/₹0 காரணமாக ${skipped} User தவிர்க்கப்பட்டனர்.`);}saveDataLocally();closeTenPercentCollection();renderLeaderDetail();refreshLeaderDashboard();renderUsers();await saveToCloudOnly();alert(`${added?`10% Collection: ${added} User-களுக்கு Credit சேர்க்கப்பட்டது. `:""}${redDate?`RED DATE: ${redAdded} புதிய பதிவு; ${redSkipped} ஏற்கெனவே இருந்த NO ENTRY/RED DATE பதிவுகள் RED DATE ஆக மாற்றப்பட்டன. `:""}${skipped?`${skipped} User-களுக்கு 10% Credit duplicate அல்லது ₹0 என்பதால் தவிர்க்கப்பட்டது.`:""}`);}
 function selectAllLeaderUsers(){  
  let l=leaders.find(x=>x.id===currentLeaderIndex);  
  if(!l)return;  
@@ -523,29 +1189,611 @@ function selectedLeaderUsers(){return users.filter(u=>selectedLeaderUserIds.has(
 function clearLeaderSelection(){selectedLeaderUserIds=new Set();renderLeaderDetail()}
 function updateLeaderSummary(){let arr=selectedLeaderUsers(),bal=arr.reduce((s,u)=>s+getBalance(u),0),ten=arr.reduce((s,u)=>s+getLeaderTenPercent(u),0);document.getElementById("leaderSelectedCount").innerText=arr.length;let tc=document.getElementById("leaderToolbarCount");if(tc)tc.innerText=arr.length+" selected";document.getElementById("leaderTotalBalance").innerText="₹ "+bal.toLocaleString();document.getElementById("leaderTenTotal").innerText="₹ "+ten.toLocaleString();let el=document.getElementById("leaderCommissionDetail");if(el)el.innerText="₹ "+getLeaderCommission(currentLeaderIndex).toLocaleString()}  
 let pickerUserIds=new Set();  
-function openLeaderUserPicker(){pickerUserIds=new Set();let l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;let box=document.getElementById("leaderUserPickerList");box.innerHTML="";let available=users.filter(u=>!u.leaderId);if(!available.length)box.innerHTML='<div style="padding:15px;text-align:center;color:#aaa">All available Users are already assigned to a Leader.</div>';available.slice().sort((a,b)=>Math.abs(getBalance(a))-Math.abs(getBalance(b))).forEach((u,idx)=>{let row=document.createElement("label");row.style.cssText="display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid #333;cursor:pointer";row.innerHTML=`<input type="checkbox" data-pick-user="${jsq(u.id)}"><span>${idx+1}. ${esc(u.name)} <small style="color:#aaa">₹ ${getBalance(u).toLocaleString()}</small></span>`;box.appendChild(row)});document.getElementById("leaderUserPickerPopup").style.display="flex"}  
+function openLeaderUserPicker(){pickerUserIds=new Set();let l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;let box=document.getElementById("leaderUserPickerList");box.innerHTML="";let available=users.filter(u=>!u.leaderId);if(!available.length)box.innerHTML='<div style="padding:15px;text-align:center;color:#aaa">All available Users are already assigned to a Leader.</div>';available.slice().sort((a,b)=>Math.abs(getBalance(a))-Math.abs(getBalance(b))||((b.transactions||[]).filter(t=>Number(t.credit||0)>0).length-(a.transactions||[]).filter(t=>Number(t.credit||0)>0).length)).forEach((u,idx)=>{let row=document.createElement("label");row.style.cssText="display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid #333;cursor:pointer";row.innerHTML=`<input type="checkbox" data-pick-user="${jsq(u.id)}"><span>${idx+1}. ${esc(u.name)} <small style="color:#aaa">₹ ${getBalance(u).toLocaleString()}</small></span>`;box.appendChild(row)});document.getElementById("leaderUserPickerPopup").style.display="flex"}  
 function closeLeaderUserPicker(){document.getElementById("leaderUserPickerPopup").style.display="none"}function togglePicker(flag){document.querySelectorAll("#leaderUserPickerList input[type=checkbox]").forEach(x=>x.checked=flag)}  
 async function addPickedUsersToLeader(){let l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;let picks=[...document.querySelectorAll("#leaderUserPickerList input[type=checkbox]:checked")].map(x=>x.dataset.pickUser);if(!picks.length)return alert("User-களை Select செய்யவும்.");users.forEach(u=>{if(picks.includes(u.id))u.leaderId=l.id});closeLeaderUserPicker();saveDataLocally();renderLeaderDetail();await saveToCloudOnly()}  
-function openLeaderDetailPDFSelector(){let l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;selectedLeaderUserIds=new Set(leaderUsers(l.id).map(u=>u.id));let items=leaderUsers(l.id),pop=document.getElementById('pdfSelectorPopup');if(!pop){pop=document.createElement('div');pop.id='pdfSelectorPopup';pop.className='popup-overlay';document.body.appendChild(pop);}pop.innerHTML=`<div class="popup-content" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color);margin-top:0">📄 ${esc(l.name)} — Select Users</h3><div style="display:flex;gap:6px;margin-bottom:10px"><button class="gold" onclick="detailPdfAll(true)">☑ All Select</button><button style="background:#555;color:#fff" onclick="detailPdfAll(false)">☐ Clear</button></div><div style="max-height:55vh;overflow:auto;text-align:left">${items.map((u,i)=>`<label style="display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid #333"><input type="checkbox" class="detail-pdf-pick" data-id="${jsq(u.id)}" checked><span>${i+1}. ${esc(u.name)} — ₹ ${getBalance(u).toLocaleString()}</span></label>`).join('')}</div><div style="display:flex;gap:7px;margin-top:12px"><button style="background:#e53935;color:#fff;flex:1;padding:11px;border:0;border-radius:9px;font-weight:bold" onclick="printLeaderDetailPDF()">🖨 Print</button><button style="background:#555;color:#fff;flex:1;padding:11px;border:0;border-radius:9px" onclick="closePDFSelector()">Close</button></div></div>`;pop.style.display='flex';}
+function openLeaderDetailPDFSelector(){let l=leaders.find(x=>x.id===currentLeaderIndex);if(!l)return;selectedLeaderUserIds=new Set(leaderUsers(l.id).map(u=>u.id));let items=leaderUsers(l.id),pop=document.getElementById('pdfSelectorPopup');if(!pop){pop=document.createElement('div');pop.id='pdfSelectorPopup';pop.className='popup-overlay';document.body.appendChild(pop);}pop.innerHTML=`<div class="popup-content" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color);margin-top:0">📄 ${esc(l.name)} — Select Users</h3><div style="display:flex;gap:6px;margin-bottom:10px"><button class="gold" onclick="detailPdfAll(true)">☑ All Select</button><button style="background:#e53935;color:#fff" onclick="detailPdfRed()">🔴 Red Select</button><button style="background:#555;color:#fff" onclick="detailPdfAll(false)">☐ Clear</button></div><div style="max-height:55vh;overflow:auto;text-align:left">${items.map((u,i)=>`<label style="display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid #333"><input type="checkbox" class="detail-pdf-pick" data-id="${jsq(u.id)}" checked><span>${i+1}. ${esc(u.name)} — ₹ ${getBalance(u).toLocaleString()}</span></label>`).join('')}</div><div style="display:flex;gap:7px;margin-top:12px"><button style="background:#e53935;color:#fff;flex:1;padding:11px;border:0;border-radius:9px;font-weight:bold" onclick="printLeaderDetailPDF()">🖨 Print</button><button style="background:#555;color:#fff;flex:1;padding:11px;border:0;border-radius:9px" onclick="closePDFSelector()">Close</button></div></div>`;pop.style.display='flex';}
 function detailPdfAll(flag){document.querySelectorAll('#pdfSelectorPopup .detail-pdf-pick').forEach(c=>{c.checked=flag;if(flag)selectedLeaderUserIds.add(c.dataset.id);else selectedLeaderUserIds.delete(c.dataset.id)});}
+function detailPdfRed(){selectedLeaderUserIds=new Set(leaderUsers(currentLeaderIndex).filter(isRed).map(u=>u.id));document.querySelectorAll('#pdfSelectorPopup .detail-pdf-pick').forEach(c=>c.checked=selectedLeaderUserIds.has(c.dataset.id));}
 function printLeaderDetailPDF(){selectedLeaderUserIds=new Set([...document.querySelectorAll('#pdfSelectorPopup .detail-pdf-pick:checked')].map(c=>c.dataset.id));generateLeaderPDF();closePDFSelector();}
 function generateLeaderPDF(){
  if(!window.jspdf)return alert("PDF library load ஆகவில்லை.");
  let l=leaders.find(x=>x.id===currentLeaderIndex),arr=selectedLeaderUsers();
  if(!l)return;if(!arr.length)return alert("PDF-க்கு குறைந்தது ஒரு User-ஐ Select செய்யவும்.");
- let {jsPDF}=window.jspdf,doc=new jsPDF({orientation:"portrait",unit:"mm",format:"a4"}),w=doc.internal.pageSize.getWidth(),bal=arr.reduce((s,u)=>s+getBalance(u),0),ten=arr.reduce((s,u)=>s+getLeaderTenPercent(u),0),now=new Date(),dateTime=now.toLocaleString(),fs=Math.max(8,Math.min(30,Number(appConfig.pdfFontSize||14)));
- let titleSize=fs+10,smallSize=fs,tableSize=fs;
+ let {jsPDF}=window.jspdf,doc=new jsPDF({orientation:"portrait",unit:"mm",format:"a4"}),w=doc.internal.pageSize.getWidth(),bal=arr.reduce((s,u)=>s+getBalance(u),0),ten=arr.reduce((s,u)=>s+getLeaderTenPercent(u),0),loanTotal=arr.reduce((s,u)=>s+(u.transactions||[]).reduce((a,t)=>a+Math.max(0,Number(t.debit||0)),0),0),now=new Date(),dateTime=now.toLocaleString(),fs=Math.max(8,Math.min(30,Number(appConfig.pdfFontSize||14)));
+ let titleSize=fs+10,smallSize=fs,tableSize=Math.min(fs,10);
  doc.setFont("helvetica","bold");doc.setFontSize(titleSize);doc.text(String(appConfig.title||"FINANCE MANAGER"),w/2,14,{align:"center"});
  doc.setFontSize(smallSize);doc.text(dateTime,w-10,23,{align:"right"});
  doc.text("LEADER",10,32);doc.setFontSize(fs+2);doc.text(String(l.name||""),10,40);
  doc.setFontSize(smallSize);doc.text("DUE AMOUNT Rs. "+ten.toLocaleString(),10,48);
- doc.setFontSize(smallSize);doc.text("TOTAL USERS "+arr.length,w-10,32,{align:"right"});doc.text("TOTAL BALANCE Rs. "+bal.toLocaleString(),w-10,40,{align:"right"});
- let rows=arr.map(u=>{let d=(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.debit||0)),0),cr=(u.transactions||[]).filter(t=>Math.max(0,Number(t.credit||0))>0).length,c=(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.credit||0)),0);return[u.name||"",d.toLocaleString(),cr.toString(),c.toLocaleString(),getBalance(u).toLocaleString(),(d*.1).toLocaleString()]});
- doc.autoTable({startY:63,margin:{left:10,right:10},tableWidth:w-20,head:[["USER","LOAN","CR","CREDIT","BALANCE","10%"]],body:rows,theme:"grid",styles:{fontSize:tableSize,cellPadding:{top:Math.max(2,fs/3),bottom:Math.max(2,fs/3),left:2,right:2},fontStyle:appConfig.pdfTransactionBold===false?"normal":"bold",textColor:[20,20,20],lineColor:[90,90,90],lineWidth:0.3,overflow:"linebreak"},headStyles:{fontSize:tableSize,fontStyle:"bold",fillColor:[235,235,235],textColor:[20,20,20],halign:"center",valign:"middle"},columnStyles:{0:{cellWidth:70,halign:"left"},1:{cellWidth:25,halign:"right"},2:{cellWidth:18,halign:"center"},3:{cellWidth:20,halign:"right"},4:{cellWidth:29,halign:"right"},5:{cellWidth:20,halign:"right"}}});
+ doc.setFontSize(smallSize);doc.text("TOTAL USERS "+arr.length,w-10,32,{align:"right"});doc.text("TOTAL LOAN Rs. "+loanTotal.toLocaleString(),w-10,40,{align:"right"});doc.text("TOTAL BALANCE Rs. "+bal.toLocaleString(),w-10,48,{align:"right"});
+ let rows=arr.map(u=>{let d=(u.transactions||[]).reduce((s,t)=>s+Math.max(0,Number(t.debit||0)),0),cr=(u.transactions||[]).filter(t=>Math.max(0,Number(t.credit||0))>0).length;return{user:u,loan:d,entry:cr,balance:getBalance(u),due:d*.1}}).sort((a,b)=>Math.abs(a.balance)-Math.abs(b.balance)||b.entry-a.entry).map((r,i)=>[i+1,r.user.name||"",r.loan.toLocaleString(),r.entry.toString(),r.balance.toLocaleString(),r.due.toLocaleString()]);
+ doc.autoTable({startY:57,margin:{left:10,right:10},tableWidth:w-20,head:[["S.NO","USER","LOAN","ENTRY","BALANCE","10%"]],body:rows,theme:"grid",styles:{fontSize:tableSize,cellPadding:{top:3.5,bottom:3.5,left:1.5,right:1.5},fontStyle:appConfig.pdfTransactionBold===false?"normal":"bold",textColor:[20,20,20],lineColor:[90,90,90],lineWidth:0.3,overflow:"linebreak"},headStyles:{fontSize:tableSize,fontStyle:"bold",fillColor:[235,235,235],textColor:[20,20,20],halign:"center",valign:"middle"},columnStyles:{0:{cellWidth:12,halign:"center"},1:{cellWidth:58,halign:"left"},2:{cellWidth:25,halign:"right"},3:{cellWidth:18,halign:"center"},4:{cellWidth:29,halign:"right"},5:{cellWidth:20,halign:"right"}}});
  doc.save("Finance_Manager_"+String(l.name||"Leader").replace(/[^a-z0-9_-]/gi,"_")+".pdf");
 }
 async function shareLeaderSummary(){let l=leaders.find(x=>x.id===currentLeaderIndex),arr=selectedLeaderUsers();if(!l||!arr.length)return alert("முதலில் User-களை Select செய்யவும்.");let bal=arr.reduce((s,u)=>s+getBalance(u),0),ten=arr.reduce((s,u)=>s+getLeaderTenPercent(u),0),msg=`Leader: ${l.name}\nSelected Users: ${arr.length}\nTotal Balance: ₹ ${bal.toLocaleString()}\n10% Total: ₹ ${ten.toLocaleString()}\nGrand Total: ₹ ${(bal+ten).toLocaleString()}\n\n`+arr.map((u,i)=>`${i+1}. ${u.name} - ₹ ${getBalance(u).toLocaleString()}`).join("\n");if(navigator.share){try{await navigator.share({title:l.name+" Report",text:msg})}catch(e){}}else{await navigator.clipboard.writeText(msg);alert("Summary copied.")}}  
   
+
+const ADMIN_PASSWORD="1982";
+function submitAdminLogin(){
+ const input=document.getElementById("adminPassword"),err=document.getElementById("loginError");
+ if(input.value!==ADMIN_PASSWORD){err.textContent="Password தவறு. மீண்டும் முயற்சிக்கவும்.";input.value="";input.focus();const card=document.getElementById("loginCard");card.animate([{transform:"translateX(0)"},{transform:"translateX(-7px)"},{transform:"translateX(7px)"},{transform:"translateX(0)"}],{duration:260});return;}
+ err.textContent="";
+ document.getElementById("loginCard").classList.add("hidden");
+ document.getElementById("loginTransition").classList.remove("hidden");
+ setTimeout(()=>{document.getElementById("loginGate").classList.add("hidden");document.getElementById("appWrapper").style.visibility="visible";},1550);
+}
+// Reliable login button binding for desktop browsers and embedded WebViews.
+(function bindAdminLoginButton(){
+ const bind=()=>{
+  const btn=document.getElementById("adminLoginBtn"), input=document.getElementById("adminPassword");
+  if(btn && !btn.dataset.loginBound){btn.dataset.loginBound="1";btn.addEventListener("click",function(ev){ev.preventDefault();try{submitAdminLogin();}catch(e){const err=document.getElementById("loginError");if(err)err.textContent="Login error. Please reload the app.";console.error(e);}});}
+  if(input && !input.dataset.loginEnterBound){input.dataset.loginEnterBound="1";input.addEventListener("keydown",function(ev){if(ev.key==="Enter"){ev.preventDefault();submitAdminLogin();}});}
+ };
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",bind,{once:true});else bind();
+})();
+function signOutAdmin(){
+ const gate=document.getElementById("loginGate"), app=document.getElementById("appWrapper");
+ gate.classList.remove("hidden");
+ document.getElementById("loginCard").classList.remove("hidden");
+ document.getElementById("loginTransition").classList.add("hidden");
+ document.getElementById("adminPassword").value="";
+ document.getElementById("loginError").textContent="";
+ app.style.visibility="hidden";
+ document.getElementById("adminPassword").focus();
+}
+function tryAdminBiometric(){
+ const err=document.getElementById("loginError");
+ if(window.isSecureContext && window.PublicKeyCredential && navigator.credentials){
+   err.textContent="Fingerprint sign-in is not configured yet. It requires secure HTTPS hosting and a registered device credential. Please use Admin Password.";
+ }else{
+   err.textContent="Fingerprint sign-in requires secure HTTPS hosting and a registered device credential. Please use Admin Password.";
+ }
+}
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&!document.getElementById("loginGate").classList.contains("hidden"))submitAdminLogin();});
+window.addEventListener("input",e=>{if(e.target&&["tenPercentDate","tenPercentDesc"].includes(e.target.id))updateTenPercentPreview();});
 window.onload=()=>{try{ensureLeaderMembership();initConfig();renderUsers();setTimeout(()=>{try{fetchFromCloud(true)}catch(e){console.error("Cloud startup error",e)}},300)}catch(e){console.error("APP STARTUP ERROR",e);try{applyConfigUI()}catch(_){}try{renderUsers()}catch(_){}alert("App startup error. Local data was not deleted. Please reload once.")}}  
-</script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>  </body>  
+</script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script>
+
+
+
+// The header sign-out control is intentionally invisible but remains clickable.
+
+</script>  
+<style id="accessible-action-buttons-fix">
+button:not(#signOutBtn):not(#bannerTransactionDeleteBtn):not(.menu-dot-btn){min-height:44px;padding:10px 14px;font-size:max(14px,calc(var(--app-font-size,16px) - 1px));line-height:1.2;font-weight:700;}
+.top-buttons button{min-height:44px;padding:9px 4px;font-size:max(11px,calc(var(--app-font-size,16px) - 4px));white-space:normal;overflow-wrap:anywhere;}
+.leader-toolbar button,.leader-add-users button,.prof-header-buttons button,.popup-content button{min-height:44px;padding:11px 14px;}
+@media(max-width:480px){button:not(#signOutBtn):not(#bannerTransactionDeleteBtn):not(.menu-dot-btn){min-height:46px;padding:11px 12px;}.top-buttons{gap:5px;}.top-buttons button{min-height:44px;padding:8px 2px;font-size:max(10px,calc(var(--app-font-size,16px) - 5px));}}
+</style>
+
+<style id="user-back-entry-equal-height-plus-30-final">
+/* User screen: Back through Entry buttons equal height, 30% taller; no outer side spacing */
+#userScreen .profile-header{padding-left:0!important;padding-right:0!important;box-sizing:border-box!important}
+#userScreen .prof-header-buttons{width:100%!important;gap:0!important;column-gap:0!important;justify-content:space-between!important;align-items:center!important;box-sizing:border-box!important}
+#userScreen .prof-header-buttons button,
+#userScreen .prof-header-buttons button:first-child,
+#userScreen .prof-header-buttons button:last-child{height:39px!important;min-height:39px!important;box-sizing:border-box!important}
+@media(max-width:480px){
+ #userScreen .profile-header{padding-left:0!important;padding-right:0!important}
+ #userScreen .prof-header-buttons{width:100%!important;gap:0!important;column-gap:0!important}
+ #userScreen .prof-header-buttons button,
+ #userScreen .prof-header-buttons button:first-child,
+ #userScreen .prof-header-buttons button:last-child{height:36.5px!important;min-height:36.5px!important;padding-left:9px!important;padding-right:9px!important}
+}
+</style>
+
+<style id="leader-card-alignment-final-fix">
+/* Final force-applied alignment for leader cards; no JavaScript or other screens changed. */
+#leaderScreen .leader-card {
+  display:grid !important;
+  grid-template-columns:38px minmax(0,1.35fr) minmax(112px,1fr) 38px !important;
+  grid-template-rows:minmax(38px,auto) minmax(38px,auto) !important;
+  column-gap:7px !important; row-gap:4px !important;
+  align-items:center !important; padding:8px 9px !important;
+  min-width:0 !important; box-sizing:border-box !important;
+}
+#leaderScreen .leader-card > .lc-crown {grid-column:1 !important;grid-row:1 !important;justify-self:center !important;align-self:center !important;width:30px !important;text-align:center !important;font-size:22px !important;line-height:1 !important;}
+#leaderScreen .leader-card > .lc-check {grid-column:1 !important;grid-row:2 !important;justify-self:center !important;align-self:center !important;width:21px !important;height:21px !important;margin:0 !important;}
+#leaderScreen .leader-card > .lc-main {grid-column:2 !important;grid-row:1 / span 2 !important;min-width:0 !important;width:100% !important;display:flex !important;flex-direction:column !important;justify-content:center !important;align-self:stretch !important;overflow:visible !important;}
+#leaderScreen .leader-card > .lc-main b {display:block !important;width:100% !important;min-width:0 !important;white-space:normal !important;overflow-wrap:anywhere !important;word-break:normal !important;text-overflow:clip !important;font-size:clamp(13px,3.6vw,19px) !important;line-height:1.15 !important;}
+#leaderScreen .leader-card > .lc-main small {display:block !important;margin-top:5px !important;white-space:nowrap !important;font-size:clamp(11px,2.9vw,14px) !important;}
+#leaderScreen .leader-card > .lc-balance {grid-column:3 !important;grid-row:1 !important;min-width:0 !important;width:100% !important;text-align:center !important;white-space:nowrap !important;font-size:clamp(12px,3.2vw,18px) !important;line-height:1.15 !important;}
+#leaderScreen .leader-card > .lc-commission {grid-column:3 !important;grid-row:2 !important;min-width:0 !important;width:100% !important;text-align:center !important;white-space:nowrap !important;font-size:clamp(10px,2.8vw,14px) !important;line-height:1.15 !important;}
+#leaderScreen .leader-card > .lc-edit {grid-column:4 !important;grid-row:1 !important;justify-self:center !important;align-self:center !important;width:34px !important;height:34px !important;min-height:34px !important;padding:0 !important;margin:0 !important;display:flex !important;align-items:center !important;justify-content:center !important;font-size:16px !important;line-height:1 !important;box-sizing:border-box !important;}
+#leaderScreen .leader-card > .lc-delete {grid-column:4 !important;grid-row:2 !important;justify-self:center !important;align-self:center !important;width:34px !important;height:34px !important;min-height:34px !important;padding:0 !important;margin:0 !important;display:flex !important;align-items:center !important;justify-content:center !important;font-size:16px !important;line-height:1 !important;box-sizing:border-box !important;}
+@media(max-width:480px){
+ #leaderScreen .leader-card{grid-template-columns:30px minmax(0,1.25fr) minmax(98px,1fr) 30px !important;column-gap:5px !important;padding:7px 6px !important;grid-template-rows:minmax(32px,auto) minmax(32px,auto) !important;}
+ #leaderScreen .leader-card > .lc-crown{width:26px !important;font-size:19px !important;}
+ #leaderScreen .leader-card > .lc-check{width:19px !important;height:19px !important;}
+ #leaderScreen .leader-card > .lc-edit,#leaderScreen .leader-card > .lc-delete{width:28px !important;height:28px !important;min-height:28px !important;font-size:14px !important;}
+ #leaderScreen .leader-card > .lc-balance{font-size:clamp(11px,3vw,15px) !important;}
+ #leaderScreen .leader-card > .lc-commission{font-size:clamp(9px,2.65vw,12px) !important;}
+ #leaderScreen .leader-card > .lc-main b{font-size:clamp(12px,3.45vw,16px) !important;}
+}
+/* Alignment correction: keep crown, full leader name and balance on the exact first row. */
+#leaderScreen #leaderManagerList .leader-card{display:grid!important;grid-template-columns:34px minmax(0,1fr) minmax(120px,auto) 34px!important;grid-template-rows:38px 32px!important;column-gap:8px!important;row-gap:2px!important;align-items:center!important;padding:7px 8px!important;}
+#leaderScreen #leaderManagerList .leader-card>.lc-crown{grid-column:1!important;grid-row:1!important;justify-self:center!important;align-self:center!important;}
+#leaderScreen #leaderManagerList .leader-card>.lc-check{grid-column:1!important;grid-row:2!important;justify-self:center!important;align-self:center!important;}
+#leaderScreen #leaderManagerList .leader-card>.lc-main{grid-column:2!important;grid-row:1 / span 2!important;display:grid!important;grid-template-rows:1fr 1fr!important;align-content:stretch!important;justify-content:stretch!important;align-self:stretch!important;min-width:0!important;width:100%!important;}
+#leaderScreen #leaderManagerList .leader-card>.lc-main b{grid-row:1!important;align-self:center!important;display:block!important;width:100%!important;min-width:0!important;white-space:normal!important;overflow-wrap:anywhere!important;word-break:normal!important;line-height:1.1!important;margin:0!important;font-size:clamp(12px,3.3vw,18px)!important;}
+#leaderScreen #leaderManagerList .leader-card>.lc-main small{grid-row:2!important;align-self:center!important;margin:0!important;white-space:nowrap!important;font-size:clamp(10px,2.7vw,13px)!important;}
+#leaderScreen #leaderManagerList .leader-card>.lc-balance{grid-column:3!important;grid-row:1!important;justify-self:stretch!important;align-self:center!important;width:100%!important;min-width:0!important;text-align:center!important;white-space:nowrap!important;font-size:clamp(11px,3vw,17px)!important;line-height:1.1!important;}
+#leaderScreen #leaderManagerList .leader-card>.lc-commission{grid-column:3!important;grid-row:2!important;justify-self:stretch!important;align-self:center!important;width:100%!important;min-width:0!important;text-align:center!important;white-space:nowrap!important;font-size:clamp(10px,2.65vw,13px)!important;line-height:1.1!important;}
+#leaderScreen #leaderManagerList .leader-card>.lc-edit{grid-column:4!important;grid-row:1!important;justify-self:center!important;align-self:center!important;width:30px!important;height:30px!important;min-height:30px!important;padding:0!important;margin:0!important;display:flex!important;align-items:center!important;justify-content:center!important;font-size:14px!important;}
+#leaderScreen #leaderManagerList .leader-card>.lc-delete{grid-column:4!important;grid-row:2!important;justify-self:center!important;align-self:center!important;width:30px!important;height:30px!important;min-height:30px!important;padding:0!important;margin:0!important;display:flex!important;align-items:center!important;justify-content:center!important;font-size:14px!important;}
+@media(max-width:480px){#leaderScreen #leaderManagerList .leader-card{grid-template-columns:28px minmax(0,1fr) minmax(104px,auto) 28px!important;grid-template-rows:34px 30px!important;column-gap:4px!important;padding:6px 5px!important;}#leaderScreen #leaderManagerList .leader-card>.lc-crown{font-size:18px!important;width:25px!important;}#leaderScreen #leaderManagerList .leader-card>.lc-check{width:18px!important;height:18px!important;}#leaderScreen #leaderManagerList .leader-card>.lc-balance{font-size:clamp(10px,2.8vw,15px)!important;}#leaderScreen #leaderManagerList .leader-card>.lc-commission{font-size:clamp(9px,2.45vw,12px)!important;}#leaderScreen #leaderManagerList .leader-card>.lc-edit,#leaderScreen #leaderManagerList .leader-card>.lc-delete{width:26px!important;height:26px!important;min-height:26px!important;font-size:13px!important;}#leaderScreen #leaderManagerList .leader-card>.lc-main b{font-size:clamp(11px,3.1vw,15px)!important;}}
+
+/* Leader detail: existing users displayed in two clean horizontal rows */
+#leaderDetailScreen #leaderList > .leader-card{
+  display:grid !important;
+  grid-template-columns:30px minmax(0,1fr) minmax(118px,.9fr) !important;
+  grid-template-rows:minmax(38px,auto) minmax(34px,auto) !important;
+  align-items:center !important;
+  column-gap:9px !important;
+  row-gap:3px !important;
+  padding:12px 10px !important;
+  min-width:0 !important;
+  box-sizing:border-box !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > input[type="checkbox"]{
+  grid-column:1 !important;
+  grid-row:1 / span 2 !important;
+  justify-self:center !important;
+  align-self:center !important;
+  width:20px !important;
+  height:20px !important;
+  margin:0 !important;
+  accent-color:#ffd700;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-main{
+  grid-column:2 !important;
+  grid-row:1 / span 2 !important;
+  display:grid !important;
+  grid-template-rows:auto auto !important;
+  align-content:center !important;
+  align-self:stretch !important;
+  justify-content:stretch !important;
+  width:100% !important;
+  min-width:0 !important;
+  overflow:visible !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-main b{
+  grid-row:1 !important;
+  display:block !important;
+  width:100% !important;
+  min-width:0 !important;
+  margin:0 !important;
+  white-space:normal !important;
+  overflow-wrap:anywhere !important;
+  word-break:normal !important;
+  font-size:clamp(13px,3.5vw,19px) !important;
+  line-height:1.18 !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-main small{
+  grid-row:2 !important;
+  display:block !important;
+  margin-top:5px !important;
+  white-space:nowrap !important;
+  font-size:clamp(11px,2.9vw,14px) !important;
+  line-height:1.2 !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-right{
+  grid-column:3 !important;
+  grid-row:1 / span 2 !important;
+  display:grid !important;
+  grid-template-rows:1fr 1fr !important;
+  align-items:center !important;
+  align-self:stretch !important;
+  justify-self:stretch !important;
+  width:100% !important;
+  min-width:0 !important;
+  gap:2px !important;
+}
+#leaderDetailScreen #leaderList .lc-right .lc-balance{
+  grid-row:1 !important;
+  align-self:center !important;
+  text-align:left !important;
+  width:100% !important;
+  white-space:nowrap !important;
+  font-weight:900 !important;
+  font-size:clamp(12px,3.2vw,18px) !important;
+  line-height:1.15 !important;
+}
+#leaderDetailScreen #leaderList .lc-right .lc-ten{
+  grid-row:2 !important;
+  align-self:center !important;
+  text-align:left !important;
+  width:100% !important;
+  white-space:nowrap !important;
+  font-weight:900 !important;
+  font-size:clamp(11px,2.8vw,14px) !important;
+  line-height:1.15 !important;
+  color:#fff !important;
+}
+@media(max-width:480px){
+  #leaderDetailScreen #leaderList > .leader-card{
+    grid-template-columns:25px minmax(0,1fr) minmax(125px,.9fr) !important;
+    column-gap:6px !important;
+    row-gap:3px !important;
+    padding:10px 7px !important;
+  }
+  #leaderDetailScreen #leaderList > .leader-card > input[type="checkbox"]{width:18px !important;height:18px !important;}
+  #leaderDetailScreen #leaderList > .leader-card > .lc-main b{font-size:clamp(12px,3.4vw,16px) !important;}
+  #leaderDetailScreen #leaderList > .leader-card > .lc-main small{font-size:clamp(10px,2.7vw,12px) !important;}
+  #leaderDetailScreen #leaderList .lc-right .lc-balance{font-size:clamp(11px,3vw,15px) !important;}
+  #leaderDetailScreen #leaderList .lc-right .lc-ten{font-size:clamp(10px,2.6vw,12px) !important;}
+}
+
+</style>
+
+<style id="leader-detail-amount-column-real-fix">
+/* FIX: nested amount items must not inherit the outer card's grid-column:3.
+   Force both amounts into the same first column inside .lc-right. */
+#leaderDetailScreen #leaderList > .leader-card > .lc-right{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) !important;
+  grid-template-rows:minmax(28px,auto) minmax(28px,auto) !important;
+  justify-items:stretch !important;
+  align-items:center !important;
+  width:100% !important; min-width:0 !important;
+  box-sizing:border-box !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-balance,
+#leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-ten{
+  grid-column:1 !important;
+  justify-self:stretch !important;
+  width:100% !important; min-width:0 !important;
+  margin:0 !important; padding:0 !important;
+  text-align:left !important;
+  white-space:nowrap !important;
+  box-sizing:border-box !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-balance{grid-row:1 !important;}
+#leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-ten{grid-row:2 !important;}
+@media(max-width:480px){
+  #leaderDetailScreen #leaderList > .leader-card{
+    grid-template-columns:25px minmax(0,1fr) minmax(125px,.9fr) !important;
+  }
+  #leaderDetailScreen #leaderList > .leader-card > .lc-right{grid-template-columns:minmax(0,1fr) !important;}
+}
+
+/* FIX v2: apply Leader Name controls to the assigned Leader label shown on the individual User Screen. */
+#userScreen #profLeader {
+  font-size: var(--leader-name-size, 18px) !important;
+  color: var(--leader-name-color, #ffe7a0) !important;
+  line-height: 1.2 !important;
+  font-weight: 900 !important;
+}
+
+/* Settings-controlled Leader name size and color */
+#leaderScreen .leader-card .lc-main b,
+#leaderDetailScreen .leader-card .lc-main b{
+  font-size:var(--leader-name-size,18px) !important;
+  color:var(--leader-name-color,#ffe7a0) !important;
+}
+#leaderDetailTitle{font-size:var(--leader-name-size,18px) !important;color:var(--leader-name-color,#ffe7a0) !important;}
+</style>
+<style id="user-banner-back-entry-gap">
+/* User screen: comfortable gap between the main banner and Back / Entry controls */
+#userScreen .profile-header{
+  margin-top:14px !important;
+}
+@media(max-width:480px){
+  #userScreen .profile-header{
+    margin-top:12px !important;
+  }
+}
+</style>
+
+
+
+<style id="leader-folder-compact-columns-final">
+/* Leader folder: keep name and mobile in aligned rows; bring balance/10% toward the card's right edge */
+#leaderDetailScreen .leader-card{
+  grid-template-columns:26px minmax(0,1fr) minmax(132px,.82fr) !important;
+  column-gap:5px !important;
+  padding-left:8px !important;
+  padding-right:6px !important;
+  box-sizing:border-box !important;
+}
+#leaderDetailScreen .leader-card > .lc-main{
+  grid-template-rows:repeat(2,minmax(30px,1fr)) !important;
+  min-width:0 !important;
+}
+#leaderDetailScreen .leader-card .lc-main b,
+#leaderDetailScreen .leader-card .lc-main small{
+  align-self:center !important;
+  margin-top:0 !important;
+  line-height:1.15 !important;
+}
+#leaderDetailScreen .leader-card > .lc-right{
+  justify-self:stretch !important;
+  justify-items:stretch !important;
+  width:100% !important;
+  min-width:0 !important;
+}
+#leaderDetailScreen .leader-card .lc-balance,
+#leaderDetailScreen .leader-card .lc-ten{
+  width:100% !important;
+  text-align:right !important;
+  justify-self:stretch !important;
+  white-space:nowrap !important;
+  overflow:visible !important;
+}
+@media(max-width:480px){
+  #leaderDetailScreen .leader-card{
+    grid-template-columns:23px minmax(0,1fr) minmax(120px,.9fr) !important;
+    column-gap:4px !important;
+    padding-right:5px !important;
+  }
+}
+</style>
+
+<style id="leader-folder-final-user-card-alignment">
+/* Final targeted adjustment only: align assigned-user name rows and place amounts at the card's far right edge. */
+#leaderDetailScreen #leaderList > .leader-card{
+  grid-template-columns:26px minmax(0,1fr) minmax(112px,auto) !important;
+  column-gap:5px !important;
+  padding-left:8px !important;
+  padding-right:8px !important;
+  box-sizing:border-box !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-main{
+  display:grid !important;
+  grid-template-rows:minmax(30px,1fr) minmax(30px,1fr) !important;
+  align-content:stretch !important;
+  min-width:0 !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-main b,
+#leaderDetailScreen #leaderList > .leader-card > .lc-main small{
+  align-self:center !important;
+  margin-top:0 !important;
+  line-height:1.15 !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-right{
+  justify-self:stretch !important;
+  justify-items:stretch !important;
+  width:100% !important;
+  min-width:0 !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-balance,
+#leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-ten{
+  width:100% !important;
+  text-align:right !important;
+  justify-self:stretch !important;
+  margin:0 !important;
+  padding:0 !important;
+  white-space:nowrap !important;
+  box-sizing:border-box !important;
+}
+@media(max-width:480px){
+  #leaderDetailScreen #leaderList > .leader-card{
+    grid-template-columns:23px minmax(0,1fr) minmax(108px,auto) !important;
+    column-gap:4px !important;
+    padding-left:6px !important;
+    padding-right:6px !important;
+  }
+}
+</style>
+
+
+<style id="leader-folder-name-size-and-spacing-final">
+/* Only the cards inside an opened Leader folder: larger text, compact balance column, exactly two aligned rows. */
+#leaderDetailScreen #leaderList > .leader-card{
+  grid-template-columns:24px minmax(0,1fr) minmax(126px,.82fr) !important;
+  column-gap:6px !important;
+  row-gap:0 !important;
+  padding:6px 8px !important;
+  min-height:74px !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-main{
+  grid-row:1 / 3 !important;
+  display:grid !important;
+  grid-template-rows:1fr 1fr !important;
+  align-content:stretch !important;
+  gap:0 !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-main b{
+  font-size:clamp(16px,4.2vw,21px) !important;
+  line-height:1.15 !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:clip !important;
+  overflow-wrap:normal !important;
+  align-self:center !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-main small{
+  font-size:clamp(13px,3.3vw,16px) !important;
+  line-height:1.15 !important;
+  margin:0 !important;
+  align-self:center !important;
+  white-space:nowrap !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-right{
+  grid-row:1 / 3 !important;
+  display:grid !important;
+  grid-template-rows:1fr 1fr !important;
+  align-content:stretch !important;
+  min-width:0 !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-balance{
+  font-size:clamp(15px,3.8vw,20px) !important;
+  line-height:1.15 !important;
+  text-align:right !important;
+  align-self:center !important;
+}
+#leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-ten{
+  font-size:clamp(12px,3.1vw,15px) !important;
+  line-height:1.15 !important;
+  text-align:right !important;
+  align-self:center !important;
+}
+@media(max-width:480px){
+  #leaderDetailScreen #leaderList > .leader-card{
+    grid-template-columns:23px minmax(0,1fr) minmax(116px,.85fr) !important;
+    column-gap:5px !important;
+    padding:5px 6px !important;
+    min-height:70px !important;
+  }
+  #leaderDetailScreen #leaderList > .leader-card > .lc-main b{
+    font-size:clamp(15px,4.1vw,19px) !important;
+  }
+  #leaderDetailScreen #leaderList > .leader-card > .lc-main small{
+    font-size:clamp(12px,3.3vw,15px) !important;
+  }
+  #leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-balance{
+    font-size:clamp(14px,3.7vw,18px) !important;
+  }
+  #leaderDetailScreen #leaderList > .leader-card > .lc-right > .lc-ten{
+    font-size:clamp(11px,3vw,14px) !important;
+  }
+}
+</style>
+
+
+<style id="leader-manager-name-controller-final-fix">
+/* Apply the existing Leader Name size/color controller to names in the Leader list only. */
+#leaderScreen #leaderManagerList .leader-card > .lc-main b {
+  font-size: var(--leader-name-size, 18px) !important;
+  color: var(--leader-name-color, #ffe7a0) !important;
+}
+</style>
+
+
+<style id="banner-controls-all-screens-final-sync">
+/* Final shared Banner controls: one setting applies consistently in every related screen. */
+/* USER NAME */
+#userList .user-card .user-name-main,
+#userScreen #profName,
+#leaderDetailScreen #leaderList > .leader-card > .lc-main b {
+  font-size:var(--profile-name-size,22px)!important;
+  color:var(--profile-name-color,#2196f3)!important;
+}
+/* LEADER NAME */
+#leaderScreen #leaderManagerList .leader-card > .lc-main b,
+#leaderDetailScreen #leaderDetailTitle,
+#userScreen #profLeader,
+#leaderScreen #leaderDetailTitle {
+  font-size:var(--leader-name-size,18px)!important;
+  color:var(--leader-name-color,#ffe7a0)!important;
+}
+/* MOBILE NUMBER */
+#userScreen #profMobile,
+#userList .user-card .row > div:first-child small,
+#leaderDetailScreen #leaderList > .leader-card > .lc-main small {
+  font-size:var(--mobile-text-size,18px)!important;
+  color:var(--mobile-text-color,#fff)!important;
+}
+/* BALANCE amounts in user cards, user screen, leader lists and dashboard */
+#userList .user-card .row > div:last-child,
+#userScreen #profBalance,
+#leaderScreen #leaderManagerList .leader-card > .lc-balance,
+#leaderDetailScreen #leaderList .lc-balance,
+#totalBalance,
+#leaderGrandBalance,
+#leaderTotalBalance {
+  font-size:var(--balance-text-size,18px)!important;
+  color:var(--balance-text-color,#fff)!important;
+}
+/* 10% collection and commission amounts, including Leader dashboard totals */
+#leaderScreen #leaderManagerList .leader-card > .lc-commission,
+#leaderDetailScreen #leaderList .lc-ten,
+#leaderTenTotal,
+#leaderGrandCommission,
+#leaderCommissionDetail,
+#leaderCommissionLeaderCountValue,
+#tenPercentTotal {
+  font-size:var(--collection-text-size,13px)!important;
+  color:var(--collection-text-color,#ffd700)!important;
+}
+/* Keep long names readable without changing the two-row card layout. */
+#userList .user-card .user-name-main,
+#leaderScreen #leaderManagerList .leader-card > .lc-main b,
+#leaderDetailScreen #leaderList > .leader-card > .lc-main b {
+  line-height:1.15!important;
+}
+</style>
+
+
+<style id="mobile-settings-fullscreen-only">
+/* Mobile-only layout correction for Settings; keeps all settings and handlers unchanged. */
+@media (max-width: 700px) {
+  #settingsPopup { align-items: stretch !important; justify-content: stretch !important; padding: 0 !important; overflow: hidden !important; }
+  #settingsPopup > .popup-content {
+    width: 100% !important; max-width: none !important; height: 100vh !important; height: 100dvh !important;
+    max-height: 100vh !important; max-height: 100dvh !important; box-sizing: border-box !important;
+    margin: 0 !important; padding: 12px 12px 16px !important; border-radius: 0 !important;
+    overflow-x: hidden !important; overflow-y: auto !important; overscroll-behavior: contain;
+  }
+  #settingsPopup .settings-sub.active { min-width: 0; }
+  #settingsPopup .settings-card { box-sizing: border-box; max-width: 100%; }
+  #settingsPopup .setting-row { gap: 10px; align-items: center; }
+  #settingsPopup .setting-row > span { min-width: 0; flex: 1 1 auto; overflow-wrap: anywhere; }
+  #settingsPopup .setting-row .switch { flex: 0 0 auto; }
+  #settingsPopup > .popup-content > div:last-child {
+    position: sticky; bottom: -16px; z-index: 5; background: #303030;
+    padding: 10px 0 max(10px, env(safe-area-inset-bottom)); margin-top: 10px !important;
+  }
+  #settingsPopup > .popup-content > div:last-child button { width: 100%; min-height: 44px; }
+}
+</style>
+
+</body>  
 </html>
+
+<style id="settings-close-button-inside-final">
+#settingsPopup>.popup-content{position:relative!important;box-sizing:border-box!important;min-width:0!important;}
+#settingsPopup .settings-close-inside{position:absolute!important;top:10px!important;right:12px!important;z-index:5!important;width:auto!important;min-width:0!important;flex:none!important;margin:0!important;padding:8px 12px!important;background:#555!important;color:#fff!important;border:0!important;border-radius:9px!important;font-size:14px!important;font-weight:700!important;line-height:1.2!important;box-shadow:none!important;}
+#settingsPopup .settings-close-inside:active{transform:scale(.97);}
+@media(max-width:600px){#settingsPopup{padding:8px!important;box-sizing:border-box!important;}#settingsPopup>.popup-content{width:100vw!important;max-width:100vw!important;height:calc(100dvh - 16px)!important;max-height:calc(100dvh - 16px)!important;margin:0!important;padding:18px 12px!important;border-radius:14px!important;overflow-y:auto!important;}#settingsPopup .settings-close-inside{top:8px!important;right:8px!important;padding:7px 10px!important;font-size:13px!important;}#settingsPopup>.popup-content>h3{margin-top:2px!important;margin-bottom:12px!important;} }
+</style>
+
+
+<style id="user-screen-no-wasted-space-bold-readable-final">
+/* User screen: reclaim side space around transaction Date and Balance columns; keep text bold and readable. */
+#userScreen .profile-header{margin-top:0!important;padding-left:4px!important;padding-right:4px!important;}
+@media(max-width:480px){#userScreen .profile-header{margin-top:0!important;padding-left:2px!important;padding-right:2px!important;}}
+#userScreen .table-container{width:100%!important;max-width:100%!important;margin:0!important;padding:0!important;overflow-x:auto!important;box-sizing:border-box!important;}
+#userScreen #transactionTable{width:100%!important;min-width:0!important;table-layout:fixed!important;border-collapse:collapse!important;margin:0!important;}
+#userScreen #transactionTable th,#userScreen #transactionTable td{padding:7px 3px!important;font-weight:800!important;font-size:clamp(12px,3.25vw,15px)!important;line-height:1.2!important;box-sizing:border-box!important;overflow-wrap:anywhere!important;}
+#userScreen #transactionTable th:first-child,#userScreen #transactionTable td:first-child{padding-left:2px!important;text-align:center!important;width:20%!important;}
+#userScreen #transactionTable th:nth-child(2),#userScreen #transactionTable td:nth-child(2){width:29%!important;}
+#userScreen #transactionTable th:nth-child(3),#userScreen #transactionTable td:nth-child(3),#userScreen #transactionTable th:nth-child(4),#userScreen #transactionTable td:nth-child(4){width:13%!important;text-align:center!important;}
+#userScreen #transactionTable th:last-child,#userScreen #transactionTable td:last-child{width:25%!important;padding-right:2px!important;text-align:right!important;white-space:normal!important;}
+#userScreen #transactionTable td:last-child b{font-weight:900!important;}
+@media(max-width:480px){#userScreen #transactionTable th,#userScreen #transactionTable td{padding-top:7px!important;padding-bottom:7px!important;font-size:clamp(12px,3.4vw,14px)!important;}}
+</style>
+
+
+<style id="user-screen-name-centered-and-button-gap-fix">
+/* User screen only: center the user name directly above the centered mobile number. */
+#userScreen #profName{
+  display:block!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+  text-align:center!important;
+  margin:8px 0 2px!important;
+  line-height:1.12!important;
+  font-weight:900!important;
+}
+#userScreen #profMobile{
+  display:block!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+  text-align:center!important;
+  margin:0 0 5px!important;
+  line-height:1.12!important;
+  font-weight:800!important;
+}
+/* Add a clear but compact gap above Back / Entry controls; keep both buttons in one row. */
+#userScreen .prof-header-buttons{
+  padding-top:12px!important;
+  margin-top:8px!important;
+}
+@media(max-width:480px){
+  #userScreen .prof-header-buttons{padding-top:10px!important;margin-top:7px!important;}
+  #userScreen #profName{margin-top:7px!important;}
+}
+</style>
